@@ -16,7 +16,7 @@ namespace GrapheneTrace_GP.Controllers
         {
             return View();
         }
-        // Added admin-related action methods
+        // Added admin main page options
         public IActionResult Dashboard() => View();
         public IActionResult Clinicians() => View();
         public IActionResult Patients() => View();
