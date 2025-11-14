@@ -1,0 +1,155 @@
+﻿/* Adding css for layout-blank */
+
+
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/*Navbarr*/
+.topbar {
+    width: 100%;
+    background: #f2f2f2;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.topbar-left .logo {
+    height: 32px;
+}
+
+.brand {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+}
+
+
+.topbar-right .user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #333;
+}
+
+.topbar-right .divider {
+    color: #999;
+}
+
+.logout {
+        color: #0056b3;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/*Blue strip*/
+.layout:first-of-type{
+    background: #0d3969; /*Dark blue is the colour*/
+    height:38px;
+    width: 100%
+}
+
+.layout{
+    display:flex;
+    height: calc(100vh - 140px);
+}
+
+/*sidebar left*/
+.sidebar {
+    width:90px;
+    background: #e6e6e6;
+    border-right: 1px solid #ccc;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.side-nav ul{
+    list-style: none;
+}
+
+.side-nav ul li{
+    margin-bottom: 25px;
+}
+
+.side-nav a{
+    text-decoration: none;
+    display:flex;
+    flex-direction:column;
+    align-items:first baseline; /*It was center before */
+    color:#333;
+    font-size:13px;
+    gap:5px;
+}
+
+.side-nav a .icon{
+    font-size:22px;
+}
+
+    .side-nav li.active a,
+    .side-nav a:hover {
+        color: #0066cc;
+        font-weight: bold;
+    }
+
+.side-bottom {
+    margin-bottom: 20px;
+}
+
+    .side-bottom a {
+        display: flex;
+        flex-direction:column;
+        align-items:center;
+        margin-bottom:18px;
+        text-decoration:none;
+        color:#333;
+    }
+
+    .side-bottom a:hover{
+        color: #0066cc;
+    }
+
+    /*Main content area*/
+
+    .content{
+        flex-grow:1;
+        padding: 20px;
+        background: #ffffff;
+    }
+
+    /*Footer*/
+
+    footer.footer{
+        width:100%;
+        height: 40px;
+        background: #f2f2f2;
+        border-top: 1px solid #ccc;
+        display: flex;
+        justify-content:flex-end;
+        align-items: center;
+        padding-right: 30px;
+        gap: 25px;
+    }
+
+    footer .muted{
+        text-decoration: none;
+        color: #666;
+    }
+
+    footer .muted:hover{
+        color: #004a99;
+    }
