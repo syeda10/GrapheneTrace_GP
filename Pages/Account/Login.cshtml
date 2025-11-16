@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />    
+    <title>Sign in</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="~/css/login.css" />
+</head>
+<body>
+    <main class="login-hero">
+        <section class="login-card" role="main" aria-labelledby="login-heading">
+            <img src="~/images/company-logo.png" alt="Company logo" class="login-logo" />
+            <h1 id="login-heading">Sign in</h1>
+
+            <!-- Identity default login endpoint is /Identity/Account/Login.
+                 If you use a custom handler, change the action accordingly. -->
+            <form method="post" action="/Identity/Account/Login" class="login-form" novalidate>
+                <label for="Input_Email">Email</label>
+                <input id="Input_Email" name="Input.Email" type="email" autocomplete="email" required />
+
+                <label for="Input_Password">Password</label>
+                <input id="Input_Password" name="Input.Password" type="password" autocomplete="current-password" required />
+
+                <div class="form-row">
+                    <label class="remember">
+                        <input type="checkbox" name="Input.RememberMe" /> Remember me
+                    </label>
+                    <a class="forgot" href="/Identity/Account/ForgotPassword">Forgot?</a>
+                </div>
+
+                <button type="submit" class="btn-primary">Sign in</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

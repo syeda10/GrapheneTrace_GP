@@ -1,0 +1,39 @@
+:root {
+    --navy: #153a63;
+    --white: #ffffff;
+    --muted: #6b7280;
+}
+
+html, body, .login-hero {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    /* use your PNG in wwwroot/images/login-bg.png */
+    background: linear-gradient(rgba(0,0,0,0.24), rgba(0,0,0,0.24)), url('/images/login-bg.png') center/cover no-repeat fixed;
+    background-color: #0f1724; /* fallback color while image loads */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* slight dark overlay so the card stands out (already provided by the gradient) */
+.login-hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+}
+
+.login-card {
+    background: var(--white);
+    width: 100%;
+    max-width: 420px;
+    padding: 28px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(21, 58, 99, 0.12);
+    text-align: left;
+}
+
+/* rest of rules unchanged... */
