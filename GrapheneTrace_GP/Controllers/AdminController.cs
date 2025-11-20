@@ -17,14 +17,44 @@ namespace GrapheneTrace_GP.Controllers
             return View();
         }
         // Added admin main page options
-        public IActionResult Dashboard() => View();
-        public IActionResult Clinicians() => View();
-        public IActionResult Patients() => View();
-        public IActionResult AddProfile() => View();
-        public IActionResult Reports() => View();
-        public IActionResult Alerts() => View();
-        public IActionResult Settings() => View();
-        public IActionResult Help() => View();
-        public IActionResult Profile() => View();
+        public IActionResult Dashboard() 
+            {
+            return View();
+        }
+
+        public IActionResult Clinicians()
+            {
+            return View();
+        }
+
+        public IActionResult Patients()
+            {
+            return View();
+        }
+
+        public IActionResult AddProfile()
+            {
+            return View();
+        }
+
+        public IActionResult Alerts() 
+            {
+            return View();
+        }
+
+        public IActionResult Settings() 
+            {
+            return View();
+        }
+
+        public IActionResult Help() 
+            {
+            return View();
+        }
+
+        public IActionResult Profile() 
+            {
+            return View();
+        }
     }
 }
