@@ -47,8 +47,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 // 6) Default route goes to the login page
-app.MapControllerRoute(
-    name: "default",
+/*app.MapControllerRoute(
+    name: "default",*/ //(Giving error with this)
+
 // Map an explicit route to the blank scaffold page (for teammates / testing)
 app.MapControllerRoute(
     name: "blank",
@@ -64,5 +65,3 @@ app.MapControllerRoute(
 
 app.Run();
 
-
-app.Run();
