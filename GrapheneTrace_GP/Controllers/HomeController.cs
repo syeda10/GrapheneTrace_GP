@@ -8,7 +8,7 @@ namespace GrapheneTrace_GP.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger) //adi's 1st comment
         {
             _logger = logger;
         }

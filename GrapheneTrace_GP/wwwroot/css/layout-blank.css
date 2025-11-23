@@ -1,0 +1,191 @@
+﻿:root {
+    --navy: #153a63;
+    --rail: #eef2f6;
+    --border: #e5e9f0;
+    --text: #1f2937;
+    --muted: #6b7280;
+}
+
+* {
+    box-sizing: border-box
+}
+
+html, body {
+    height: 100%
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    color: var(--text);
+    background: #fff
+}
+
+/* Top bar */
+.topbar {
+    height: 64px;
+    background: #f1f3f6;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+}
+
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo {
+    height: 36px;
+    width: auto;
+}
+
+.brand {
+    font-weight: 600;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-email {
+    color: #0b3d91;
+    font-weight: 600;
+}
+
+.divider {
+    color: #9aa3af
+}
+
+.logout {
+    color: #0b3d91;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+    .logout:hover {
+        text-decoration: underline
+    }
+
+/* Navy strip under header (matches base wireframe) 
+.layout::before {
+    content: "";
+    display: block;
+    height: 48px;
+    background: var(--navy);
+} 
+    */ /*This was not building blue strip properly */
+
+.navy-strip {
+    height: 48px;
+    background: var(--navy);
+    width: 100%;
+}
+
+/* Main grid */
+.layout {
+    display: grid;
+    grid-template-columns: 180px auto; /*make side bar slim*/
+    min-height: calc(100vh - 64px);
+}
+
+/* Sidebar */
+.sidebar {
+    background: var(--rail);
+    border-right: 1px solid var(--border);
+    padding: 16px 8px;
+}
+
+.side-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0
+}
+
+.side-nav li {
+    margin: 10px 0
+}
+
+.side-nav a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--text);
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+    .side-nav li.active a, .side-nav a:hover {
+        background: #e9eef5;
+        color: #0b3d91
+    }
+
+.icon {
+    width: 22px;
+    display: inline-block;
+    text-align: center
+}
+
+.label {
+    font-weight: 500
+}
+
+.side-bottom {
+    position: fixed;
+    left: 16px;
+    bottom: 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+}
+
+/* Content */
+.content {
+    padding: 24px;
+    min-height: calc(100vh - 64px - 48px);
+}
+
+/* Footer */
+.footer {
+    height: 28px;
+    border-top: 1px solid var(--border);
+    background: #f1f3f6;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.footer-inner {
+    padding: 0 16px;
+    display: flex;
+    gap: 16px
+}
+
+.footer .muted {
+    color: var(--muted);
+    text-decoration: none;
+}
+
+    .footer .muted:hover {
+        text-decoration: underline
+    }
+
+/* The blank canvas teammates will build on */
+.blank-canvas {
+    width:100%;
+    min-height: 400px
+    border: 2px dashed #d1d5db;
+    border-radius: 12px;
+    background: #fafbfc;
+    margin: 0%; /*If need to remove this for spacing adjustments*/
+}

@@ -49,7 +49,20 @@ app.UseAuthorization();
 // 6) Default route goes to the login page
 app.MapControllerRoute(
     name: "default",
+// Map an explicit route to the blank scaffold page (for teammates / testing)
+app.MapControllerRoute(
+    name: "blank",
+    pattern: "blank/{action=Index}/{id?}",
+    defaults: new { controller = "Blank" }
+);
+
+// 6) Default route goes to the login page
+app.MapControllerRoute(
+    name: "default",
     pattern: "{controller=Account}/{action=Login}/{id?}"
 );
+
+app.Run();
+
 
 app.Run();
