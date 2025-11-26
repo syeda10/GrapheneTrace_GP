@@ -1,0 +1,60 @@
+﻿@{
+    var userEmail = ViewBag.UserEmail as string ?? "user@domain.com";
+    // Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - GrapheneTrace_Gp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/GrapheneTrace_GP.styles.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="~/css/layout-dashboard.css" />
+
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-left">
+            <img src="~/images/company-logo.png" alt="Company Logo" class="logo" />
+            <span class="brand">Sensore by Graphene Trace</span>
+        </div>
+        <div class="topbar-right">
+            <span class="user-email">@userEmail</span>
+            <span class="divider">|</span>
+            <a class="logout" asp-controller="Account" asp-action="Logout">Logout</a>
+
+        </div>
+
+    </header>
+
+    <div class="navy-strip"></div>
+
+    <div class="layout">
+        <aside class="sidebar">
+            @await Html.PartialAsync("_DashboardSidebar")
+        </aside>
+
+        <main class="content">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <a href="#" class="muted">Help</a>
+            <a href="#" class="muted">Privacy &amp; Terms</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

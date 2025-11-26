@@ -1,0 +1,53 @@
+﻿<nav class="side-nav">
+    <ul>
+
+        <li class="active">
+            <a asp-controller="Home" asp-action="Index">
+                <span class="icon">🛏</span><span class="label">Dashboard</span>
+            </a>
+        </li>
+
+        <li>
+            <a asp-controller="Doctor" asp-action="Index">
+                <span class="icon">🏥</span><span class="label">Clinicians</span>
+            </a>
+        </li>
+
+        <li>
+            <a asp-controller="Patients" asp-action="Index">
+                <span class="icon">👩🏼‍🦼</span><span class="label">Patients</span>
+            </a>
+        </li>
+
+        <li>
+            <a asp-controller="Folder" asp-action="Index">
+                <span class="icon">📁</span><span class="label">Add Profile</span>
+            </a>
+        </li>
+
+        <li>
+            <a asp-controller="Alerts" asp-action="Index">
+                <span class="icon">🚨</span><span class="label">Alerts</span>
+            </a>
+        </li>
+
+        <li>
+            <a asp-controller="Settings" asp-action="Index">
+                <span class="icon">⚙️</span><span class="label">Settings</span>
+            </a>
+        </li>
+
+        <li>
+            <a asp-controller="Help" asp-action="Index">
+                <span class="icon">❓</span><span class="label">Help</span>
+            </a>
+        </li>
+
+    </ul>
+
+    <div class="side-bottom">
+        <a asp-controller="Profile" asp-action="Index">
+            <span class="icon">👩🏼‍💼</span><span class="label">Profile</span>
+        </a>
+    </div>
+</nav>
