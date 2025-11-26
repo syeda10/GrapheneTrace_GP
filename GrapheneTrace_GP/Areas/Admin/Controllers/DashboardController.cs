@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace GrapheneTrace_GP.Controllers
+namespace GrapheneTrace_GP.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class DashboardController : Controller
     {
         public IActionResult Index()
