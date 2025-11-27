@@ -1,4 +1,6 @@
-﻿@{
+﻿@model GrapheneTrace_GP.Areas.Admin.ViewModels.DashboardVM
+
+@{
     Layout = "~/Areas/Admin/Views/Shared/_DashboardLayout.cshtml";
     ViewData["Title"] = "Dashboard";
 }
@@ -8,19 +10,19 @@
 
         <div class="stat-card small">
             <div class="stat-icon bg-blue"><i class="fas fa-user-md"></i></div>
-            <h2>15</h2>
+            <h2>@Model.ActiveClinicians</h2>
             <p>Active Clinician</p>
         </div>
 
         <div class="stat-card small">
             <div class="stat-icon bg-green"><i class="fas fa-users"></i></div>
-            <h2>30</h2>
+            <h2>@Model.ActivePatients</h2>
             <p>Active Patients</p>
         </div>
 
         <div class="stat-card small">
             <div class="stat-icon bg-purple"><i class="fas fa-calendar-check"></i></div>
-            <h2>120</h2>
+            <h2>@Model.NextDayAppointments</h2>
             <p>Next Day Appointments</p>
         </div>
 
@@ -50,6 +52,44 @@
             <div id="appointment-calendar"></div>
         </div>
 
+        <!--Appointment table-->
+        <div class="appointments-panel">
+            <h3>Upcoming Appointments</h3>
+
+            <div class="appointments-table-wrapper">
+
+                <table class="appointments-table">
+                    <thead>
+                        <tr>
+                            <th style="width:60px">S.no</th>
+                            <th style="width:70px">Title</th>
+                            <th style="width:200px">Patient Name</th>
+                            <th style="width:120px">Patient ID</th>
+                            <th style="width:160px">Doctor Name</th>
+                            <th style="width:60px">Age</th>
+                            <th style="width:120px">Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model.UpcomingAppointments)
+                        {
+                            <tr>
+                                <td>@item.sno</td>
+                                <td>@item.Title</td>
+                                <td>@item.PatientName</td>
+                                <td>@item.PatientId</td>
+                                <td>@item.ClinicianName</td>
+                                <td>@item.Age</td>
+                                <td>@item.Status</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div> <!--Appointment table ends here-->
+
+            </div>
 
     </div>
 
@@ -69,14 +109,16 @@
         const patientChart = new Chart(patientCtx, {
             type: 'line',
             data: {
-                labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                datasets: [{
+                labels: @Html.Raw(Json.Serialize(Model.MonthLabels)),
+                datasets: [
+                    {
                     label: 'New Patients',
-                    data: [12, 19, 3, 5, 2, 3, 7, 10],
+                    data: @Html.Raw(Json.Serialize(Model.MonthlyNewPatients)),
                     borderColor: 'rgba(75, 192, 192, 1)',
                     fill: false,
                     tension: 0.1
-                }]
+                    }
+                ]
             },
             options: {
                 responsive: true,
@@ -86,23 +128,27 @@
                     }
                 }
             }
+
         });
 
         // Initialize Total Patients Donut Chart
         const donutCtx = document.getElementById('donutChart').getContext('2d');
             const donutChart = new Chart(donutCtx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Active', 'Inactive'],
-            datasets: [{
+             type: 'doughnut',
+              data: {
+                 labels: ['Active', 'Inactive'],
+                 datasets: [
+            {
                 label: 'Total Patients',
-                data: [90, 50],
-                backgroundColor: [
-                    'rgba(54, 162, 235, 0.7)',
-                    'rgba(255, 99, 132, 0.7)'
-                ],
+                       data: [@Model.TotalActivePatients, @Model.TotalInactivePatients],
+                       backgroundColor: 
+                       [
+                            'rgba(54, 162, 235, 0.7)',
+                            'rgba(255, 99, 132, 0.7)'
+                       ],
                 hoverOffset: 4
-            }]
+            }
+                           ]
         },
         options: {
             responsive: true
