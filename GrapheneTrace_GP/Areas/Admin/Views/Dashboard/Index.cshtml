@@ -52,48 +52,52 @@
             <div id="appointment-calendar"></div>
         </div>
 
-        <!--Appointment table-->
-        <div class="appointments-panel">
-            <h3>Upcoming Appointments</h3>
+</div> <!--dashboard container ends here-->
+    <!--Appointment table-->
+    <div class="appointments-panel">
+        <h3>Upcoming Appointments</h3>
 
-            <div class="appointments-table-wrapper">
+        <div class="appointments-table-wrapper">
 
-                <table class="appointments-table">
-                    <thead>
+            <table class="appointments-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px">S.no</th>
+                        <th style="width:70px">Title</th>
+                        <th style="width:200px">Patient Name</th>
+                        <th style="width:120px">Patient ID</th>
+                        <th style="width:160px">Doctor Name</th>
+                        <th style="width:60px">Age</th>
+                        <th style="width:120px">Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model.UpcomingAppointments)
+                    {
                         <tr>
-                            <th style="width:60px">S.no</th>
-                            <th style="width:70px">Title</th>
-                            <th style="width:200px">Patient Name</th>
-                            <th style="width:120px">Patient ID</th>
-                            <th style="width:160px">Doctor Name</th>
-                            <th style="width:60px">Age</th>
-                            <th style="width:120px">Status</th>
+                            <td>@item.sno</td>
+                            <td>@item.Title</td>
+                            <td>@item.PatientName</td>
+                            <td>@item.PatientId</td>
+                            <td>@item.ClinicianName</td>
+                            <td>@item.Age</td>
+                            <td>
+                                <span class="status-badge @(item.Status.ToLower() == "active" ? "badge-active" : "badge-inactive")">
+                                    @item.Status
+                                </span>
+                            </td>
                         </tr>
-                    </thead>
+                    }
+                </tbody>
+            </table>
 
-                    <tbody>
-                        @foreach (var item in Model.UpcomingAppointments)
-                        {
-                            <tr>
-                                <td>@item.sno</td>
-                                <td>@item.Title</td>
-                                <td>@item.PatientName</td>
-                                <td>@item.PatientId</td>
-                                <td>@item.ClinicianName</td>
-                                <td>@item.Age</td>
-                                <td>@item.Status</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-
-            </div> <!--Appointment table ends here-->
-
-            </div>
+        </div> <!--Appointment table ends here-->
 
     </div>
 
 </div>
+
 
 @section Scripts {
 
