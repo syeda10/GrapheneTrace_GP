@@ -23,9 +23,10 @@ namespace GrapheneTrace_GP.Areas.Admin.ViewModels
 
     public class AppointmentRow
     {
-        public int sno { get; set; }
+        public int AppointmentId { get; set; }
         public string Title { get; set; } = "";
-        public string PatientName { get; set; } = "";
+        public string PatientLastName { get; set; } = "";
+        public string PatientFirstName { get; set; } = "";
         public int PatientId { get; set; } 
         public string ClinicianName { get; set; } = "";
         public string Age { get; set; } = "";

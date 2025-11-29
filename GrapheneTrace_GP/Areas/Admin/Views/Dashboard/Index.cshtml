@@ -62,13 +62,14 @@
             <table class="appointments-table">
                 <thead>
                     <tr>
-                        <th style="width:60px">S.no</th>
+                        <th style="width:60px">Appointment ID</th>
                         <th style="width:70px">Title</th>
-                        <th style="width:200px">Patient Name</th>
+                        <th style="width:160px">Patient First Name</th>
+                        <th style="width:160px">Patient Last Name</th>
                         <th style="width:120px">Patient ID</th>
-                        <th style="width:160px">Doctor Name</th>
-                        <th style="width:60px">Age</th>
-                        <th style="width:120px">Status</th>
+                        <th style="width:160px">Clincian Name</th>
+                        <th style="width:80px">Age</th>
+                        <th style="width:140px">Status</th>
                     </tr>
                 </thead>
 
@@ -76,9 +77,10 @@
                     @foreach (var item in Model.UpcomingAppointments)
                     {
                         <tr>
-                            <td>@item.sno</td>
+                            <td>@item.AppointmentId</td>
                             <td>@item.Title</td>
-                            <td>@item.PatientName</td>
+                            <td>@item.PatientFirstName</td>
+                            <td>@item.PatientLastName</td>
                             <td>@item.PatientId</td>
                             <td>@item.ClinicianName</td>
                             <td>@item.Age</td>

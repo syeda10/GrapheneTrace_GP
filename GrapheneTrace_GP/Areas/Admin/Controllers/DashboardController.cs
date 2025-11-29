@@ -28,9 +28,10 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
                 {
                    new AppointmentRow
                    {
-                       sno = 1,
+                       AppointmentId = 01,
                        Title = "Mr",
-                       PatientName = "Henry, Comb",
+                       PatientLastName = "Comb",
+                       PatientFirstName = "Henry",
                        PatientId = 1258,
                        ClinicianName = "Dr. Anderson",
                        Age = "41",
@@ -39,9 +40,10 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
 
                     new AppointmentRow
                      {
-                          sno = 2,
+                          AppointmentId = 02,
                           Title = "Mr",
-                          PatientName = "Marco, Botton",
+                          PatientLastName = "Botton",
+                          PatientFirstName = "Marco",
                           PatientId = 3885,
                           ClinicianName = "Dr. Stephen",
                           Age = "32",
@@ -50,9 +52,10 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
 
                     new AppointmentRow
                      {
-                          sno = 3,
+                          AppointmentId = 03,
                           Title = "Ms",
-                          PatientName = "Mariah, Maclachlan",
+                          PatientLastName = "Maclachlan",
+                          PatientFirstName = "Mariah",
                           PatientId = 2598,
                           ClinicianName = "Dr. Rose",
                           Age = "30",
@@ -61,9 +64,10 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
 
                     new AppointmentRow
                      {
-                          sno = 4,
+                          AppointmentId = 04,
                           Title = "Mrs",
-                          PatientName = "Hanah, Darling",
+                          PatientLastName = "Darling",
+                          PatientFirstName = "Hanah",
                           PatientId = 4526,
                           ClinicianName = "Dr. Emily",
                           Age = "45",
@@ -72,9 +76,10 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
 
                     new AppointmentRow
                      {
-                          sno = 5,
+                          AppointmentId = 05,
                           Title = "Mr",
-                          PatientName = "David, Acaster",
+                          PatientLastName = "Acaster",
+                          PatientFirstName = "David",
                           PatientId = 5236,
                           ClinicianName = "Dr. John",
                           Age = "58",
@@ -83,9 +88,10 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
 
                     new AppointmentRow
                      {
-                          sno = 6,
+                          AppointmentId = 06,
                           Title = "Mrs",
-                          PatientName = "Sarah, Sterling",
+                          PatientLastName = "Sterling",
+                          PatientFirstName = "Sarah",
                           PatientId = 2356,
                           ClinicianName = "Dr. Helen",
                           Age = "36",
@@ -94,9 +100,10 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
 
                     new AppointmentRow
                      {
-                          sno = 7,
+                          AppointmentId = 07,
                           Title = "Mr",
-                          PatientName = "Gille, Star",
+                          PatientLastName = "Star",
+                          PatientFirstName = "Gille",
                           PatientId = 7894,
                           ClinicianName = "Dr. Peter",
                           Age = "71",
@@ -105,9 +112,10 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
 
                     new AppointmentRow
                      {
-                          sno = 8,
+                          AppointmentId = 08,
                           Title = "Mr",
-                          PatientName = "Peter, Duncan",
+                          PatientLastName = "Duncan",
+                          PatientFirstName = "Peter",
                           PatientId = 6201,
                           ClinicianName = "Dr. Anderson",
                           Age = "42",
@@ -116,9 +124,10 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
 
                     new AppointmentRow
                      {
-                          sno = 9,
+                          AppointmentId = 09,
                           Title = "Ms",
-                          PatientName = "Mary, Phillips",
+                          PatientLastName = "Phillips",
+                          PatientFirstName = "Mary",
                           PatientId = 9642,
                           ClinicianName = "Dr. Rose",
                           Age = "36",
@@ -127,9 +136,10 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
 
                     new AppointmentRow
                      {
-                          sno = 10,
+                          AppointmentId = 10,
                           Title = "Mr",
-                          PatientName = "Joe, Stuart",
+                          PatientLastName = "Stuart",
+                          PatientFirstName = "Joe",
                           PatientId = 8956,
                           ClinicianName = "Dr. Stephen",
                           Age = "59",
@@ -138,9 +148,10 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
 
                     new AppointmentRow
                      {
-                          sno = 11,
+                          AppointmentId = 11,
                           Title = "Mr",
-                          PatientName = "Bake, Good",
+                          PatientLastName = "Good",
+                          PatientFirstName = "Bake",
                           PatientId = 4569,
                           ClinicianName = "Dr. Peter",
                           Age = "40",
@@ -149,9 +160,10 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
 
                     new AppointmentRow
                      {
-                          sno = 12,
+                          AppointmentId = 12,
                           Title = "Mr",
-                          PatientName = "Nicks, Gibbs",
+                          PatientLastName = "Gibbs",
+                          PatientFirstName = "Nicks",
                           PatientId = 1256,
                           ClinicianName = "Dr. John",
                           Age = "62",
