@@ -1,0 +1,10 @@
+﻿@model GrapheneTrace_GP.Areas.Admin.ViewModels.ClinicianDetailsVM
+
+<h2>Clinician Profile</h2>
+
+<p><strong>Name:</strong> @Model.ClinicianFirstName @Model.ClinicianLastName</p>
+<p><strong>Email:</strong> @Model.Email</p>
+<p><strong>Gender:</strong> @Model.Gender</p>
+<p><strong>Date of Birth:</strong> @Model.DateOfBirth.ToShortDateString()</p>
+<p><strong>Phone:</strong> @Model.Phone</p>
+<p><strong>Address:</strong> @Model.Address</p>
