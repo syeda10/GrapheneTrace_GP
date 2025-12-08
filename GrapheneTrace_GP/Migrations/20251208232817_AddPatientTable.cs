@@ -5,27 +5,26 @@
 namespace GrapheneTrace_GP.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class AddPatientTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Clinicians",
+                name: "Patients",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ClinicianId = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ClinicianLastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ClinicianFirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ClinicianSpeciality = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ClinicianAge = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PatientId = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Clinicians", x => x.Id);
+                    table.PrimaryKey("PK_Patients", x => x.Id);
                 });
         }
 
@@ -33,7 +32,7 @@ namespace GrapheneTrace_GP.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Clinicians");
+                name: "Patients");
         }
     }
 }

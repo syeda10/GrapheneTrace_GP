@@ -1,16 +1,11 @@
-﻿using System.Collections.Generic;
-
-namespace GrapheneTrace_GP.Areas.Admin.ViewModels
+﻿namespace GrapheneTrace_GP.Areas.Admin.ViewModels
 {
-    public class ClinicianListVM
+    public class ClinicianCardVM
     {
         public int ClinicianId { get; set; }
-        public string Title { get; set; } = "";
-        public string ClinicianLastName { get; set; } = "";
         public string ClinicianFirstName { get; set; } = "";
+        public string ClinicianLastName { get; set; } = "";
         public string ClinicianSpeciality { get; set; } = "";
         public string ClinicianAge { get; set; } = "";
-        
     }
 }
-

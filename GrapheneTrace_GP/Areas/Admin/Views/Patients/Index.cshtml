@@ -1,0 +1,68 @@
+﻿@model IEnumerable<GrapheneTrace_GP.Areas.Admin.Models.Patient>
+
+<div class="container mt-4">
+
+    <div class="row">
+        @foreach (var patient in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="patient-card shadow-sm p-3 position-relative">
+
+                    <!-- Patient Name -->
+                    <h5 class="fw-bold">
+                        @patient.FirstName @patient.LastName
+                    </h5>
+
+                    <!-- Status Badge -->
+                    <span class="badge
+                            @(patient.Status == "Active" ? "bg-success" :
+                                                    patient.Status == "Alert" ? "bg-danger" :
+                                                    "bg-secondary")">
+                    @patient.Status
+                </span>
+
+                    <p class="mt-2 text-muted">ID: @patient.PatientId</p>
+
+                    <!-- THREE DOT MENU -->
+                    <div class="dropdown position-absolute top-0 end-0 me-2 mt-2">
+                        <button class="btn btn-link text-dark p-0" data-bs-toggle="dropdown">
+                            <i class="bi bi-three-dots-vertical fs-4"></i>
+                        </button>
+
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item" href="#">Edit Patient Data</a></li>
+                            <li><a class="dropdown-item" href="#">View Appointment History</a></li>
+                            <li><a class="dropdown-item" href="#">Review Patient Reports</a></li>
+                            <li><a class="dropdown-item" href="#">View Patient Health History</a></li>
+                            <li><a class="dropdown-item" href="#">View Prescriptions</a></li>
+                            <li><a class="dropdown-item" href="#">Upcoming Appointments</a></li>
+                            <li><hr /></li>
+                            <li><a class="dropdown-item text-danger" href="#">Delete Record</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+                }
+    </div>
+
+</div>
+
+<style>
+    .patient-card {
+        border: 1px solid #dcdcdc;
+        border-radius: 10px;
+        background: white;
+        cursor: pointer;
+        transition: transform .15s;
+        min-height: 150px;
+    }
+
+        .patient-card:hover {
+            transform: scale(1.02);
+        }
+
+        .patient-card .dropdown-menu {
+            border-radius: 8px;
+        }
+</style>

@@ -20,3 +20,35 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* TABLE STYLING */
+.table-clinicians {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 14px;
+}
+
+    .table-clinicians th {
+        background: #f4f6f9;
+        font-weight: 600;
+        padding: 12px;
+        text-align: left;
+        border-bottom: 2px solid #ddd;
+    }
+
+    .table-clinicians td {
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .table-clinicians tr:hover {
+        background: #f0f7ff;
+        cursor: pointer;
+    }
+
+    .table-clinicians tr:last-child td {
+        border-bottom: none;
+    }

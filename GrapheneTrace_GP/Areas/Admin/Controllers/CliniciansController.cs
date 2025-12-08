@@ -1,5 +1,5 @@
-﻿using GrapheneTrace_GP.Areas.Admin.Models;
-using GrapheneTrace_GP.Areas.Admin.ViewModels;
+﻿using GrapheneTrace_GP.Areas.Admin.ViewModels;
+using GrapheneTrace_GP.Areas.Admin.Models;
 using GrapheneTrace_GP.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace GrapheneTrace_GP.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Route("Admin/[controller]")]
     public class CliniciansController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -15,6 +16,9 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
         {
             _context = context;
         }
+
+        // ========== INDEX ==========
+        [HttpGet("")]
         public async Task<IActionResult> Index()
         {
             var clinicians = await _context.Clinicians
@@ -24,7 +28,7 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
                     Title = c.Title,
                     ClinicianLastName = c.ClinicianLastName,
                     ClinicianFirstName = c.ClinicianFirstName,
-                    Speciality = c.ClinicianSpeciality,
+                    ClinicianSpeciality = c.ClinicianSpeciality,
                     ClinicianAge = c.ClinicianAge
                 })
                 .ToListAsync();
@@ -32,10 +36,13 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
             return View(clinicians);
         }
 
-        //Details Action
+        // ========== DETAILS ==========
+        [HttpGet("Details/{id:int}")]
         public async Task<IActionResult> Details(int id)
         {
-            var c = await _context.Clinicians.FindAsync(id);
+            var c = await _context.Clinicians
+                .FirstOrDefaultAsync(x => x.ClinicianId == id);
+
             if (c == null) return NotFound();
 
             var vm = new ClinicianDetailsVM
@@ -56,30 +63,35 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
             return View(vm);
         }
 
-
-        // Edit Action
-
+        // ========== EDIT (GET) ==========
+        [HttpGet("Edit/{id:int}")]
         public async Task<IActionResult> Edit(int id)
         {
-            var c = await _context.Clinicians.FindAsync(id);
+            var c = await _context.Clinicians
+                                 .FirstOrDefaultAsync(x => x.ClinicianId == id);
+
             if (c == null) return NotFound();
 
             return View(c);
         }
 
-        // POST: Admin/Clinicians/Edit
-        [HttpPost]
+        // ========== EDIT (POST) ==========
+        [HttpPost("Edit/{id:int}")]
         public async Task<IActionResult> Edit(int id, Clinicians model)
         {
-            if (id != model.Id)
-                return BadRequest();
             if (!ModelState.IsValid)
                 return View(model);
-            _context.Clinicians.Update(model);
+
+            var existing = await _context.Clinicians
+                                         .FirstOrDefaultAsync(x => x.ClinicianId == id);
+
+            if (existing == null) return NotFound();
+
+            _context.Entry(existing).CurrentValues.SetValues(model);
+
             await _context.SaveChangesAsync();
+
             return RedirectToAction("Index");
-
         }
-
     }
 }

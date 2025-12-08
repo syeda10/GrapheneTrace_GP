@@ -1,5 +1,83 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model GrapheneTrace_GP.Areas.Admin.ViewModels.ClinicianCardVM
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<style>
+    .clinician-card {
+        border: 1px solid #ccc;
+        border-radius: 12px;
+        padding: 20px;
+        background: white;
+        width: 350px;
+        margin: 20px auto;
+        text-align: center;
+    }
+
+    .photo-box {
+        width: 220px;
+        height: 160px;
+        background: #eee;
+        border-radius: 10px;
+        margin: auto;
+        margin-bottom: 15px;
+    }
+
+    .star-rating {
+        color: gold;
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+</style>
+
+
+<div class="clinician-card">
+    <div class="photo-box"></div>
+
+    <h4 class="text-primary">Dr. @Model.ClinicianFirstName @Model.ClinicianLastName</h4>
+
+    <p>
+        @Model.ClinicianAge Yrs | @Model.ClinicianSpeciality <br />
+        ID @Model.ClinicianId
+    </p>
+
+    <div class="star-rating">★★★★★ 5.0</div>
+
+    <!-- Dropdown -->
+    <select class="form-select mt-3" onchange="goToAction(this.value)">
+        <option selected>See More</option>
+        <option value="edit">Edit Clinician Data</option>
+        <option value="details">View Full Profile</option>
+        <option value="qualifications">View Qualifications</option>
+        <option value="assignments">Review Assignments</option>
+        <option value="reports">View Work Reports</option>
+        <option value="schedule">Edit Work Schedule</option>
+        <option value="delete">Delete Record</option>
+    </select>
+</div>
+
+
+<script>
+    function goToAction(action) {
+        if (action === "edit")
+            window.location.href = "/Admin/Clinicians/Edit/@Model.ClinicianId";
+
+        if (action === "details")
+            window.location.href = "/Admin/Clinicians/Details/@Model.ClinicianId";
+
+        if (action === "qualifications")
+            alert("Qualifications page coming soon!");
+
+        if (action === "assignments")
+            alert("Assignments page coming soon!");
+
+        if (action === "reports")
+            alert("Reports page coming soon!");
+
+        if (action === "schedule")
+            alert("Schedule editor coming soon!");
+
+        if (action === "delete" &&
+            confirm("Are you sure you want to delete?"))
+            window.location.href = "/Admin/Clinicians/Delete/@Model.ClinicianId";
+    }
+</script>

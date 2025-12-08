@@ -1,12 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using GrapheneTrace_GP.Data;
 
 namespace GrapheneTrace_GP.Areas.Admin.Controllers
 {
-    public class PatientController : Controller
+    [Area("Admin")]
+    public class PatientsController : Controller
     {
-        public IActionResult Index()
+        private readonly ApplicationDbContext _context;
+
+        public PatientsController(ApplicationDbContext context)
         {
-            return View();
+            _context = context;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var patients = await _context.Patients.ToListAsync();
+            return View(patients);
         }
     }
 }

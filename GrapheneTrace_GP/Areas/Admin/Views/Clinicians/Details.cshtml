@@ -1,10 +1,54 @@
 ﻿@model GrapheneTrace_GP.Areas.Admin.ViewModels.ClinicianDetailsVM
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_DashboardLayout.cshtml";
+}
 
-<h2>Clinician Profile</h2>
+<div class="container mt-4">
 
-<p><strong>Name:</strong> @Model.ClinicianFirstName @Model.ClinicianLastName</p>
-<p><strong>Email:</strong> @Model.Email</p>
-<p><strong>Gender:</strong> @Model.Gender</p>
-<p><strong>Date of Birth:</strong> @Model.DateOfBirth.ToShortDateString()</p>
-<p><strong>Phone:</strong> @Model.Phone</p>
-<p><strong>Address:</strong> @Model.Address</p>
+    <h3>Clinician Data > Dr @Model.ClinicianLastName, @Model.ClinicianFirstName</h3>
+
+    <div class="row mt-4">
+
+        <!-- LEFT CARD -->
+        <div class="col-md-4">
+            <div class="card p-3">
+                <h4 class="text-primary">
+                    Dr. @Model.ClinicianFirstName @Model.ClinicianLastName
+                </h4>
+
+                <p>@Model.Email</p>
+
+                <p>
+                    @DateTime.Now.Year - Model.DateOfBirth.Year
+                    Yrs Old | @Model.Status <br />
+                    ID @Model.ClinicianId
+                </p>
+
+                <span class="badge bg-success">Active</span>
+            </div>
+        </div>
+
+        <!-- RIGHT DETAILS -->
+        <div class="col-md-8">
+            <div class="card p-3">
+
+                <div class="row mb-3">
+                    <div class="col-6"><strong>Gender:</strong> @Model.Gender</div>
+                    <div class="col-6"><strong>Date Of Birth:</strong> @Model.DateOfBirth.ToString("dd MMM yyyy")</div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-6"><strong>City:</strong> @Model.City</div>
+                    <div class="col-6"><strong>Phone No:</strong> @Model.Phone</div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-6"><strong>Address:</strong> @Model.Address</div>
+                    <div class="col-6"><strong>Postal Code:</strong> @Model.PostCode</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,9 @@
+﻿@model GrapheneTrace_GP.Areas.Admin.ViewModels.ClinicianCardVM
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="container mt-4">
+    @await Html.PartialAsync("_ClinicianCard", Model)
+</div>
