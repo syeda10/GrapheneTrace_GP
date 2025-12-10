@@ -12,17 +12,17 @@ namespace GrapheneTrace_GP.Models
         public int UserId { get; set; }
 
         [Required, StringLength(50)]
-        public string FirstName { get; set; }
+        public string FirstName { get; set; } = "";
 
         [Required, StringLength(50)]
-        public string LastName { get; set; }
+        public string LastName { get; set; } = "";
 
         [Required, EmailAddress]
-        public string Email { get; set; }
+        public string Email { get; set; } = "";
 
         [Required]
         [StringLength(20)]
-        public string Role { get; set; }   // "patient", "clinician", "admin"
+        public string Role { get; set; } = "";  // "patient", "clinician", "admin"
 
         public bool IsActive { get; set; } = true;
 

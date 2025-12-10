@@ -297,7 +297,26 @@ namespace GrapheneTrace_GP.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -305,8 +324,20 @@ namespace GrapheneTrace_GP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PatientAge")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -319,6 +350,280 @@ namespace GrapheneTrace_GP.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Patients");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "10 Downing Street",
+                            City = "London",
+                            DateOfBirth = new DateTime(1984, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "sophie.night@gmail.com",
+                            FirstName = "Sophie",
+                            Gender = "Female",
+                            LastName = "Night",
+                            PatientAge = "40",
+                            PatientId = 2693,
+                            Phone = "07012345678",
+                            PostCode = "SW1A 2AA",
+                            Status = "Active",
+                            Title = "Mrs."
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "20 Baker Street",
+                            City = "London",
+                            DateOfBirth = new DateTime(1992, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "janee.harrison@gmail.com",
+                            FirstName = "Janee",
+                            Gender = "Female",
+                            LastName = "Harrison",
+                            PatientAge = "32",
+                            PatientId = 5987,
+                            Phone = "07087654321",
+                            PostCode = "NW1 6XE",
+                            Status = "Active",
+                            Title = "Ms."
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "30 Oxford Street",
+                            City = "London",
+                            DateOfBirth = new DateTime(1995, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "mike.jackson@gmail.com",
+                            FirstName = "Mike",
+                            Gender = "Male",
+                            LastName = "Jackson",
+                            PatientAge = "29",
+                            PatientId = 8963,
+                            Phone = "07011223344",
+                            PostCode = "W1D 1BS",
+                            Status = "Alert",
+                            Title = "Mr"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Address = "40 King Street",
+                            City = "London",
+                            DateOfBirth = new DateTime(1978, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "peter.benjamin@gmail.com",
+                            FirstName = "Peter",
+                            Gender = "Male",
+                            LastName = "Benjamin",
+                            PatientAge = "49",
+                            PatientId = 1257,
+                            Phone = "07098765432",
+                            PostCode = "W1F 0UT",
+                            Status = "Active",
+                            Title = "Mr."
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Address = "50 Queen Street",
+                            City = "London",
+                            DateOfBirth = new DateTime(1988, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Hannah.green@gmail.com",
+                            FirstName = "Hannah",
+                            Gender = "Female",
+                            LastName = "Green",
+                            PatientAge = "42",
+                            PatientId = 9862,
+                            Phone = "07012345678",
+                            PostCode = "W1A 1AA",
+                            Status = "Active",
+                            Title = "Mrs."
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Address = "60 King Street",
+                            City = "London",
+                            DateOfBirth = new DateTime(1986, 12, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "andy.bryan@gmail.com",
+                            FirstName = "Andy",
+                            Gender = "Male",
+                            LastName = "Bryan",
+                            PatientAge = "38",
+                            PatientId = 3654,
+                            Phone = "07012345678",
+                            PostCode = "W1F 0UT",
+                            Status = "Not Active",
+                            Title = "Mr"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Address = "70 King Street",
+                            City = "London",
+                            DateOfBirth = new DateTime(1986, 12, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "alex.white@gmail.com",
+                            FirstName = "Alex",
+                            Gender = "Male",
+                            LastName = "White",
+                            PatientAge = "38",
+                            PatientId = 4527,
+                            Phone = "07012345678",
+                            PostCode = "W1F 0UT",
+                            Status = "Active",
+                            Title = "Mr"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Address = "80 Queen Street",
+                            City = "London",
+                            DateOfBirth = new DateTime(1994, 3, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "clara.ashley@gmail.com",
+                            FirstName = "Clara",
+                            Gender = "Female",
+                            LastName = "Ashley",
+                            PatientAge = "30",
+                            PatientId = 6723,
+                            Phone = "07012345678",
+                            PostCode = "W1A 1AA",
+                            Status = "Not Active",
+                            Title = "Mrs."
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Address = "90 Queen Street",
+                            City = "London",
+                            DateOfBirth = new DateTime(1990, 6, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "diana.prince@gmail.com",
+                            FirstName = "Diana",
+                            Gender = "Female",
+                            LastName = "Prince",
+                            PatientAge = "34",
+                            PatientId = 7894,
+                            Phone = "07012345678",
+                            PostCode = "W1A 1AA",
+                            Status = "Not Active",
+                            Title = "Ms."
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Address = "100 Gotham Street",
+                            City = "Gotham",
+                            DateOfBirth = new DateTime(1978, 2, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "richard.watson@gmail.com",
+                            FirstName = "Richard",
+                            Gender = "Male",
+                            LastName = "Watson",
+                            PatientAge = "45",
+                            PatientId = 3456,
+                            Phone = "07012345678",
+                            PostCode = "G1TH 0TH",
+                            Status = "Active",
+                            Title = "Mr"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Address = "110 Gotham Street",
+                            City = "Gotham",
+                            DateOfBirth = new DateTime(1995, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "james.brown@gmail.com",
+                            FirstName = "James",
+                            Gender = "Female",
+                            LastName = "Brown",
+                            PatientAge = "28",
+                            PatientId = 9123,
+                            Phone = "07012345678",
+                            PostCode = "G1TH 0TH",
+                            Status = "Not Active",
+                            Title = "Mr."
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Address = "20 Avenue Glass Rd",
+                            City = "Bristol",
+                            DateOfBirth = new DateTime(1986, 12, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Olivia12.Patrick@gmail.com",
+                            FirstName = "Olivia",
+                            Gender = "Female",
+                            LastName = "Patrick",
+                            PatientAge = "39",
+                            PatientId = 4569,
+                            Phone = "07452136925",
+                            PostCode = "B17G BYR",
+                            Status = "Active",
+                            Title = "Ms"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Address = "30 River Side",
+                            City = "Manchester",
+                            DateOfBirth = new DateTime(1988, 3, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "liam.smith@gmail.com",
+                            FirstName = "Liam",
+                            Gender = "Male",
+                            LastName = "Smith",
+                            PatientAge = "35",
+                            PatientId = 7891,
+                            Phone = "07345678912",
+                            PostCode = "M1 2AB",
+                            Status = "Active",
+                            Title = "Mr."
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Address = "40 River Side",
+                            City = "Manchester",
+                            DateOfBirth = new DateTime(1982, 7, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "ava.johnson@gmail.com",
+                            FirstName = "Ava",
+                            Gender = "Female",
+                            LastName = "Johnson",
+                            PatientAge = "41",
+                            PatientId = 2345,
+                            Phone = "07345678912",
+                            PostCode = "M1 2AB",
+                            Status = "Not Active",
+                            Title = "Mrs."
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Address = "50 River Side",
+                            City = "Manchester",
+                            DateOfBirth = new DateTime(1994, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "isabella.williams@gmail.com",
+                            FirstName = "Isabella",
+                            Gender = "Female",
+                            LastName = "Williams",
+                            PatientAge = "29",
+                            PatientId = 6789,
+                            Phone = "07412345678",
+                            PostCode = "M1 2AB",
+                            Status = "Active",
+                            Title = "Ms."
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Address = "60 River Side",
+                            City = "Manchester",
+                            DateOfBirth = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "noah.brown@gmail.com",
+                            FirstName = "Noah",
+                            Gender = "Male",
+                            LastName = "Brown",
+                            PatientAge = "33",
+                            PatientId = 3457,
+                            Phone = "07512345678",
+                            PostCode = "M1 2AB",
+                            Status = "Active",
+                            Title = "Mr."
+                        });
                 });
 #pragma warning restore 612, 618
         }

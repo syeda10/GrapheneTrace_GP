@@ -15,7 +15,8 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <link rel="stylesheet" href="~/css/layout-dashboard.css" />
+    <link rel="stylesheet" href="~/css/layout-dashboard.css?v=3.0" />
+
 
 </head>
 <body>
@@ -55,6 +56,18 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
+
     @RenderSection("Scripts", required: false)
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var triggerElList = [].slice.call(document.querySelectorAll('button[data-bs-toggle="tab"]'))
+            triggerElList.forEach(function (triggerEl) {
+                new bootstrap.Tab(triggerEl)
+            })
+        })
+    </script>
+
+
 </body>
 </html>

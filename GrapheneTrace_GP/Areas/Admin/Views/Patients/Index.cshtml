@@ -1,68 +1,138 @@
-﻿@model IEnumerable<GrapheneTrace_GP.Areas.Admin.Models.Patient>
+﻿@model IEnumerable<GrapheneTrace_GP.Areas.Admin.ViewModels.PatientListVM>
 
 <div class="container mt-4">
+    <div class="row g-4">
 
-    <div class="row">
-        @foreach (var patient in Model)
+        @foreach (var p in Model)
         {
-            <div class="col-md-4 mb-4">
-                <div class="patient-card shadow-sm p-3 position-relative">
+            <div class="col-md-6 col-xl-4">
+                <div class="card shadow-sm p-3">
 
                     <!-- Patient Name -->
-                    <h5 class="fw-bold">
-                        @patient.FirstName @patient.LastName
-                    </h5>
+                    <h4 class="fw-bold">@p.FirstName @p.LastName</h4>
 
                     <!-- Status Badge -->
                     <span class="badge
-                            @(patient.Status == "Active" ? "bg-success" :
-                                                    patient.Status == "Alert" ? "bg-danger" :
-                                                    "bg-secondary")">
-                    @patient.Status
+                            @(p.Status == "Active" ? "bg-success"
+                                                  : p.Status == "Alert" ? "bg-danger"
+                                                  : "bg-secondary")">
+                    @p.Status
                 </span>
 
-                    <p class="mt-2 text-muted">ID: @patient.PatientId</p>
+                    <p class="text-muted mt-2">ID: @p.PatientId</p>
 
-                    <!-- THREE DOT MENU -->
-                    <div class="dropdown position-absolute top-0 end-0 me-2 mt-2">
-                        <button class="btn btn-link text-dark p-0" data-bs-toggle="dropdown">
-                            <i class="bi bi-three-dots-vertical fs-4"></i>
+                    <!-- Dropdown -->
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle w-100" type="button" data-bs-toggle="dropdown">
+                            See More
                         </button>
 
-                        <ul class="dropdown-menu shadow">
-                            <li><a class="dropdown-item" href="#">Edit Patient Data</a></li>
-                            <li><a class="dropdown-item" href="#">View Appointment History</a></li>
-                            <li><a class="dropdown-item" href="#">Review Patient Reports</a></li>
-                            <li><a class="dropdown-item" href="#">View Patient Health History</a></li>
-                            <li><a class="dropdown-item" href="#">View Prescriptions</a></li>
-                            <li><a class="dropdown-item" href="#">Upcoming Appointments</a></li>
-                            <li><hr /></li>
-                            <li><a class="dropdown-item text-danger" href="#">Delete Record</a></li>
+                        <ul class="dropdown-menu">
+
+                            <li>
+                                <a class="dropdown-item"
+                                   asp-area="Admin"
+                                   asp-controller="Patients"
+                                   asp-action="Details"
+                                   asp-route-id="@p.PatientId">
+                                    Edit Patient Data
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item"
+                                   asp-area="Admin"
+                                   asp-controller="Patients"
+                                   asp-action="Details"
+                                   asp-route-id="@p.PatientId">
+                                    View Appointment History
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item"
+                                   asp-area="Admin"
+                                   asp-controller="Patients"
+                                   asp-action="Details"
+                                   asp-route-id="@p.PatientId">
+                                    View Profile
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item"
+                                   asp-area="Admin"
+                                   asp-controller="Patients"
+                                   asp-action="Details"
+                                   asp-route-id="@p.PatientId">
+                                    View Prescriptions
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item"
+                                   asp-area="Admin"
+                                   asp-controller="Patients"
+                                   asp-action="Details"
+                                   asp-route-id="@p.PatientId">
+                                    Upcoming Appointments
+                                </a>
+                            </li>
+
+                            <li><hr class="dropdown-divider"></li>
+
+                            <li>
+                                <a class="dropdown-item text-danger"
+                                   asp-area="Admin"
+                                   asp-controller="Patients"
+                                   asp-action="Delete"
+                                   asp-route-id="@p.PatientId">
+                                    Delete Record
+                                </a>
+                            </li>
+
                         </ul>
                     </div>
 
+
                 </div>
             </div>
-                }
+          }
+
     </div>
 
-</div>
+</div> 
 
-<style>
-    .patient-card {
-        border: 1px solid #dcdcdc;
-        border-radius: 10px;
-        background: white;
-        cursor: pointer;
-        transition: transform .15s;
-        min-height: 150px;
-    }
 
-        .patient-card:hover {
-            transform: scale(1.02);
-        }
+    <!-- Pagination -->
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center">
 
-        .patient-card .dropdown-menu {
-            border-radius: 8px;
-        }
-</style>
+            <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+                <a class="page-link" href="?page=@(ViewBag.CurrentPage - 1)">«</a>
+            </li>
+
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="?page=@i">@i</a>
+                </li>
+            }
+
+            <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
+                <a class="page-link" href="?page=@(ViewBag.CurrentPage + 1)">»</a>
+            </li>
+
+        </ul>
+    </nav>
+
+
+@section Scripts {
+    <script>
+        document.querySelectorAll(".dropdown-item").forEach(item => {
+            item.addEventListener("click", function () {
+                window.location = this.href;
+            });
+        });
+    </script>
+}

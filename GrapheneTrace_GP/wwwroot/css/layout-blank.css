@@ -96,6 +96,7 @@ body {
     display: grid;
     grid-template-columns: 180px auto; /*make side bar slim*/
     min-height: calc(100vh - 64px);
+    overflow: visible !important;
 }
 
 /* Sidebar */
@@ -184,7 +185,7 @@ body {
 .blank-canvas {
     width:100%;
     min-height: 400px
-    border: 2px dashed #d1d5db;
+    border: 2px dashed ;
     border-radius: 12px;
     background: #fafbfc;
     margin: 0%; /*If need to remove this for spacing adjustments*/

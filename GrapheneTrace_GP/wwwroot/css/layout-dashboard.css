@@ -94,8 +94,8 @@ body {
 /* Main grid */
 .layout {
     display: grid;
-    grid-template-columns: 180px auto; /*make side bar slim*/
-    min-height: calc(100vh - 64px);
+    grid-template-columns: 180px 1fr; /*make side bar slim*/
+    height: calc(100vh - 64px - 48px);  
 }
 
 /* Sidebar */
@@ -125,10 +125,10 @@ body {
     border-radius: 8px;
 }
 
-    .side-nav li.active a, .side-nav a:hover {
+ .side-nav li.active a, .side-nav a:hover {
         background: #e9eef5;
         color: #0b3d91
-    }
+ }
 
 .icon {
     width: 22px;
@@ -152,7 +152,9 @@ body {
 /* Content */
 .content {
     padding: 24px;
-    min-height: calc(100vh - 64px - 48px);
+    height: calc(100vh - 64px - 48px);
+    overflow-y :auto !important;
+    overflow-x: hidden;
 }
 
 /* Footer */
