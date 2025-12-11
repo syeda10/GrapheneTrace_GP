@@ -1,4 +1,5 @@
 ﻿using GrapheneTrace_GP.Areas.Admin.ViewModels;
+using GrapheneTrace_GP.Models;
 using GrapheneTrace_GP.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -47,10 +48,21 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
         }
 
         [HttpGet ("Details/{id}")]
-        public IActionResult Details(int id)
+        public async Task <IActionResult> Details(int id)
         {
             var patient = _context.Patients.FirstOrDefault(p => p.PatientId == id);
             if (patient == null) return NotFound();
+
+
+            var allAppointments = await _context.Appointments
+            .Where(a => a.PatientId == id)
+             .OrderByDescending(a => a.AppointmentDate)
+            .ToListAsync();
+
+            var completedAppointments = allAppointments
+                .Where(a => a.IsCompleted == true)
+                .ToList();
+
 
             var vm = new PatientDetailsVM
             {
@@ -71,8 +83,20 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
                 HeatMapData = LoadPatientsCSV(),
 
                 //Appointments Table
-                AllAppointments = LoadAppointments(id),
-                CompletedAppointments = LoadCompletedAppointments(id)
+                AllAppointments = allAppointments.Select(a => new AppointmentVM
+                {
+                    AppointmentDate = a.AppointmentDate,
+                    TreatmentType = a.TreatmentType,
+                    Comments = a.Comments,
+                    NextAppointment = a.NextAppointment?.ToString("dd/MM/yyyy")
+                }).ToList(),
+
+                CompletedAppointments = completedAppointments.Select(a => new AppointmentVM
+                {
+                    AppointmentDate = a.AppointmentDate,
+                    TreatmentType = a.TreatmentType,
+                    Comments = a.Comments
+                }).ToList(),
 
 
             };
@@ -92,11 +116,11 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
         }
 
         //Appointments Table Loader
-        private List<AppointmentsRow> LoadAppointments(int patientId)
+        private List<AppointmentVM> LoadAppointments(int patientId)
         {
-            return new List<AppointmentsRow>
+            return new List<AppointmentVM>
             {
-                new AppointmentsRow
+                new AppointmentVM
                 {
                     AppointmentId = 1,
                     AppointmentDate = DateTime.Now.AddDays(7),
@@ -105,7 +129,7 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
                     NextAppointment = "N/A"
                 },
 
-                new AppointmentsRow
+                new AppointmentVM
                 {
                     AppointmentId = 2,
                     AppointmentDate = DateTime.Now.AddDays(30),
@@ -114,7 +138,7 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
                     NextAppointment = "N/A"
                 },
 
-                new AppointmentsRow
+                new AppointmentVM
                 {
                     AppointmentId = 3,
                     AppointmentDate = DateTime.Now.AddDays(60),
@@ -123,7 +147,7 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
                     NextAppointment = "N/A"
                 },
 
-                new AppointmentsRow
+                new AppointmentVM
                 {
                     AppointmentId = 4,
                     AppointmentDate = DateTime.Now.AddDays(90),
@@ -132,11 +156,11 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
                     NextAppointment = "N/A"
                 },
 
-                new AppointmentsRow
+                new AppointmentVM
                 {
                     AppointmentId = 5,
                     AppointmentDate = DateTime.Now.AddDays(120),
-                    TreatmentType = "Eye Exam",
+                    TreatmentType = "Eye Exam", 
                     Comments = "Annual vision check.",
                     NextAppointment = "N/A"
                 }
@@ -146,11 +170,11 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
 
         //Completed Appointments Table Loader
 
-        private List<AppointmentsRow> LoadCompletedAppointments(int patientId)
+        private List<AppointmentVM> LoadCompletedAppointments(int patientId)
         {
-            return new List<AppointmentsRow>
+            return new List<AppointmentVM>
             {
-                new AppointmentsRow
+                new AppointmentVM
                 {
                     AppointmentId = 101,
                     AppointmentDate = DateTime.Now.AddDays(-30),
@@ -158,7 +182,7 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
                     Comments = "Administered seasonal flu vaccine.",
                     NextAppointment = "N/A"
                 },
-                new AppointmentsRow
+                new AppointmentVM
                 {
                     AppointmentId = 102,
                     AppointmentDate = DateTime.Now.AddDays(-60),
@@ -167,7 +191,7 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
                     NextAppointment = "N/A"
                 },
 
-                new AppointmentsRow
+                new AppointmentVM
                 {
                     AppointmentId = 103,
                     AppointmentDate = DateTime.Now.AddDays(-90),
@@ -176,7 +200,7 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
                     NextAppointment = "N/A"
                 },
 
-                new AppointmentsRow
+                new AppointmentVM
                 {
                     AppointmentId = 104,
                     AppointmentDate = DateTime.Now.AddDays(-120),
@@ -185,7 +209,7 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
                     NextAppointment = "N/A"
                 },      
 
-                new AppointmentsRow
+                new AppointmentVM
                 {
                     AppointmentId = 105,
                     AppointmentDate = DateTime.Now.AddDays(-150),

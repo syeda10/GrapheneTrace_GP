@@ -84,82 +84,70 @@
 
         </div>
 
-        <hr class="my-4" />
+   
+    <hr />
+    <h3>Appointments</h3>
 
-        <!-- TABS FOR APPOINTMENTS -->
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#allAppointments">
-                All Appointments
-            </button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#completedAppointments">
-                Completed
-            </button>
-        </li>
-    </ul>
+    @if (Model.AllAppointments != null && Model.AllAppointments.Any())
+    {
+        <table class="table table-bordered table-striped">
+            <thead class="table-primary">
+                <tr>
+                    <th>Date</th>
+                    <th>Treatment</th>
+                    <th>Comments</th>
+                    <th>Next Appointment</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var appt in Model.AllAppointments)
+                {
+                    <tr>
+                        <td>@appt.AppointmentDate.ToString("dd/MM/yyyy")</td>
+                        <td>@appt.TreatmentType</td>
+                        <td>@appt.Comments</td>
+                        <td>@appt.NextAppointment</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No appointments available.</p>
+    }
+
+    <h3>Completed Appointments</h3>
+
+    @if (Model.CompletedAppointments != null && Model.CompletedAppointments.Any())
+    {
+        <table class="table table-bordered table-striped">
+            <thead class="table-success">
+                <tr>
+                    <th>Date</th>
+                    <th>Treatment</th>
+                    <th>Comments</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var appt in Model.CompletedAppointments)
+                {
+                    <tr>
+                        <td>@appt.AppointmentDate.ToString("dd/MM/yyyy")</td>
+                        <td>@appt.TreatmentType</td>
+                        <td>@appt.Comments</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+       else
+       {
+        <p>No completed appointments.</p>
+       }
 
 
-        <div class="tab-content">
-
-            <!-- ALL APPOINTMENTS TAB -->
-            <div class="tab-pane fade show active" id="allAppointments">
-
-                <table class="table table-bordered table-striped">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Date</th>
-                            <th>Treatment</th>
-                            <th>Comments</th>
-                            <th>Next Appointment</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @foreach (var a in Model.AllAppointments)
-                        {
-                            <tr>
-                                <td>@a.AppointmentDate.ToString("dd/MM/yyyy")</td>
-                                <td>@a.TreatmentType</td>
-                                <td>@a.Comments</td>
-                                <td>@a.NextAppointment</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-
-            </div>
-
-            <!-- COMPLETED APPOINTMENTS TAB -->
-            <div class="tab-pane fade" id="completedAppointments">
-
-                <table class="table table-bordered table-striped">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Date</th>
-                            <th>Treatment</th>
-                            <th>Comments</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @foreach (var c in Model.CompletedAppointments)
-                        {
-                            <tr>
-                                <td>@c.AppointmentDate.ToString("dd/MM/yyyy")</td>
-                                <td>@c.TreatmentType</td>
-                                <td>@c.Comments</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-
-            </div>
-
-        </div>
-
-    </div>
+</div>
 
 
 

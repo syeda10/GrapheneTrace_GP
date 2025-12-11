@@ -1,4 +1,6 @@
-﻿namespace GrapheneTrace_GP.Areas.Admin.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace GrapheneTrace_GP.Areas.Admin.Models
 {
     public class Patient
     {
@@ -6,7 +8,7 @@
         public string Title { get; set; } = "";
         public string FirstName { get; set; } = "";
         public string LastName { get; set; } = "";
-        public int PatientId { get; set; }
+        [Key]  public int PatientId { get; set; }
         public string Status { get; set; } = "Active"; // Active / Not Active / Alert
         public string PatientAge { get; set; } = "";
 
@@ -18,6 +20,14 @@
         public string Address { get; set; } = "";
         public string City { get; set; } = "";
         public string PostCode { get; set; } = "";
+
+
+        //to show assigned patients in clnicians
+
+        public int? ClinicianId { get; set; }   // FK to Clinicians
+        public Clinicians? Clinician { get; set; }
+
+
 
     }
 

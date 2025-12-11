@@ -20,5 +20,12 @@
             public string PostCode { get; set; } = "";
             public string Status { get; set; } = "";
 
+        //Alerts for clinicians
+        public List<ClinicianAlert> Alerts { get; set; } = new();
+
+
+        //One clinician has many patients
+        public List<Patient> Patients { get; set; } = new();
+
     }
 }

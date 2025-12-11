@@ -1,4 +1,6 @@
-﻿namespace GrapheneTrace_GP.Areas.Admin.ViewModels
+﻿using GrapheneTrace_GP.Areas.Admin.Models;
+
+namespace GrapheneTrace_GP.Areas.Admin.ViewModels
 {
     public class ClinicianDetailsVM
     {
@@ -14,6 +16,8 @@
         public string PostCode { get; set; } = "";
         public string Status { get; set; } = "";
 
+        public Clinicians Clinician { get; set; }
+      
         //Clincian Alerts
         public List<ClinicianAlertRow> Alerts { get; set; } = new();
 

@@ -4,6 +4,7 @@ using GrapheneTrace_GP.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GrapheneTrace_GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251210170330_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,429 +24,6 @@ namespace GrapheneTrace_GP.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.Alert", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AlertCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Message")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Priority")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RelatedId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Alerts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AlertCode = "ALT-01",
-                            CreatedAt = new DateTime(2025, 2, 1, 10, 0, 0, 0, DateTimeKind.Unspecified),
-                            Message = "System software update available - pending installation approval",
-                            Priority = "Medium",
-                            Status = "Read",
-                            Type = "System"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AlertCode = "ALT-02",
-                            CreatedAt = new DateTime(2025, 2, 1, 11, 20, 0, 0, DateTimeKind.Unspecified),
-                            Message = "Profile verification pending for Dr Anderson",
-                            Priority = "High",
-                            RelatedId = "325698",
-                            Status = "Unread",
-                            Type = "System"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            AlertCode = "ALT-03",
-                            CreatedAt = new DateTime(2025, 2, 2, 8, 10, 0, 0, DateTimeKind.Unspecified),
-                            Message = "Data backup completed successfully",
-                            Priority = "Low",
-                            Status = "Read",
-                            Type = "System"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            AlertCode = "ALT-10",
-                            CreatedAt = new DateTime(2025, 2, 10, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            Message = "New patient assigned to Dr John Michael: Olivia Patrick",
-                            Priority = "Low",
-                            RelatedId = "4569",
-                            Status = "Read",
-                            Type = "Clinician"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            AlertCode = "ALT-11",
-                            CreatedAt = new DateTime(2025, 2, 10, 12, 30, 0, 0, DateTimeKind.Unspecified),
-                            Message = "Workload limit reached for Dr Sarah Peterson",
-                            Priority = "High",
-                            RelatedId = "698235",
-                            Status = "Unread",
-                            Type = "Clinician"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            AlertCode = "ALT-12",
-                            CreatedAt = new DateTime(2025, 2, 11, 13, 15, 0, 0, DateTimeKind.Unspecified),
-                            Message = "Certification updated for Dr Emily Johnson",
-                            Priority = "Medium",
-                            RelatedId = "456973",
-                            Status = "Read",
-                            Type = "Clinician"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            AlertCode = "ALT-13",
-                            CreatedAt = new DateTime(2025, 2, 11, 10, 12, 0, 0, DateTimeKind.Unspecified),
-                            Message = "Shift change request approved for Dr David Anderson",
-                            Priority = "Low",
-                            RelatedId = "325698",
-                            Status = "Read",
-                            Type = "Clinician"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            AlertCode = "ALT-14",
-                            CreatedAt = new DateTime(2025, 2, 11, 16, 45, 0, 0, DateTimeKind.Unspecified),
-                            Message = "Dr Emmanuel State reached maximum patient load",
-                            Priority = "High",
-                            RelatedId = "258963",
-                            Status = "Unread",
-                            Type = "Clinician"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            AlertCode = "ALT-20",
-                            CreatedAt = new DateTime(2025, 2, 12, 2, 35, 0, 0, DateTimeKind.Unspecified),
-                            Message = "ECG anomaly detected for patient Jacob Flynn – immediate review recommended",
-                            Priority = "Critical",
-                            RelatedId = "9862",
-                            Status = "Unread",
-                            Type = "Patient"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            AlertCode = "ALT-21",
-                            CreatedAt = new DateTime(2025, 2, 12, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            Message = "Medication conflict detected for patient Alex White (penicillin allergy)",
-                            Priority = "High",
-                            RelatedId = "4527",
-                            Status = "Unread",
-                            Type = "Patient"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            AlertCode = "ALT-22",
-                            CreatedAt = new DateTime(2025, 2, 13, 11, 45, 0, 0, DateTimeKind.Unspecified),
-                            Message = "Follow-up required for patient Hannah Green – symptoms recorded",
-                            Priority = "Medium",
-                            RelatedId = "9862",
-                            Status = "Unread",
-                            Type = "Patient"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            AlertCode = "ALT-23",
-                            CreatedAt = new DateTime(2025, 2, 14, 10, 0, 0, 0, DateTimeKind.Unspecified),
-                            Message = "Routine blood pressure check due for patient Clara Ashley",
-                            Priority = "Low",
-                            RelatedId = "6723",
-                            Status = "Read",
-                            Type = "Patient"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            AlertCode = "ALT-24",
-                            CreatedAt = new DateTime(2025, 2, 14, 14, 30, 0, 0, DateTimeKind.Unspecified),
-                            Message = "Patient Liam Smith reported recurrent chest discomfort",
-                            Priority = "High",
-                            RelatedId = "7891",
-                            Status = "Unread",
-                            Type = "Patient"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            AlertCode = "ALT-30",
-                            CreatedAt = new DateTime(2025, 2, 15, 23, 0, 0, 0, DateTimeKind.Unspecified),
-                            Message = "11:00 PM Dashboard will be temporarily unavailable due to maintenance",
-                            Priority = "Low",
-                            Status = "Read",
-                            Type = "System"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            AlertCode = "ALT-31",
-                            CreatedAt = new DateTime(2025, 2, 15, 18, 15, 0, 0, DateTimeKind.Unspecified),
-                            Message = "Security scan completed — No threats detected",
-                            Priority = "Low",
-                            Status = "Read",
-                            Type = "System"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            AlertCode = "ALT-32",
-                            CreatedAt = new DateTime(2025, 2, 16, 9, 30, 0, 0, DateTimeKind.Unspecified),
-                            Message = "New feature rollout: Enhanced reporting tools now available",
-                            Priority = "Medium",
-                            Status = "Read",
-                            Type = "System"
-                        },
-                        new
-                        {
-                            Id = 17,
-                            AlertCode = "ALT-33",
-                            CreatedAt = new DateTime(2025, 2, 16, 14, 45, 0, 0, DateTimeKind.Unspecified),
-                            Message = "User activity logs archived successfully",
-                            Priority = "Low",
-                            Status = "Read",
-                            Type = "System"
-                        },
-                        new
-                        {
-                            Id = 18,
-                            AlertCode = "ALT-34",
-                            CreatedAt = new DateTime(2025, 2, 17, 3, 20, 0, 0, DateTimeKind.Unspecified),
-                            Message = "Critical vulnerability patch applied to server infrastructure",
-                            Priority = "Critical",
-                            Status = "Unread",
-                            Type = "System"
-                        },
-                        new
-                        {
-                            Id = 19,
-                            AlertCode = "ALT-35",
-                            CreatedAt = new DateTime(2025, 2, 17, 12, 0, 0, 0, DateTimeKind.Unspecified),
-                            Message = "Monthly system performance report is now available",
-                            Priority = "Medium",
-                            Status = "Read",
-                            Type = "System"
-                        });
-                });
-
-            modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.ClinicianAlert", b =>
-                {
-                    b.Property<int>("AlertId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AlertId"));
-
-                    b.Property<DateTime>("AlertDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("AlertType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ClinicianId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AlertId");
-
-                    b.HasIndex("ClinicianId");
-
-                    b.ToTable("ClinicianAlerts");
-
-                    b.HasData(
-                        new
-                        {
-                            AlertId = 1,
-                            AlertDateTime = new DateTime(2025, 2, 11, 13, 15, 0, 0, DateTimeKind.Unspecified),
-                            AlertType = "Certification updated",
-                            ClinicianId = 1
-                        },
-                        new
-                        {
-                            AlertId = 2,
-                            AlertDateTime = new DateTime(2025, 2, 11, 10, 12, 0, 0, DateTimeKind.Unspecified),
-                            AlertType = "Profile updated",
-                            ClinicianId = 1
-                        },
-                        new
-                        {
-                            AlertId = 3,
-                            AlertDateTime = new DateTime(2025, 2, 11, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            AlertType = "New patient assigned",
-                            ClinicianId = 1
-                        },
-                        new
-                        {
-                            AlertId = 4,
-                            AlertDateTime = new DateTime(2025, 2, 11, 8, 0, 0, 0, DateTimeKind.Unspecified),
-                            AlertType = "Status active",
-                            ClinicianId = 2
-                        },
-                        new
-                        {
-                            AlertId = 5,
-                            AlertDateTime = new DateTime(2025, 2, 11, 18, 30, 0, 0, DateTimeKind.Unspecified),
-                            AlertType = "Status inactive",
-                            ClinicianId = 2
-                        },
-                        new
-                        {
-                            AlertId = 6,
-                            AlertDateTime = new DateTime(2025, 2, 10, 13, 30, 0, 0, DateTimeKind.Unspecified),
-                            AlertType = "High workload",
-                            ClinicianId = 2
-                        },
-                        new
-                        {
-                            AlertId = 7,
-                            AlertDateTime = new DateTime(2025, 2, 11, 12, 0, 0, 0, DateTimeKind.Unspecified),
-                            AlertType = "Certification expired",
-                            ClinicianId = 2
-                        },
-                        new
-                        {
-                            AlertId = 8,
-                            AlertDateTime = new DateTime(2025, 2, 9, 10, 0, 0, 0, DateTimeKind.Unspecified),
-                            AlertType = "Shift change request",
-                            ClinicianId = 3
-                        },
-                        new
-                        {
-                            AlertId = 9,
-                            AlertDateTime = new DateTime(2025, 2, 9, 9, 30, 0, 0, DateTimeKind.Unspecified),
-                            AlertType = "Status active",
-                            ClinicianId = 3
-                        },
-                        new
-                        {
-                            AlertId = 10,
-                            AlertDateTime = new DateTime(2025, 2, 8, 17, 40, 0, 0, DateTimeKind.Unspecified),
-                            AlertType = "Documents uploaded",
-                            ClinicianId = 4
-                        },
-                        new
-                        {
-                            AlertId = 11,
-                            AlertDateTime = new DateTime(2025, 2, 8, 13, 30, 0, 0, DateTimeKind.Unspecified),
-                            AlertType = "Verification pending",
-                            ClinicianId = 4
-                        },
-                        new
-                        {
-                            AlertId = 12,
-                            AlertDateTime = new DateTime(2025, 2, 7, 14, 25, 0, 0, DateTimeKind.Unspecified),
-                            AlertType = "New patient assigned",
-                            ClinicianId = 5
-                        },
-                        new
-                        {
-                            AlertId = 13,
-                            AlertDateTime = new DateTime(2025, 2, 7, 9, 50, 0, 0, DateTimeKind.Unspecified),
-                            AlertType = "Status inactive",
-                            ClinicianId = 5
-                        },
-                        new
-                        {
-                            AlertId = 14,
-                            AlertDateTime = new DateTime(2025, 2, 6, 11, 10, 0, 0, DateTimeKind.Unspecified),
-                            AlertType = "Shift schedule updated",
-                            ClinicianId = 6
-                        },
-                        new
-                        {
-                            AlertId = 15,
-                            AlertDateTime = new DateTime(2025, 2, 5, 16, 45, 0, 0, DateTimeKind.Unspecified),
-                            AlertType = "High workload",
-                            ClinicianId = 7
-                        },
-                        new
-                        {
-                            AlertId = 16,
-                            AlertDateTime = new DateTime(2025, 2, 4, 10, 20, 0, 0, DateTimeKind.Unspecified),
-                            AlertType = "Profile updated",
-                            ClinicianId = 7
-                        },
-                        new
-                        {
-                            AlertId = 17,
-                            AlertDateTime = new DateTime(2025, 2, 3, 14, 20, 0, 0, DateTimeKind.Unspecified),
-                            AlertType = "New patient assigned",
-                            ClinicianId = 8
-                        },
-                        new
-                        {
-                            AlertId = 18,
-                            AlertDateTime = new DateTime(2025, 2, 3, 8, 40, 0, 0, DateTimeKind.Unspecified),
-                            AlertType = "Certification updated",
-                            ClinicianId = 8
-                        },
-                        new
-                        {
-                            AlertId = 19,
-                            AlertDateTime = new DateTime(2025, 2, 2, 17, 0, 0, 0, DateTimeKind.Unspecified),
-                            AlertType = "Emergency override assigned",
-                            ClinicianId = 9
-                        },
-                        new
-                        {
-                            AlertId = 20,
-                            AlertDateTime = new DateTime(2025, 2, 1, 9, 10, 0, 0, DateTimeKind.Unspecified),
-                            AlertType = "New patient assigned",
-                            ClinicianId = 10
-                        },
-                        new
-                        {
-                            AlertId = 21,
-                            AlertDateTime = new DateTime(2025, 1, 29, 15, 35, 0, 0, DateTimeKind.Unspecified),
-                            AlertType = "Certification expired",
-                            ClinicianId = 11
-                        },
-                        new
-                        {
-                            AlertId = 22,
-                            AlertDateTime = new DateTime(2025, 1, 29, 10, 0, 0, 0, DateTimeKind.Unspecified),
-                            AlertType = "Shift change request",
-                            ClinicianId = 11
-                        });
-                });
 
             modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.Clinicians", b =>
                 {
@@ -728,9 +308,6 @@ namespace GrapheneTrace_GP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ClinicianId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
@@ -775,8 +352,6 @@ namespace GrapheneTrace_GP.Migrations
 
                     b.HasKey("PatientId");
 
-                    b.HasIndex("ClinicianId");
-
                     b.ToTable("Patients");
 
                     b.HasData(
@@ -785,7 +360,6 @@ namespace GrapheneTrace_GP.Migrations
                             PatientId = 2693,
                             Address = "10 Downing Street",
                             City = "London",
-                            ClinicianId = 2,
                             DateOfBirth = new DateTime(1984, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "sophie.night@gmail.com",
                             FirstName = "Sophie",
@@ -803,7 +377,6 @@ namespace GrapheneTrace_GP.Migrations
                             PatientId = 5987,
                             Address = "20 Baker Street",
                             City = "London",
-                            ClinicianId = 4,
                             DateOfBirth = new DateTime(1992, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "janee.harrison@gmail.com",
                             FirstName = "Janee",
@@ -821,7 +394,6 @@ namespace GrapheneTrace_GP.Migrations
                             PatientId = 8963,
                             Address = "30 Oxford Street",
                             City = "London",
-                            ClinicianId = 1,
                             DateOfBirth = new DateTime(1995, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "mike.jackson@gmail.com",
                             FirstName = "Mike",
@@ -839,7 +411,6 @@ namespace GrapheneTrace_GP.Migrations
                             PatientId = 1257,
                             Address = "40 King Street",
                             City = "London",
-                            ClinicianId = 5,
                             DateOfBirth = new DateTime(1978, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "peter.benjamin@gmail.com",
                             FirstName = "Peter",
@@ -857,7 +428,6 @@ namespace GrapheneTrace_GP.Migrations
                             PatientId = 9862,
                             Address = "50 Queen Street",
                             City = "London",
-                            ClinicianId = 1,
                             DateOfBirth = new DateTime(1988, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "Hannah.green@gmail.com",
                             FirstName = "Hannah",
@@ -875,7 +445,6 @@ namespace GrapheneTrace_GP.Migrations
                             PatientId = 3654,
                             Address = "60 King Street",
                             City = "London",
-                            ClinicianId = 5,
                             DateOfBirth = new DateTime(1986, 12, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "andy.bryan@gmail.com",
                             FirstName = "Andy",
@@ -893,7 +462,6 @@ namespace GrapheneTrace_GP.Migrations
                             PatientId = 4527,
                             Address = "70 King Street",
                             City = "London",
-                            ClinicianId = 4,
                             DateOfBirth = new DateTime(1986, 12, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "alex.white@gmail.com",
                             FirstName = "Alex",
@@ -911,7 +479,6 @@ namespace GrapheneTrace_GP.Migrations
                             PatientId = 6723,
                             Address = "80 Queen Street",
                             City = "London",
-                            ClinicianId = 2,
                             DateOfBirth = new DateTime(1994, 3, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "clara.ashley@gmail.com",
                             FirstName = "Clara",
@@ -929,7 +496,6 @@ namespace GrapheneTrace_GP.Migrations
                             PatientId = 7894,
                             Address = "90 Queen Street",
                             City = "London",
-                            ClinicianId = 7,
                             DateOfBirth = new DateTime(1990, 6, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "diana.prince@gmail.com",
                             FirstName = "Diana",
@@ -947,7 +513,6 @@ namespace GrapheneTrace_GP.Migrations
                             PatientId = 3456,
                             Address = "100 Gotham Street",
                             City = "Gotham",
-                            ClinicianId = 8,
                             DateOfBirth = new DateTime(1978, 2, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "richard.watson@gmail.com",
                             FirstName = "Richard",
@@ -965,7 +530,6 @@ namespace GrapheneTrace_GP.Migrations
                             PatientId = 9123,
                             Address = "110 Gotham Street",
                             City = "Gotham",
-                            ClinicianId = 8,
                             DateOfBirth = new DateTime(1995, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "james.brown@gmail.com",
                             FirstName = "James",
@@ -983,7 +547,6 @@ namespace GrapheneTrace_GP.Migrations
                             PatientId = 4569,
                             Address = "20 Avenue Glass Rd",
                             City = "Bristol",
-                            ClinicianId = 1,
                             DateOfBirth = new DateTime(1986, 12, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "Olivia12.Patrick@gmail.com",
                             FirstName = "Olivia",
@@ -1001,7 +564,6 @@ namespace GrapheneTrace_GP.Migrations
                             PatientId = 7891,
                             Address = "30 River Side",
                             City = "Manchester",
-                            ClinicianId = 3,
                             DateOfBirth = new DateTime(1988, 3, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "liam.smith@gmail.com",
                             FirstName = "Liam",
@@ -1019,7 +581,6 @@ namespace GrapheneTrace_GP.Migrations
                             PatientId = 2345,
                             Address = "40 River Side",
                             City = "Manchester",
-                            ClinicianId = 6,
                             DateOfBirth = new DateTime(1982, 7, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "ava.johnson@gmail.com",
                             FirstName = "Ava",
@@ -1037,7 +598,6 @@ namespace GrapheneTrace_GP.Migrations
                             PatientId = 6789,
                             Address = "50 River Side",
                             City = "Manchester",
-                            ClinicianId = 7,
                             DateOfBirth = new DateTime(1994, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "isabella.williams@gmail.com",
                             FirstName = "Isabella",
@@ -1055,7 +615,6 @@ namespace GrapheneTrace_GP.Migrations
                             PatientId = 3457,
                             Address = "60 River Side",
                             City = "Manchester",
-                            ClinicianId = 6,
                             DateOfBirth = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "noah.brown@gmail.com",
                             FirstName = "Noah",
@@ -1065,330 +624,6 @@ namespace GrapheneTrace_GP.Migrations
                             PatientAge = "33",
                             Phone = "07512345678",
                             PostCode = "M1 2AB",
-                            Status = "Active",
-                            Title = "Mr."
-                        },
-                        new
-                        {
-                            PatientId = 8123,
-                            Address = "12 Wood Street",
-                            City = "London",
-                            ClinicianId = 2,
-                            DateOfBirth = new DateTime(1987, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "harvey.cole@gmail.com",
-                            FirstName = "Harvey",
-                            Gender = "Male",
-                            Id = 0,
-                            LastName = "Cole",
-                            PatientAge = "37",
-                            Phone = "07581234567",
-                            PostCode = "E2 4AA",
-                            Status = "Active",
-                            Title = "Mr."
-                        },
-                        new
-                        {
-                            PatientId = 8125,
-                            Address = "28 Crescent Lane",
-                            City = "Manchester",
-                            ClinicianId = 3,
-                            DateOfBirth = new DateTime(1980, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "layla.stevens@gmail.com",
-                            FirstName = "Layla",
-                            Gender = "Female",
-                            Id = 0,
-                            LastName = "Stevens",
-                            PatientAge = "44",
-                            Phone = "07411122233",
-                            PostCode = "M3 4GH",
-                            Status = "Active",
-                            Title = "Ms."
-                        },
-                        new
-                        {
-                            PatientId = 8126,
-                            Address = "4 Mill View",
-                            City = "Manchester",
-                            ClinicianId = 3,
-                            DateOfBirth = new DateTime(1972, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "brandon.lee@gmail.com",
-                            FirstName = "Brandon",
-                            Gender = "Male",
-                            Id = 0,
-                            LastName = "Lee",
-                            PatientAge = "52",
-                            Phone = "07422233344",
-                            PostCode = "M4 1AB",
-                            Status = "Not Active",
-                            Title = "Mr."
-                        },
-                        new
-                        {
-                            PatientId = 8127,
-                            Address = "7 Elm Park",
-                            City = "London",
-                            ClinicianId = 4,
-                            DateOfBirth = new DateTime(1998, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "tom.barker@gmail.com",
-                            FirstName = "Tom",
-                            Gender = "Male",
-                            Id = 0,
-                            LastName = "Barker",
-                            PatientAge = "26",
-                            Phone = "07399988877",
-                            PostCode = "SW1 7DF",
-                            Status = "Active",
-                            Title = "Mr."
-                        },
-                        new
-                        {
-                            PatientId = 8128,
-                            Address = "22 Green Lane",
-                            City = "London",
-                            ClinicianId = 4,
-                            DateOfBirth = new DateTime(1976, 5, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "nora.hughes@gmail.com",
-                            FirstName = "Nora",
-                            Gender = "Female",
-                            Id = 0,
-                            LastName = "Hughes",
-                            PatientAge = "48",
-                            Phone = "07311155522",
-                            PostCode = "SW1 9GH",
-                            Status = "Active",
-                            Title = "Mrs."
-                        },
-                        new
-                        {
-                            PatientId = 8129,
-                            Address = "18 Maple Street",
-                            City = "Bristol",
-                            ClinicianId = 1,
-                            DateOfBirth = new DateTime(1993, 1, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "ethan.morris@gmail.com",
-                            FirstName = "Ethan",
-                            Gender = "Male",
-                            Id = 0,
-                            LastName = "Morris",
-                            PatientAge = "31",
-                            Phone = "07812345670",
-                            PostCode = "BS1 3DA",
-                            Status = "Active",
-                            Title = "Mr."
-                        },
-                        new
-                        {
-                            PatientId = 8130,
-                            Address = "45 River Way",
-                            City = "Bristol",
-                            ClinicianId = 1,
-                            DateOfBirth = new DateTime(1988, 9, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "chloe.adams@gmail.com",
-                            FirstName = "Chloe",
-                            Gender = "Female",
-                            Id = 0,
-                            LastName = "Adams",
-                            PatientAge = "36",
-                            Phone = "07898732100",
-                            PostCode = "BS2 5HB",
-                            Status = "Not Active",
-                            Title = "Ms."
-                        },
-                        new
-                        {
-                            PatientId = 8131,
-                            Address = "33 Oak Road",
-                            City = "London",
-                            ClinicianId = 5,
-                            DateOfBirth = new DateTime(1984, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "kyle.garcia@gmail.com",
-                            FirstName = "Kyle",
-                            Gender = "Male",
-                            Id = 0,
-                            LastName = "Garcia",
-                            PatientAge = "40",
-                            Phone = "07788822211",
-                            PostCode = "NW1 5RT",
-                            Status = "Active",
-                            Title = "Mr."
-                        },
-                        new
-                        {
-                            PatientId = 8132,
-                            Address = "91 Hill Street",
-                            City = "London",
-                            ClinicianId = 5,
-                            DateOfBirth = new DateTime(2000, 4, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "amelia.scott@gmail.com",
-                            FirstName = "Amelia",
-                            Gender = "Female",
-                            Id = 0,
-                            LastName = "Scott",
-                            PatientAge = "24",
-                            Phone = "07722288899",
-                            PostCode = "NW3 8YZ",
-                            Status = "Active",
-                            Title = "Ms."
-                        },
-                        new
-                        {
-                            PatientId = 8133,
-                            Address = "4 Silver Street",
-                            City = "Manchester",
-                            ClinicianId = 6,
-                            DateOfBirth = new DateTime(1991, 2, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "jacob.shaw@gmail.com",
-                            FirstName = "Jacob",
-                            Gender = "Male",
-                            Id = 0,
-                            LastName = "Shaw",
-                            PatientAge = "33",
-                            Phone = "07655533322",
-                            PostCode = "M2 7EG",
-                            Status = "Active",
-                            Title = "Mr."
-                        },
-                        new
-                        {
-                            PatientId = 8134,
-                            Address = "20 Brook Lane",
-                            City = "Manchester",
-                            ClinicianId = 6,
-                            DateOfBirth = new DateTime(1978, 1, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "grace.miller@gmail.com",
-                            FirstName = "Grace",
-                            Gender = "Female",
-                            Id = 0,
-                            LastName = "Miller",
-                            PatientAge = "46",
-                            Phone = "07611122244",
-                            PostCode = "M2 9GT",
-                            Status = "Active",
-                            Title = "Mrs."
-                        },
-                        new
-                        {
-                            PatientId = 8135,
-                            Address = "14 Sunset Drive",
-                            City = "Liverpool",
-                            ClinicianId = 7,
-                            DateOfBirth = new DateTime(1985, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "ryan.evans@gmail.com",
-                            FirstName = "Ryan",
-                            Gender = "Male",
-                            Id = 0,
-                            LastName = "Evans",
-                            PatientAge = "39",
-                            Phone = "07544455566",
-                            PostCode = "L1 2AA",
-                            Status = "Not Active",
-                            Title = "Mr."
-                        },
-                        new
-                        {
-                            PatientId = 8136,
-                            Address = "22 Hilltop Road",
-                            City = "Liverpool",
-                            ClinicianId = 7,
-                            DateOfBirth = new DateTime(1997, 11, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "sophia.clarke@gmail.com",
-                            FirstName = "Sophia",
-                            Gender = "Female",
-                            Id = 0,
-                            LastName = "Clarke",
-                            PatientAge = "27",
-                            Phone = "07555566677",
-                            PostCode = "L2 1BB",
-                            Status = "Active",
-                            Title = "Ms."
-                        },
-                        new
-                        {
-                            PatientId = 8137,
-                            Address = "10 Riverbank",
-                            City = "Gotham",
-                            ClinicianId = 8,
-                            DateOfBirth = new DateTime(1974, 3, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "ella.turner@gmail.com",
-                            FirstName = "Ella",
-                            Gender = "Female",
-                            Id = 0,
-                            LastName = "Turner",
-                            PatientAge = "50",
-                            Phone = "07477788822",
-                            PostCode = "G1TH 2TT",
-                            Status = "Active",
-                            Title = "Mrs."
-                        },
-                        new
-                        {
-                            PatientId = 8138,
-                            Address = "18 Lantern Lane",
-                            City = "Gotham",
-                            ClinicianId = 8,
-                            DateOfBirth = new DateTime(1983, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "nathan.brooks@gmail.com",
-                            FirstName = "Nathan",
-                            Gender = "Male",
-                            Id = 0,
-                            LastName = "Brooks",
-                            PatientAge = "41",
-                            Phone = "07422244455",
-                            PostCode = "G1TH 3PP",
-                            Status = "Active",
-                            Title = "Mr."
-                        },
-                        new
-                        {
-                            PatientId = 8139,
-                            Address = "6 Forest Road",
-                            City = "London",
-                            ClinicianId = 2,
-                            DateOfBirth = new DateTime(1990, 5, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "leo.robinson@gmail.com",
-                            FirstName = "Leo",
-                            Gender = "Male",
-                            Id = 0,
-                            LastName = "Robinson",
-                            PatientAge = "34",
-                            Phone = "07522113344",
-                            PostCode = "E1 7HH",
-                            Status = "Active",
-                            Title = "Mr."
-                        },
-                        new
-                        {
-                            PatientId = 8140,
-                            Address = "8 Oakwood",
-                            City = "London",
-                            ClinicianId = 5,
-                            DateOfBirth = new DateTime(1993, 12, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "holly.grant@gmail.com",
-                            FirstName = "Holly",
-                            Gender = "Female",
-                            Id = 0,
-                            LastName = "Grant",
-                            PatientAge = "31",
-                            Phone = "07512398765",
-                            PostCode = "NW8 1GG",
-                            Status = "Not Active",
-                            Title = "Ms."
-                        },
-                        new
-                        {
-                            PatientId = 8141,
-                            Address = "39 Slope View",
-                            City = "Manchester",
-                            ClinicianId = 3,
-                            DateOfBirth = new DateTime(1977, 7, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "aaron.foster@gmail.com",
-                            FirstName = "Aaron",
-                            Gender = "Male",
-                            Id = 0,
-                            LastName = "Foster",
-                            PatientAge = "47",
-                            Phone = "07489012345",
-                            PostCode = "M4 9QA",
                             Status = "Active",
                             Title = "Mr."
                         });
@@ -1766,27 +1001,6 @@ namespace GrapheneTrace_GP.Migrations
                         });
                 });
 
-            modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.ClinicianAlert", b =>
-                {
-                    b.HasOne("GrapheneTrace_GP.Areas.Admin.Models.Clinicians", "Clinician")
-                        .WithMany("Alerts")
-                        .HasForeignKey("ClinicianId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Clinician");
-                });
-
-            modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.Patient", b =>
-                {
-                    b.HasOne("GrapheneTrace_GP.Areas.Admin.Models.Clinicians", "Clinician")
-                        .WithMany("Patients")
-                        .HasForeignKey("ClinicianId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("Clinician");
-                });
-
             modelBuilder.Entity("GrapheneTrace_GP.Models.Appointment", b =>
                 {
                     b.HasOne("GrapheneTrace_GP.Areas.Admin.Models.Patient", "Patient")
@@ -1796,13 +1010,6 @@ namespace GrapheneTrace_GP.Migrations
                         .IsRequired();
 
                     b.Navigation("Patient");
-                });
-
-            modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.Clinicians", b =>
-                {
-                    b.Navigation("Alerts");
-
-                    b.Navigation("Patients");
                 });
 #pragma warning restore 612, 618
         }

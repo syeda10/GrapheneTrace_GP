@@ -40,24 +40,54 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
         [HttpGet("Details/{id:int}")]
         public async Task<IActionResult> Details(int id)
         {
-            var c = await _context.Clinicians
-                .FirstOrDefaultAsync(x => x.ClinicianId == id);
+            var clinician = await _context.Clinicians
+            .Include(c => c.Patients) // <- LOAD ASSIGNED PATIENTS
+            .Include(c => c.Alerts)
+            .FirstOrDefaultAsync(c => c.ClinicianId == id);
 
-            if (c == null) return NotFound();
+
+            if (clinician == null) return NotFound();
 
             var vm = new ClinicianDetailsVM
             {
-                ClinicianId = c.ClinicianId,
-                ClinicianLastName = c.ClinicianLastName,
-                ClinicianFirstName = c.ClinicianFirstName,
-                Email = c.Email,
-                Gender = c.Gender,
-                DateOfBirth = c.DateOfBirth,
-                Phone = c.Phone,
-                Address = c.Address,
-                City = c.City,
-                PostCode = c.PostCode,
-                Status = c.Status
+                ClinicianId = clinician.ClinicianId,
+                ClinicianLastName = clinician.ClinicianLastName,
+                ClinicianFirstName = clinician.ClinicianFirstName,
+                Email = clinician.Email,
+                Gender = clinician.Gender,
+                DateOfBirth = clinician.DateOfBirth,
+                Phone = clinician.Phone,
+                Address = clinician.Address,
+                City = clinician.City,
+                PostCode = clinician.PostCode,
+                Status = clinician.Status,
+                Clinician = clinician,
+
+                //Alerts
+
+                Alerts = clinician.Alerts?
+                .OrderByDescending(a => a.AlertDateTime)
+                .Select((a, index) => new ClinicianAlertRow
+                {
+                    AlertId = index + 1,
+                    AlertType = a.AlertType,
+                    AlertDateTime = a.AlertDateTime
+                })
+                .ToList() ?? new List<ClinicianAlertRow>(),
+
+
+                //AssignedPatients
+                AssignedPatients = clinician.Patients?
+                .Select((p, index) => new AssignedPatientRow
+                {
+                  Sno = index + 1,
+                  PatientLastName = p.LastName,
+                  PatientFirstName = p.FirstName,
+                  PatientId = p.PatientId,
+                  Age = p.PatientAge
+                })
+                .ToList() ?? new List<AssignedPatientRow>(),
+
             };
 
             return View(vm);

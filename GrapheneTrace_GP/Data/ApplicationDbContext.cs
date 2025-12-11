@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using GrapheneTrace_GP.Areas.Admin.Models;
+﻿using GrapheneTrace_GP.Areas.Admin.Models;
+using GrapheneTrace_GP.Models;
+using GrapheneTrace_GP.Areas.Admin.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace GrapheneTrace_GP.Data
 {
@@ -8,16 +10,25 @@ namespace GrapheneTrace_GP.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+        
         }
 
         public DbSet<Clinicians> Clinicians { get; set; }
         public DbSet<Patient> Patients { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<ClinicianAlert> ClinicianAlerts { get; set; }
+        public DbSet<Alert> Alerts { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Seed Clinicians data
 
+            modelBuilder.Entity<ClinicianAlert>()
+           .HasOne(a => a.Clinician)
+            .WithMany(c => c.Alerts)
+            .HasForeignKey(a => a.ClinicianId)
+            .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Clinicians>().HasData(
@@ -232,18 +243,74 @@ namespace GrapheneTrace_GP.Data
 
             );
 
+            //Alerrts data for clinicians
+
+            // Clinician Alerts Seed Data
+            modelBuilder.Entity<ClinicianAlert>().HasData(
+
+                // ------- Dr. John Michael (ID = 1) -------
+                new ClinicianAlert { AlertId = 1, ClinicianId = 1, AlertType = "Certification updated", AlertDateTime = new DateTime(2025, 02, 11, 13, 15, 00) },
+                new ClinicianAlert { AlertId = 2, ClinicianId = 1, AlertType = "Profile updated", AlertDateTime = new DateTime(2025, 02, 11, 10, 12, 00) },
+                new ClinicianAlert { AlertId = 3, ClinicianId = 1, AlertType = "New patient assigned", AlertDateTime = new DateTime(2025, 02, 11, 09, 00, 00) },
+
+                // ------- Dr. Sarah Peterson (ID = 2) -------
+                new ClinicianAlert { AlertId = 4, ClinicianId = 2, AlertType = "Status active", AlertDateTime = new DateTime(2025, 02, 11, 08, 00, 00) },
+                new ClinicianAlert { AlertId = 5, ClinicianId = 2, AlertType = "Status inactive", AlertDateTime = new DateTime(2025, 02, 11, 18, 30, 00) },
+                new ClinicianAlert { AlertId = 6, ClinicianId = 2, AlertType = "High workload", AlertDateTime = new DateTime(2025, 02, 10, 13, 30, 00) },
+                new ClinicianAlert { AlertId = 7, ClinicianId = 2, AlertType = "Certification expired", AlertDateTime = new DateTime(2025, 02, 11, 12, 00, 00) },
+
+                // ------- Dr. Emily Johnson (ID = 3) -------
+                new ClinicianAlert { AlertId = 8, ClinicianId = 3, AlertType = "Shift change request", AlertDateTime = new DateTime(2025, 02, 09, 10, 00, 00) },
+                new ClinicianAlert { AlertId = 9, ClinicianId = 3, AlertType = "Status active", AlertDateTime = new DateTime(2025, 02, 09, 09, 30, 00) },
+
+                // ------- Dr. David Anderson (ID = 4) -------
+                new ClinicianAlert { AlertId = 10, ClinicianId = 4, AlertType = "Documents uploaded", AlertDateTime = new DateTime(2025, 02, 08, 17, 40, 00) },
+                new ClinicianAlert { AlertId = 11, ClinicianId = 4, AlertType = "Verification pending", AlertDateTime = new DateTime(2025, 02, 08, 13, 30, 00) },
+
+                // ------- Dr. Emmanuel State (ID = 5) -------
+                new ClinicianAlert { AlertId = 12, ClinicianId = 5, AlertType = "New patient assigned", AlertDateTime = new DateTime(2025, 02, 07, 14, 25, 00) },
+                new ClinicianAlert { AlertId = 13, ClinicianId = 5, AlertType = "Status inactive", AlertDateTime = new DateTime(2025, 02, 07, 09, 50, 00) },
+
+                // ------- Dr. Mike Stephen (ID = 6) -------
+                new ClinicianAlert { AlertId = 14, ClinicianId = 6, AlertType = "Shift schedule updated", AlertDateTime = new DateTime(2025, 02, 06, 11, 10, 00) },
+
+                // ------- Dr. Noah Hyper (ID = 7) -------
+                new ClinicianAlert { AlertId = 15, ClinicianId = 7, AlertType = "High workload", AlertDateTime = new DateTime(2025, 02, 05, 16, 45, 00) },
+                new ClinicianAlert { AlertId = 16, ClinicianId = 7, AlertType = "Profile updated", AlertDateTime = new DateTime(2025, 02, 04, 10, 20, 00) },
+
+                // ------- Dr. Helen Cooke (ID = 8) -------
+                new ClinicianAlert { AlertId = 17, ClinicianId = 8, AlertType = "New patient assigned", AlertDateTime = new DateTime(2025, 02, 03, 14, 20, 00) },
+                new ClinicianAlert { AlertId = 18, ClinicianId = 8, AlertType = "Certification updated", AlertDateTime = new DateTime(2025, 02, 03, 08, 40, 00) },
+
+                // ------- Dr. Rose Night (ID = 9) -------
+                new ClinicianAlert { AlertId = 19, ClinicianId = 9, AlertType = "Emergency override assigned", AlertDateTime = new DateTime(2025, 02, 02, 17, 00, 00) },
+
+                // ------- Dr. Jake Watson (ID = 10) -------
+                new ClinicianAlert { AlertId = 20, ClinicianId = 10, AlertType = "New patient assigned", AlertDateTime = new DateTime(2025, 02, 01, 09, 10, 00) },
+
+                // ------- Dr. Emma Richard (ID = 11) -------
+                new ClinicianAlert { AlertId = 21, ClinicianId = 11, AlertType = "Certification expired", AlertDateTime = new DateTime(2025, 01, 29, 15, 35, 00) },
+                new ClinicianAlert { AlertId = 22, ClinicianId = 11, AlertType = "Shift change request", AlertDateTime = new DateTime(2025, 01, 29, 10, 00, 00) }
+            );
+
+
 
             // Seed Patients data
+            modelBuilder.Entity<Patient>()
+            .HasOne(p => p.Clinician)
+            .WithMany(c => c.Patients)
+            .HasForeignKey(p => p.ClinicianId)
+             .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<Patient>().HasData(
 
                 new Patient
                 {
-                    Id = 1,
+                    PatientId = 2693,
                     Title = "Mrs.",
                     FirstName = "Sophie",
                     LastName = "Night",
-                    PatientId = 2693,
+                    ClinicianId = 2,
                     Status = "Active",
                     PatientAge = "40",
                     Gender = "Female",
@@ -257,11 +324,11 @@ namespace GrapheneTrace_GP.Data
 
                 new Patient
                 {
-                    Id = 2,
+                    PatientId = 5987,
                     Title = "Ms.",
                     FirstName = "Janee",
                     LastName = "Harrison",
-                    PatientId = 5987,
+                    ClinicianId = 4,
                     Status = "Active",
                     PatientAge = "32",
                     Gender = "Female",
@@ -275,11 +342,12 @@ namespace GrapheneTrace_GP.Data
 
                 new Patient
                 {
-                    Id = 3,
+
+                    PatientId = 8963,
                     Title = "Mr",
                     FirstName = "Mike",
                     LastName = "Jackson",
-                    PatientId = 8963,
+                    ClinicianId = 1,
                     Status = "Alert",
                     PatientAge = "29",
                     Gender = "Male",
@@ -293,11 +361,11 @@ namespace GrapheneTrace_GP.Data
 
                 new Patient
                 {
-                    Id = 4,
+                    PatientId = 1257,
                     Title = "Mr.",
                     FirstName = "Peter",
                     LastName = "Benjamin",
-                    PatientId = 1257,
+                    ClinicianId = 5,
                     Status = "Active",
                     PatientAge = "49",
                     Gender = "Male",
@@ -311,11 +379,11 @@ namespace GrapheneTrace_GP.Data
 
                 new Patient
                 {
-                    Id = 5,
+                    PatientId = 9862,
                     Title = "Mrs.",
                     FirstName = "Hannah",
                     LastName = "Green",
-                    PatientId = 9862,
+                    ClinicianId = 1,
                     Status = "Active",
                     PatientAge = "42",
                     Gender = "Female",
@@ -329,11 +397,11 @@ namespace GrapheneTrace_GP.Data
 
                 new Patient
                 {
-                    Id = 6,
+                    PatientId = 3654,
                     Title = "Mr",
                     FirstName = "Andy",
                     LastName = "Bryan",
-                    PatientId = 3654,
+                    ClinicianId = 5,
                     Status = "Not Active",
                     PatientAge = "38",
                     Gender = "Male",
@@ -347,11 +415,11 @@ namespace GrapheneTrace_GP.Data
 
                 new Patient
                 {
-                    Id = 7,
+                    PatientId = 4527,
                     Title = "Mr",
                     FirstName = "Alex",
                     LastName = "White",
-                    PatientId = 4527,
+                    ClinicianId = 4,
                     Status = "Active",
                     PatientAge = "38",
                     Gender = "Male",
@@ -366,11 +434,11 @@ namespace GrapheneTrace_GP.Data
 
                 new Patient
                 {
-                    Id = 8,
+                    PatientId = 6723,
                     Title = "Mrs.",
                     FirstName = "Clara",
                     LastName = "Ashley",
-                    PatientId = 6723,
+                    ClinicianId = 2,
                     Status = "Not Active",
                     PatientAge = "30",
                     Gender = "Female",
@@ -385,11 +453,11 @@ namespace GrapheneTrace_GP.Data
 
                 new Patient
                 {
-                    Id = 9,
+                    PatientId = 7894,
                     Title = "Ms.",
                     FirstName = "Diana",
                     LastName = "Prince",
-                    PatientId = 7894,
+                    ClinicianId = 7,
                     Status = "Not Active",
                     PatientAge = "34",
                     Gender = "Female",
@@ -403,11 +471,11 @@ namespace GrapheneTrace_GP.Data
 
                 new Patient
                 {
-                    Id = 10,
+                    PatientId = 3456,
                     Title = "Mr",
                     FirstName = "Richard",
                     LastName = "Watson",
-                    PatientId = 3456,
+                    ClinicianId = 8,
                     Status = "Active",
                     PatientAge = "45",
                     Gender = "Male",
@@ -421,11 +489,11 @@ namespace GrapheneTrace_GP.Data
 
                 new Patient
                 {
-                    Id = 11,
+                    PatientId = 9123,
                     Title = "Mr.",
                     FirstName = "James",
                     LastName = "Brown",
-                    PatientId = 9123,
+                    ClinicianId = 8,
                     Status = "Not Active",
                     PatientAge = "28",
                     Gender = "Female",
@@ -437,17 +505,17 @@ namespace GrapheneTrace_GP.Data
                     PostCode = "G1TH 0TH"
                 },
 
-                new Patient 
+                new Patient
                 {
-                    Id = 12,
+                    PatientId = 4569,
                     Title = "Ms",
                     FirstName = "Olivia",
                     LastName = "Patrick",
-                    PatientId = 4569,
+                    ClinicianId = 1,
                     Status = "Active",
                     PatientAge = "39",
                     Gender = "Female",
-                    DateOfBirth = new DateTime (1986, 12, 08),
+                    DateOfBirth = new DateTime(1986, 12, 08),
                     Email = "Olivia12.Patrick@gmail.com",
                     Phone = "07452136925",
                     Address = "20 Avenue Glass Rd",
@@ -457,11 +525,11 @@ namespace GrapheneTrace_GP.Data
 
                 new Patient
                 {
-                    Id = 13,
+                    PatientId = 7891,
                     Title = "Mr.",
                     FirstName = "Liam",
                     LastName = "Smith",
-                    PatientId = 7891,
+                    ClinicianId = 3,
                     Status = "Active",
                     PatientAge = "35",
                     Gender = "Male",
@@ -475,11 +543,11 @@ namespace GrapheneTrace_GP.Data
 
                 new Patient
                 {
-                    Id = 14,
+                    PatientId = 2345,
                     Title = "Mrs.",
                     FirstName = "Ava",
                     LastName = "Johnson",
-                    PatientId = 2345,
+                    ClinicianId = 6,
                     Status = "Not Active",
                     PatientAge = "41",
                     Gender = "Female",
@@ -493,11 +561,11 @@ namespace GrapheneTrace_GP.Data
 
                 new Patient
                 {
-                    Id = 15,
+                    PatientId = 6789,
                     Title = "Ms.",
                     FirstName = "Isabella",
                     LastName = "Williams",
-                    PatientId = 6789,
+                    ClinicianId = 7,
                     Status = "Active",
                     PatientAge = "29",
                     Gender = "Female",
@@ -511,11 +579,11 @@ namespace GrapheneTrace_GP.Data
 
                 new Patient
                 {
-                    Id = 16,
+                    PatientId = 3457,
                     Title = "Mr.",
                     FirstName = "Noah",
                     LastName = "Brown",
-                    PatientId = 3457,
+                    ClinicianId = 6,
                     Status = "Active",
                     PatientAge = "33",
                     Gender = "Male",
@@ -525,9 +593,664 @@ namespace GrapheneTrace_GP.Data
                     Address = "60 River Side",
                     City = "Manchester",
                     PostCode = "M1 2AB"
+                },
+
+
+
+                 new Patient
+                 {
+                    PatientId = 8123,
+                    Title = "Mr.",
+                    FirstName = "Harvey",
+                    LastName = "Cole",
+                    ClinicianId = 2,
+                    Status = "Active",
+                    PatientAge = "37",
+                    Gender = "Male",
+                    DateOfBirth = new DateTime(1987, 4, 10),
+                    Email = "harvey.cole@gmail.com",
+                    Phone = "07581234567",
+                    Address = "12 Wood Street",
+                    City = "London",
+                    PostCode = "E2 4AA"
+                },
+
+
+                new Patient
+                {
+                    PatientId = 8125,
+                    Title = "Ms.",
+                    FirstName = "Layla",
+                    LastName = "Stevens",
+                    ClinicianId = 3,
+                    Status = "Active",
+                    PatientAge = "44",
+                    Gender = "Female",
+                    DateOfBirth = new DateTime(1980, 7, 12),
+                    Email = "layla.stevens@gmail.com",
+                    Phone = "07411122233",
+                    Address = "28 Crescent Lane",
+                    City = "Manchester",
+                    PostCode = "M3 4GH"
+                },
+
+                new Patient
+                {
+                    PatientId = 8126,
+                    Title = "Mr.",
+                    FirstName = "Brandon",
+                    LastName = "Lee",
+                    ClinicianId = 3,
+                    Status = "Not Active",
+                    PatientAge = "52",
+                    Gender = "Male",
+                    DateOfBirth = new DateTime(1972, 8, 20),
+                    Email = "brandon.lee@gmail.com",
+                    Phone = "07422233344",
+                    Address = "4 Mill View",
+                    City = "Manchester",
+                    PostCode = "M4 1AB"
+                },
+
+                new Patient
+                {
+                    PatientId = 8127,
+                    Title = "Mr.",
+                    FirstName = "Tom",
+                    LastName = "Barker",
+                    ClinicianId = 4,
+                    Status = "Active",
+                    PatientAge = "26",
+                    Gender = "Male",
+                    DateOfBirth = new DateTime(1998, 11, 5),
+                    Email = "tom.barker@gmail.com",
+                    Phone = "07399988877",
+                    Address = "7 Elm Park",
+                    City = "London",
+                    PostCode = "SW1 7DF"
+                },
+
+                new Patient
+                {
+                    PatientId = 8128,
+                    Title = "Mrs.",
+                    FirstName = "Nora",
+                    LastName = "Hughes",
+                    ClinicianId = 4,
+                    Status = "Active",
+                    PatientAge = "48",
+                    Gender = "Female",
+                    DateOfBirth = new DateTime(1976, 5, 30),
+                    Email = "nora.hughes@gmail.com",
+                    Phone = "07311155522",
+                    Address = "22 Green Lane",
+                    City = "London",
+                    PostCode = "SW1 9GH"
+                },
+
+                 new Patient
+                {
+                    PatientId = 8129,
+                    Title = "Mr.",
+                    FirstName = "Ethan",
+                    LastName = "Morris",
+                    ClinicianId = 1,
+                    Status = "Active",
+                    PatientAge = "31",
+                    Gender = "Male",
+                    DateOfBirth = new DateTime(1993, 1, 19),
+                    Email = "ethan.morris@gmail.com",
+                    Phone = "07812345670",
+                    Address = "18 Maple Street",
+                    City = "Bristol",
+                    PostCode = "BS1 3DA"
+                },
+
+                new Patient
+                {
+                    PatientId = 8130,
+                    Title = "Ms.",
+                    FirstName = "Chloe",
+                    LastName = "Adams",
+                    ClinicianId = 1,
+                    Status = "Not Active",
+                    PatientAge = "36",
+                    Gender = "Female",
+                    DateOfBirth = new DateTime(1988, 9, 14),
+                    Email = "chloe.adams@gmail.com",
+                    Phone = "07898732100",
+                    Address = "45 River Way",
+                    City = "Bristol",
+                    PostCode = "BS2 5HB"
+                },
+
+                new Patient
+                {
+                    PatientId = 8131,
+                    Title = "Mr.",
+                    FirstName = "Kyle",
+                    LastName = "Garcia",
+                    ClinicianId = 5,
+                    Status = "Active",
+                    PatientAge = "40",
+                    Gender = "Male",
+                    DateOfBirth = new DateTime(1984, 12, 1),
+                    Email = "kyle.garcia@gmail.com",
+                    Phone = "07788822211",
+                    Address = "33 Oak Road",
+                    City = "London",
+                    PostCode = "NW1 5RT"
+                },
+
+                new Patient
+                {
+                    PatientId = 8132,
+                    Title = "Ms.",
+                    FirstName = "Amelia",
+                    LastName = "Scott",
+                    ClinicianId = 5,
+                    Status = "Active",
+                    PatientAge = "24",
+                    Gender = "Female",
+                    DateOfBirth = new DateTime(2000, 4, 9),
+                    Email = "amelia.scott@gmail.com",
+                    Phone = "07722288899",
+                    Address = "91 Hill Street",
+                    City = "London",
+                    PostCode = "NW3 8YZ"
+                },
+
+                new Patient
+                {
+                    PatientId = 8133,
+                    Title = "Mr.",
+                    FirstName = "Jacob",
+                    LastName = "Shaw",
+                    ClinicianId = 6,
+                    Status = "Active",
+                    PatientAge = "33",
+                    Gender = "Male",
+                    DateOfBirth = new DateTime(1991, 2, 11),
+                    Email = "jacob.shaw@gmail.com",
+                    Phone = "07655533322",
+                    Address = "4 Silver Street",
+                    City = "Manchester",
+                    PostCode = "M2 7EG"
+                },
+
+                new Patient
+                {
+                    PatientId = 8134,
+                    Title = "Mrs.",
+                    FirstName = "Grace",
+                    LastName = "Miller",
+                    ClinicianId = 6,
+                    Status = "Active",
+                    PatientAge = "46",
+                    Gender = "Female",
+                    DateOfBirth = new DateTime(1978, 1, 25),
+                    Email = "grace.miller@gmail.com",
+                    Phone = "07611122244",
+                    Address = "20 Brook Lane",
+                    City = "Manchester",
+                    PostCode = "M2 9GT"
+                },
+
+                new Patient
+                {
+                    PatientId = 8135,
+                    Title = "Mr.",
+                    FirstName = "Ryan",
+                    LastName = "Evans",
+                    ClinicianId = 7,
+                    Status = "Not Active",
+                    PatientAge = "39",
+                    Gender = "Male",
+                    DateOfBirth = new DateTime(1985, 6, 6),
+                    Email = "ryan.evans@gmail.com",
+                    Phone = "07544455566",
+                    Address = "14 Sunset Drive",
+                    City = "Liverpool",
+                    PostCode = "L1 2AA"
+                },
+
+                new Patient
+                {
+                    PatientId = 8136,
+                    Title = "Ms.",
+                    FirstName = "Sophia",
+                    LastName = "Clarke",
+                    ClinicianId = 7,
+                    Status = "Active",
+                    PatientAge = "27",
+                    Gender = "Female",
+                    DateOfBirth = new DateTime(1997, 11, 3),
+                    Email = "sophia.clarke@gmail.com",
+                    Phone = "07555566677",
+                    Address = "22 Hilltop Road",
+                    City = "Liverpool",
+                    PostCode = "L2 1BB"
+                },
+
+                new Patient
+                {
+                    PatientId = 8137,
+                    Title = "Mrs.",
+                    FirstName = "Ella",
+                    LastName = "Turner",
+                    ClinicianId = 8,
+                    Status = "Active",
+                    PatientAge = "50",
+                    Gender = "Female",
+                    DateOfBirth = new DateTime(1974, 3, 30),
+                    Email = "ella.turner@gmail.com",
+                    Phone = "07477788822",
+                    Address = "10 Riverbank",
+                    City = "Gotham",
+                    PostCode = "G1TH 2TT"
+                },
+
+                new Patient
+                {
+                    PatientId = 8138,
+                    Title = "Mr.",
+                    FirstName = "Nathan",
+                    LastName = "Brooks",
+                    ClinicianId = 8,
+                    Status = "Active",
+                    PatientAge = "41",
+                    Gender = "Male",
+                    DateOfBirth = new DateTime(1983, 5, 8),
+                    Email = "nathan.brooks@gmail.com",
+                    Phone = "07422244455",
+                    Address = "18 Lantern Lane",
+                    City = "Gotham",
+                    PostCode = "G1TH 3PP"
+                },
+
+                new Patient
+                {
+                    PatientId = 8139,
+                    Title = "Mr.",
+                    FirstName = "Leo",
+                    LastName = "Robinson",
+                    ClinicianId = 2,
+                    Status = "Active",
+                    PatientAge = "34",
+                    Gender = "Male",
+                    DateOfBirth = new DateTime(1990, 5, 28),
+                    Email = "leo.robinson@gmail.com",
+                    Phone = "07522113344",
+                    Address = "6 Forest Road",
+                    City = "London",
+                    PostCode = "E1 7HH"
+                },
+
+                new Patient
+                {
+                    PatientId = 8140,
+                    Title = "Ms.",
+                    FirstName = "Holly",
+                    LastName = "Grant",
+                    ClinicianId = 5,
+                    Status = "Not Active",
+                    PatientAge = "31",
+                    Gender = "Female",
+                    DateOfBirth = new DateTime(1993, 12, 13),
+                    Email = "holly.grant@gmail.com",
+                    Phone = "07512398765",
+                    Address = "8 Oakwood",
+                    City = "London",
+                    PostCode = "NW8 1GG"
+                },
+
+                new Patient
+                {
+                    PatientId = 8141,
+                    Title = "Mr.",
+                    FirstName = "Aaron",
+                    LastName = "Foster",
+                    ClinicianId = 3,
+                    Status = "Active",
+                    PatientAge = "47",
+                    Gender = "Male",
+                    DateOfBirth = new DateTime(1977, 7, 17),
+                    Email = "aaron.foster@gmail.com",
+                    Phone = "07489012345",
+                    Address = "39 Slope View",
+                    City = "Manchester",
+                    PostCode = "M4 9QA"
                 }
 
+
             );
+
+            //Appointment Seeding
+
+            modelBuilder.Entity<Appointment>().HasData(
+              // Patient 2693 - Sophie Night
+              new Appointment 
+              { 
+                  AppointmentId = 1, 
+                  PatientId = 2693, 
+                  AppointmentDate = new DateTime(2024, 01, 10), 
+                  TreatmentType = "General Checkup", 
+                  Comments = "Routine visit", 
+                  NextAppointment = new DateTime(2024, 02, 10), 
+                  IsCompleted = false 
+              },
+
+              new Appointment 
+              { 
+                  AppointmentId = 2, 
+                  PatientId = 2693, 
+                  AppointmentDate = new DateTime(2024, 02, 15), 
+                  TreatmentType = "Blood Test", 
+                  Comments = "Normal results", 
+                  NextAppointment = new DateTime(2024, 03, 01), 
+                  IsCompleted = true 
+              },
+
+              new Appointment 
+              { 
+                  AppointmentId = 3, 
+                  PatientId = 2693, 
+                  AppointmentDate = new DateTime(2024, 03, 20), 
+                  TreatmentType = "Physical Therapy", 
+                  Comments = "Progressing well", 
+                  NextAppointment = new DateTime(2024, 04, 20), 
+                  IsCompleted = false 
+              },
+
+              new Appointment { AppointmentId = 4, PatientId = 2693, AppointmentDate = new DateTime(2024, 04, 28), TreatmentType = "Follow-up", Comments = "Stable condition", NextAppointment = null, IsCompleted = true },
+
+                // Patient 5987 - Janee Harrison
+                new Appointment 
+                { 
+                    AppointmentId = 5, 
+                    PatientId = 5987, 
+                    AppointmentDate = new DateTime(2024, 01, 15), 
+                    TreatmentType = "Dental Cleaning", 
+                    Comments = "Good oral hygiene", 
+                    NextAppointment = new DateTime(2024, 07, 15), 
+                    IsCompleted = true 
+                },
+                new Appointment { AppointmentId = 6, PatientId = 5987, AppointmentDate = new DateTime(2024, 02, 18), TreatmentType = "X-Ray", Comments = "No issues detected", NextAppointment = null, IsCompleted = true },
+                new Appointment { AppointmentId = 7, PatientId = 5987, AppointmentDate = new DateTime(2024, 03, 12), TreatmentType = "General Checkup", Comments = "Healthy", NextAppointment = new DateTime(2024, 06, 12), IsCompleted = false },
+                new Appointment { AppointmentId = 8, PatientId = 5987, AppointmentDate = new DateTime(2024, 04, 05), TreatmentType = "Eye Examination", Comments = "Prescribed glasses", NextAppointment = null, IsCompleted = true },
+
+                // Patient 8963 - Mike Jackson
+                new Appointment { AppointmentId = 9, PatientId = 8963, AppointmentDate = new DateTime(2024, 01, 20), TreatmentType = "MRI Scan", Comments = "Minor spinal issue", NextAppointment = new DateTime(2024, 02, 20), IsCompleted = false },
+                new Appointment { AppointmentId = 10, PatientId = 8963, AppointmentDate = new DateTime(2024, 02, 25), TreatmentType = "Physiotherapy", Comments = "Back pain improving", NextAppointment = null, IsCompleted = true },
+                new Appointment { AppointmentId = 11, PatientId = 8963, AppointmentDate = new DateTime(2024, 04, 02), TreatmentType = "Follow-up", Comments = "Condition stable", NextAppointment = null, IsCompleted = true },
+                new Appointment { AppointmentId = 12, PatientId = 8963, AppointmentDate = new DateTime(2024, 05, 10), TreatmentType = "Neurology Review", Comments = "No serious issues", NextAppointment = null, IsCompleted = true },
+
+                // Patient 1257 - Peter Benjamin
+                new Appointment { AppointmentId = 13, PatientId = 1257, AppointmentDate = new DateTime(2024, 01, 08), TreatmentType = "General Checkup", Comments = "Healthy", NextAppointment = new DateTime(2024, 07, 08), IsCompleted = true },
+                new Appointment { AppointmentId = 14, PatientId = 1257, AppointmentDate = new DateTime(2024, 02, 19), TreatmentType = "Blood Work", Comments = "Low iron", NextAppointment = new DateTime(2024, 03, 19), IsCompleted = false },
+                new Appointment { AppointmentId = 15, PatientId = 1257, AppointmentDate = new DateTime(2024, 03, 30), TreatmentType = "Nutrition Consultation", Comments = "Diet plan issued", NextAppointment = null, IsCompleted = true },
+                new Appointment { AppointmentId = 16, PatientId = 1257, AppointmentDate = new DateTime(2024, 04, 22), TreatmentType = "Vaccination", Comments = "Updated records", NextAppointment = null, IsCompleted = true },
+
+                // Patient 9862 - Hannah Green
+                new Appointment { AppointmentId = 17, PatientId = 9862, AppointmentDate = new DateTime(2024, 01, 05), TreatmentType = "General Checkup", Comments = "Healthy", NextAppointment = new DateTime(2024, 03, 05), IsCompleted = true },
+                new Appointment { AppointmentId = 18, PatientId = 9862, AppointmentDate = new DateTime(2024, 02, 14), TreatmentType = "Skin Screening", Comments = "No issues", NextAppointment = null, IsCompleted = true },
+                new Appointment { AppointmentId = 19, PatientId = 9862, AppointmentDate = new DateTime(2024, 03, 27), TreatmentType = "Eye Test", Comments = "Vision normal", NextAppointment = null, IsCompleted = true },
+                new Appointment { AppointmentId = 20, PatientId = 9862, AppointmentDate = new DateTime(2024, 04, 09), TreatmentType = "Follow-up", Comments = "All good", NextAppointment = null, IsCompleted = true },
+
+                // Patient 3654 - Andy Bryan
+                new Appointment { AppointmentId = 21, PatientId = 3654, AppointmentDate = new DateTime(2024, 01, 03), TreatmentType = "General Checkup", Comments = "Inactive lifestyle noted", NextAppointment = new DateTime(2024, 02, 03), IsCompleted = false },
+                new Appointment { AppointmentId = 22, PatientId = 3654, AppointmentDate = new DateTime(2024, 02, 10), TreatmentType = "Cardio Stress Test", Comments = "Borderline results", NextAppointment = null, IsCompleted = true },
+                new Appointment { AppointmentId = 23, PatientId = 3654, AppointmentDate = new DateTime(2024, 03, 15), TreatmentType = "Diet Consultation", Comments = "Plan provided", NextAppointment = null, IsCompleted = true },
+                new Appointment { AppointmentId = 24, PatientId = 3654, AppointmentDate = new DateTime(2024, 04, 18), TreatmentType = "Follow-up", Comments = "Improving", NextAppointment = null, IsCompleted = true },
+
+                // Patient 4527 - Alex White
+                new Appointment { AppointmentId = 25, PatientId = 4527, AppointmentDate = new DateTime(2024, 02, 01), TreatmentType = "Allergy Test", Comments = "Mild allergies found", NextAppointment = null, IsCompleted = true },
+                new Appointment { AppointmentId = 26, PatientId = 4527, AppointmentDate = new DateTime(2024, 02, 20), TreatmentType = "General Checkup", Comments = "Good health", NextAppointment = null, IsCompleted = true },
+                new Appointment { AppointmentId = 27, PatientId = 4527, AppointmentDate = new DateTime(2024, 03, 22), TreatmentType = "Blood Test", Comments = "Results normal", NextAppointment = null, IsCompleted = true },
+                new Appointment { AppointmentId = 28, PatientId = 4527, AppointmentDate = new DateTime(2024, 04, 13), TreatmentType = "X-Ray", Comments = "No issues", NextAppointment = null, IsCompleted = true },
+
+                // Patient 6723 - Clara Ashley
+                new Appointment { AppointmentId = 29, PatientId = 6723, AppointmentDate = new DateTime(2024, 01, 12), TreatmentType = "General Checkup", Comments = "Inactive status noted", NextAppointment = null, IsCompleted = true },
+                new Appointment { AppointmentId = 30, PatientId = 6723, AppointmentDate = new DateTime(2024, 02, 16), TreatmentType = "Dental Cleaning", Comments = "Good teeth", NextAppointment = null, IsCompleted = true },
+                new Appointment { AppointmentId = 31, PatientId = 6723, AppointmentDate = new DateTime(2024, 03, 11), TreatmentType = "Eye Examination", Comments = "Reading glasses advised", NextAppointment = null, IsCompleted = true },
+                new Appointment { AppointmentId = 32, PatientId = 6723, AppointmentDate = new DateTime(2024, 04, 17), TreatmentType = "Skin Screening", Comments = "Clear", NextAppointment = null, IsCompleted = true },
+
+                // Patient 7894 - Diana Prince
+                new Appointment { AppointmentId = 33, PatientId = 7894, AppointmentDate = new DateTime(2024, 01, 17), TreatmentType = "General Checkup", Comments = "Very healthy", NextAppointment = new DateTime(2024, 06, 17), IsCompleted = true },
+                new Appointment { AppointmentId = 34, PatientId = 7894, AppointmentDate = new DateTime(2024, 02, 21), TreatmentType = "Sports Physical", Comments = "Cleared for activity", NextAppointment = null, IsCompleted = true },
+                new Appointment { AppointmentId = 35, PatientId = 7894, AppointmentDate = new DateTime(2024, 03, 25), TreatmentType = "Chiropractic Adjustment", Comments = "Improved posture", NextAppointment = null, IsCompleted = true },
+                new Appointment { AppointmentId = 36, PatientId = 7894, AppointmentDate = new DateTime(2024, 04, 30), TreatmentType = "Follow-up", Comments = "Excellent condition", NextAppointment = null, IsCompleted = true }
+            );
+
+            //Alerts
+
+            modelBuilder.Entity<Alert>().HasData(
+                  // -------------------- SYSTEM ALERTS ----------------------
+                  new Alert
+                  {
+                      Id = 1,
+                      AlertCode = "ALT-01",
+                      Type = "System",
+                      Message = "System software update available - pending installation approval",
+                      Priority = "Medium",
+                      Status = "Read",
+                      RelatedId = null,
+                      CreatedAt = new DateTime(2025, 02, 01, 10, 00, 00)
+                  },
+                  new Alert
+                  {
+                      Id = 2,
+                      AlertCode = "ALT-02",
+                      Type = "System",
+                      Message = "Profile verification pending for Dr Anderson",
+                      Priority = "High",
+                      Status = "Unread",
+                      RelatedId = "325698",
+                      CreatedAt = new DateTime(2025, 02, 01, 11, 20, 00)
+                  },
+                  new Alert
+                  {
+                      Id = 3,
+                      AlertCode = "ALT-03",
+                      Type = "System",
+                      Message = "Data backup completed successfully",
+                      Priority = "Low",
+                      Status = "Read",
+                      RelatedId = null,
+                      CreatedAt = new DateTime(2025, 02, 02, 08, 10, 00)
+                  },
+
+                  // ------------------ CLINICIAN ALERTS ----------------------
+                  new Alert
+                  {
+                      Id = 4,
+                      AlertCode = "ALT-10",
+                      Type = "Clinician",
+                      Message = "New patient assigned to Dr John Michael: Olivia Patrick",
+                      Priority = "Low",
+                      Status = "Read",
+                      RelatedId = "4569",
+                      CreatedAt = new DateTime(2025, 02, 10, 09, 00, 00)
+                  },
+                  new Alert
+                  {
+                      Id = 5,
+                      AlertCode = "ALT-11",
+                      Type = "Clinician",
+                      Message = "Workload limit reached for Dr Sarah Peterson",
+                      Priority = "High",
+                      Status = "Unread",
+                      RelatedId = "698235",
+                      CreatedAt = new DateTime(2025, 02, 10, 12, 30, 00)
+                  },
+                  new Alert
+                  {
+                      Id = 6,
+                      AlertCode = "ALT-12",
+                      Type = "Clinician",
+                      Message = "Certification updated for Dr Emily Johnson",
+                      Priority = "Medium",
+                      Status = "Read",
+                      RelatedId = "456973",
+                      CreatedAt = new DateTime(2025, 02, 11, 13, 15, 00)
+                  },
+                  new Alert
+                  {
+                      Id = 7,
+                      AlertCode = "ALT-13",
+                      Type = "Clinician",
+                      Message = "Shift change request approved for Dr David Anderson",
+                      Priority = "Low",
+                      Status = "Read",
+                      RelatedId = "325698",
+                      CreatedAt = new DateTime(2025, 02, 11, 10, 12, 00)
+                  },
+                  new Alert
+                  {
+                      Id = 8,
+                      AlertCode = "ALT-14",
+                      Type = "Clinician",
+                      Message = "Dr Emmanuel State reached maximum patient load",
+                      Priority = "High",
+                      Status = "Unread",
+                      RelatedId = "258963",
+                      CreatedAt = new DateTime(2025, 02, 11, 16, 45, 00)
+                  },
+
+                  // -------------------- PATIENT ALERTS ----------------------
+                  new Alert
+                  {
+                      Id = 9,
+                      AlertCode = "ALT-20",
+                      Type = "Patient",
+                      Message = "ECG anomaly detected for patient Jacob Flynn – immediate review recommended",
+                      Priority = "Critical",
+                      Status = "Unread",
+                      RelatedId = "9862",
+                      CreatedAt = new DateTime(2025, 02, 12, 02, 35, 00)
+                  },
+                  new Alert
+                  {
+                      Id = 10,
+                      AlertCode = "ALT-21",
+                      Type = "Patient",
+                      Message = "Medication conflict detected for patient Alex White (penicillin allergy)",
+                      Priority = "High",
+                      Status = "Unread",
+                      RelatedId = "4527",
+                      CreatedAt = new DateTime(2025, 02, 12, 09, 00, 00)
+                  },
+                  new Alert
+                  {
+                      Id = 11,
+                      AlertCode = "ALT-22",
+                      Type = "Patient",
+                      Message = "Follow-up required for patient Hannah Green – symptoms recorded",
+                      Priority = "Medium",
+                      Status = "Unread",
+                      RelatedId = "9862",
+                      CreatedAt = new DateTime(2025, 02, 13, 11, 45, 00)
+                  },
+                  new Alert
+                  {
+                      Id = 12,
+                      AlertCode = "ALT-23",
+                      Type = "Patient",
+                      Message = "Routine blood pressure check due for patient Clara Ashley",
+                      Priority = "Low",
+                      Status = "Read",
+                      RelatedId = "6723",
+                      CreatedAt = new DateTime(2025, 02, 14, 10, 00, 00)
+                  },
+                  new Alert
+                  {
+                      Id = 13,
+                      AlertCode = "ALT-24",
+                      Type = "Patient",
+                      Message = "Patient Liam Smith reported recurrent chest discomfort",
+                      Priority = "High",
+                      Status = "Unread",
+                      RelatedId = "7891",
+                      CreatedAt = new DateTime(2025, 02, 14, 14, 30, 00)
+                  },
+
+                  // ------------------ MORE SYSTEM ALERTS --------------------
+                  new Alert
+                  {
+                      Id = 14,
+                      AlertCode = "ALT-30",
+                      Type = "System",
+                      Message = "11:00 PM Dashboard will be temporarily unavailable due to maintenance",
+                      Priority = "Low",
+                      Status = "Read",
+                      RelatedId = null,
+                      CreatedAt = new DateTime(2025, 02, 15, 23, 00, 00)
+                  },
+                  new Alert
+                  {
+                      Id = 15,
+                      AlertCode = "ALT-31",
+                      Type = "System",
+                      Message = "Security scan completed — No threats detected",
+                      Priority = "Low",
+                      Status = "Read",
+                      RelatedId = null,
+                      CreatedAt = new DateTime(2025, 02, 15, 18, 15, 00)
+                  },
+
+                    new Alert
+                    {
+                        Id = 16,
+                        AlertCode = "ALT-32",
+                        Type = "System",
+                        Message = "New feature rollout: Enhanced reporting tools now available",
+                        Priority = "Medium",
+                        Status = "Read",
+                        RelatedId = null,
+                        CreatedAt = new DateTime(2025, 02, 16, 09, 30, 00)
+                    },
+
+                    new Alert
+                    {
+                        Id = 17,
+                        AlertCode = "ALT-33",
+                        Type = "System",
+                        Message = "User activity logs archived successfully",
+                        Priority = "Low",
+                        Status = "Read",
+                        RelatedId = null,
+                        CreatedAt = new DateTime(2025, 02, 16, 14, 45, 00)
+                    },
+
+                    new Alert
+                    {
+                        Id = 18,
+                        AlertCode = "ALT-34",
+                        Type = "System",
+                        Message = "Critical vulnerability patch applied to server infrastructure",
+                        Priority = "Critical",
+                        Status = "Unread",
+                        RelatedId = null,
+                        CreatedAt = new DateTime(2025, 02, 17, 03, 20, 00)
+                    },
+
+                    new Alert
+                    {
+                        Id = 19,
+                        AlertCode = "ALT-35",
+                        Type = "System",
+                        Message = "Monthly system performance report is now available",
+                        Priority = "Medium",
+                        Status = "Read",
+                        RelatedId = null,
+                        CreatedAt = new DateTime(2025, 02, 17, 12, 00, 00)
+                    }
+            );
+
+
+
+
+
 
         }
 

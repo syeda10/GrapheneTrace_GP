@@ -23,18 +23,11 @@ namespace GrapheneTrace_GP.Areas.Admin.ViewModels
         public List<float[]> HeatMapData { get; set; } = new();
 
         //Appointment Table
-        public List<AppointmentsRow> AllAppointments { get; set; } = new();
-        public List<AppointmentsRow> CompletedAppointments { get; set; } = new();
+        public List<AppointmentVM> AllAppointments { get; set; } = new();
+        public List<AppointmentVM> CompletedAppointments { get; set; } = new();
     }
 
-    public class AppointmentsRow
-    {
-        public int AppointmentId { get; set; }
-        public DateTime AppointmentDate { get; set; } = DateTime.MinValue;
-        public string TreatmentType { get; set; } = "";
-        public string Comments { get; set; } = "";
-        public string NextAppointment { get; set; } = "";
-    }
+    
 }
 
 
