@@ -1,0 +1,124 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="container mt-4">
+
+    <h3 class="fw-bold mb-4">Settings</h3>
+
+    <!-- Search Bar -->
+    <div class="d-flex justify-content-center mb-4">
+        <input id="settingsSearch"
+               type="text"
+               class="form-control"
+               placeholder="🔍 Find a setting"
+               style="max-width: 450px; border-radius: 25px;">
+    </div>
+
+    <!-- Settings Grid -->
+    <div class="row text-center g-4" id="settingsGrid">
+
+        <!-- System -->
+        <div class="col-md-4 setting-card"
+             data-search="system display sound theme notifications power">
+            <div class="p-4 border rounded shadow-sm h-100 hover-card">
+                <div class="fs-1 mb-2"><i class="bi bi-display"></i></div>
+                <h5 class="fw-bold">System</h5>
+                <p class="text-muted">Display, Sound, Theme Mode, Notifications, Power</p>
+            </div>
+        </div>
+
+        <!-- Wi-Fi & Networks -->
+        <div class="col-md-4 setting-card"
+             data-search="wifi wi-fi networks vpn help internet">
+            <div class="p-4 border rounded shadow-sm h-100 hover-card">
+                <div class="fs-1 mb-2"><i class="bi bi-wifi"></i></div>
+                <h5 class="fw-bold">Wi-Fi & Networks</h5>
+                <p class="text-muted">Wi-Fi Settings, VPN Settings, Get Help</p>
+            </div>
+        </div>
+
+        <!-- General -->
+        <div class="col-md-4 setting-card"
+             data-search="general timezone date formats language region">
+            <div class="p-4 border rounded shadow-sm h-100 hover-card">
+                <div class="fs-1 mb-2"><i class="bi bi-translate"></i></div>
+                <h5 class="fw-bold">General</h5>
+                <p class="text-muted">Time Zone & Date Formats, Languages, Region</p>
+            </div>
+        </div>
+
+        <!-- Security -->
+        <div class="col-md-4 setting-card"
+             data-search="security password login devices encryption session timeout">
+            <div class="p-4 border rounded shadow-sm h-100 hover-card">
+                <div class="fs-1 mb-2"><i class="bi bi-lock-fill"></i></div>
+                <h5 class="fw-bold">Security</h5>
+                <p class="text-muted">Password, Session Timeouts, Manage Login Devices, Encryption</p>
+            </div>
+        </div>
+
+        <!-- Backup Data -->
+        <div class="col-md-4 setting-card"
+             data-search="backup data history restore cloud storage">
+            <div class="p-4 border rounded shadow-sm h-100 hover-card">
+                <div class="fs-1 mb-2"><i class="bi bi-cloud-arrow-up"></i></div>
+                <h5 class="fw-bold">Backup Data</h5>
+                <p class="text-muted">Backup Actions, Backup History</p>
+            </div>
+        </div>
+
+        <!-- Notification -->
+        <div class="col-md-4 setting-card"
+             data-search="notification alerts sounds mute actions suggestion">
+            <div class="p-4 border rounded shadow-sm h-100 hover-card">
+                <div class="fs-1 mb-2"><i class="bi bi-bell-fill"></i></div>
+                <h5 class="fw-bold">Notification</h5>
+                <p class="text-muted">Custom Alert Sound, Mute Alerts, Suggestions, Actions</p>
+            </div>
+        </div>
+
+        <!-- Role Management -->
+        <div class="col-md-4 setting-card"
+             data-search="role management permissions admin users modify">
+            <div class="p-4 border rounded shadow-sm h-100 hover-card">
+                <div class="fs-1 mb-2"><i class="bi bi-people-fill"></i></div>
+                <h5 class="fw-bold">Role Management</h5>
+                <p class="text-muted">Create Roles, Assign Permissions, Modify or Delete Roles</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    .hover-card {
+        transition: 0.2s ease;
+        cursor: pointer;
+    }
+
+        .hover-card:hover {
+            transform: translateY(-5px);
+            background-color: #f8f9fa;
+        }
+</style>
+
+<!-- Live Search Script -->
+<script>
+    document.getElementById("settingsSearch").addEventListener("keyup", function () {
+
+        let input = this.value.toLowerCase();
+        let cards = document.querySelectorAll(".setting-card");
+
+        cards.forEach(card => {
+            let keywords = card.getAttribute("data-search").toLowerCase();
+
+            if (keywords.includes(input)) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+        });
+
+    });
+</script>

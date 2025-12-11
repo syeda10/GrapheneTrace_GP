@@ -2,6 +2,7 @@
 
 namespace GrapheneTrace_GP.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class SettingsController : Controller
     {
         public IActionResult Index()
@@ -10,3 +11,4 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
         }
     }
 }
+
