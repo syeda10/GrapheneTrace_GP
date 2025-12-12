@@ -6,13 +6,24 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddSingleton<CsvLoader>();
+
+// Add Session BEFORE building the app
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
-// Configure pipeline
+// Configure middleware
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -21,10 +32,14 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+// IMPORTANT — SESSION MUST BE BEFORE ROUTING
+app.UseSession();  // ✔️ FIXED POSITION
+
 app.UseRouting();
 app.UseAuthorization();
 
-// Admin area route
+// Area routing
 app.MapAreaControllerRoute(
     name: "admin",
     areaName: "Admin",
@@ -36,3 +51,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+

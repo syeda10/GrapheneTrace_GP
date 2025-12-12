@@ -2,20 +2,34 @@
 {
     public class AdminProfileVM
     {
-        public string FullName { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
-        public string AdminId { get; set; }
-        public string Role { get; set; }
+        // Basic Info
+        public string FullName { get; set; } = "";
+        public string Email { get; set; } = "";
+        public string Phone { get; set; } = "";
+        public string AdminId { get; set; } = "";
+        public string Role { get; set; } = "Admin";
 
-        // account settings
-        public bool PasswordChange { get; set; }
-        public bool NotificationPreferences { get; set; }
-        public bool LanguageTimezone { get; set; }
-        public bool TwoFactorAuth { get; set; }
-        public bool SecurityPrivacy { get; set; }
+        // Profile Photo
+        public string ProfileImagePath { get; set; } = "/images/profile/default.png";
 
-        // privileges
+        // Last Login Info
+        public DateTime LastLogin { get; set; }
+        public DateTime LastPasswordChange { get; set; }
+        public DateTime LastProfileUpdate { get; set; }
+
+        // Security Summary
+        public bool Is2FAEnabled { get; set; }
+        public string PasswordStrength { get; set; } = "Strong";
+        public int ActiveSessions { get; set; }
+        public string SuspiciousActivity { get; set; } = "None";
+
+        // Admin Actions
+        public bool CanResetPassword => true;
+        public bool CanLockAccount => true;
+        public bool CanViewLoginHistory => true;
+        public bool CanDownloadLogs => true;
+
+        // Permissions Matrix
         public bool EditProfiles { get; set; }
         public bool AddProfiles { get; set; }
         public bool ViewAlerts { get; set; }
@@ -25,4 +39,3 @@
         public bool ViewAppointments { get; set; }
     }
 }
-

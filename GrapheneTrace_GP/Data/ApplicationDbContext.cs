@@ -1,6 +1,8 @@
 ﻿using GrapheneTrace_GP.Areas.Admin.Models;
-using GrapheneTrace_GP.Models;
+using GrapheneTrace_GP.Areas.Admin.Models.ClinicianAddProfile;
+using GrapheneTrace_GP.Areas.Admin.Models.PatientAddProfile;
 using GrapheneTrace_GP.Areas.Admin.ViewModels;
+using GrapheneTrace_GP.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GrapheneTrace_GP.Data
@@ -12,12 +14,35 @@ namespace GrapheneTrace_GP.Data
         {
         
         }
-
+        
+        //Clinician page
         public DbSet<Clinicians> Clinicians { get; set; }
+
+        //Patient Page
         public DbSet<Patient> Patients { get; set; }
+        
+        //Patient Appointments
         public DbSet<Appointment> Appointments { get; set; }
+
+        //Clinician Alerts
         public DbSet<ClinicianAlert> ClinicianAlerts { get; set; }
+
+        //Alert page
         public DbSet<Alert> Alerts { get; set; }
+
+        //Clinician Add profile
+        public DbSet<ClinicianProfile> ClinicianProfile { get; set; }
+        public DbSet<ClinicianProfessionalInfo> ClinicianProfessionalInfos { get; set; }
+        public DbSet<ClinicianAssignments> ClinicianAssignments { get; set; }
+        public DbSet<ClinicianVerification> ClinicianVerifications { get; set; }
+
+        //Patients Add Profile
+        public DbSet<PatientProfile> PatientProfile { get; set; }
+        public DbSet<PatientMedicalInfo> PatientMedicalInfos { get; set; }
+        public DbSet<PatientAssignments> PatientAssignments { get; set; }
+        public DbSet<PatientVerification> PatientVerifications { get; set; }
+
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -243,7 +268,7 @@ namespace GrapheneTrace_GP.Data
 
             );
 
-            //Alerrts data for clinicians
+            //Alerts data for clinicians
 
             // Clinician Alerts Seed Data
             modelBuilder.Entity<ClinicianAlert>().HasData(
@@ -975,9 +1000,39 @@ namespace GrapheneTrace_GP.Data
                     NextAppointment = new DateTime(2024, 07, 15), 
                     IsCompleted = true 
                 },
-                new Appointment { AppointmentId = 6, PatientId = 5987, AppointmentDate = new DateTime(2024, 02, 18), TreatmentType = "X-Ray", Comments = "No issues detected", NextAppointment = null, IsCompleted = true },
-                new Appointment { AppointmentId = 7, PatientId = 5987, AppointmentDate = new DateTime(2024, 03, 12), TreatmentType = "General Checkup", Comments = "Healthy", NextAppointment = new DateTime(2024, 06, 12), IsCompleted = false },
-                new Appointment { AppointmentId = 8, PatientId = 5987, AppointmentDate = new DateTime(2024, 04, 05), TreatmentType = "Eye Examination", Comments = "Prescribed glasses", NextAppointment = null, IsCompleted = true },
+
+                new Appointment 
+                { 
+                    AppointmentId = 6, 
+                    PatientId = 5987, 
+                    AppointmentDate = new DateTime(2024, 02, 18), 
+                    TreatmentType = "X-Ray", 
+                    Comments = "No issues detected", 
+                    NextAppointment = null, 
+                    IsCompleted = true 
+                },
+
+                new Appointment 
+                { 
+                    AppointmentId = 7, 
+                    PatientId = 5987, 
+                    AppointmentDate = new DateTime(2024, 03, 12), 
+                    TreatmentType = "General Checkup", 
+                    Comments = "Healthy", 
+                    NextAppointment = new DateTime(2024, 06, 12), 
+                    IsCompleted = false 
+                },
+
+                new Appointment 
+                { 
+                    AppointmentId = 8, 
+                    PatientId = 5987, 
+                    AppointmentDate = new DateTime(2024, 04, 05), 
+                    TreatmentType = "Eye Examination", 
+                    Comments = "Prescribed glasses", 
+                    NextAppointment = null, 
+                    IsCompleted = true 
+                },
 
                 // Patient 8963 - Mike Jackson
                 new Appointment { AppointmentId = 9, PatientId = 8963, AppointmentDate = new DateTime(2024, 01, 20), TreatmentType = "MRI Scan", Comments = "Minor spinal issue", NextAppointment = new DateTime(2024, 02, 20), IsCompleted = false },
@@ -1249,7 +1304,26 @@ namespace GrapheneTrace_GP.Data
 
 
 
+            // Add Profile Clinician
 
+        
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ClinicianProfile>()
+                .HasOne(c => c.ProfessionalInfo)
+                .WithOne(pi => pi.Clinician)
+                .HasForeignKey<ClinicianProfessionalInfo>(pi => pi.ClinicianId);
+
+            modelBuilder.Entity<ClinicianProfile>()
+                .HasOne(c => c.Assignments)
+                .WithOne(a => a.Clinician)
+                .HasForeignKey<ClinicianAssignments>(a => a.ClinicianId);
+
+            modelBuilder.Entity<ClinicianProfile>()
+                .HasOne(c => c.Verification)
+                .WithOne(v => v.Clinician)
+                .HasForeignKey<ClinicianVerification>(v => v.ClinicianId);
+        
 
 
         }

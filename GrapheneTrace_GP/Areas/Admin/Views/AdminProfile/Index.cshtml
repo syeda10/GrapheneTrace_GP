@@ -1,4 +1,4 @@
-﻿@model AdminProfileVM
+﻿@model GrapheneTrace_GP.Areas.Admin.ViewModels.AdminProfileVM
 @{
     Layout = "~/Areas/Admin/Views/Shared/_DashboardLayout.cshtml";
 }
@@ -7,61 +7,102 @@
 
     <h3 class="fw-bold mb-4">Admin Profile > @Model.FullName</h3>
 
-    <div class="row">
+    <div class="row g-4">
 
-        <!-- LEFT SIDE CARD -->
+        <!-- LEFT SIDE -->
         <div class="col-md-4">
-            <div class="card p-3 mb-4">
-                <h4 class="text-primary">@Model.FullName</h4>
-                <p>Administrator</p>
+
+            <!-- Profile Card -->
+            <div class="card p-3">
+                <div class="text-center">
+                    <img src="@Model.ProfileImagePath"
+                         class="rounded-circle mb-3"
+                         style="width:120px; height:120px; object-fit:cover;">
+
+                    <form method="post" enctype="multipart/form-data">
+                        <input type="file" class="form-control mb-2" />
+                        <button class="btn btn-outline-primary btn-sm w-100">Upload Photo</button>
+                    </form>
+                </div>
+
+                <hr />
+
+                <h5 class="fw-bold">@Model.FullName</h5>
+                <p class="text-muted">Administrator</p>
                 <p>@Model.Email</p>
                 <p>@Model.Phone</p>
+
                 <p><strong>Admin ID:</strong> @Model.AdminId</p>
             </div>
 
-            <div class="card p-3">
-                <h5 class="fw-bold mb-3">Account Settings</h5>
-
-                <div><input type="checkbox" checked="@Model.PasswordChange" /> Password Change</div>
-                <div><input type="checkbox" checked="@Model.NotificationPreferences" /> Notification & Preferences</div>
-                <div><input type="checkbox" checked="@Model.LanguageTimezone" /> Language & Timezone</div>
-                <div><input type="checkbox" checked="@Model.TwoFactorAuth" /> Two-Factor Authentication</div>
-                <div><input type="checkbox" checked="@Model.SecurityPrivacy" /> Security & Privacy</div>
+            <!-- Last Login Info -->
+            <div class="card p-3 mt-3">
+                <h5 class="fw-bold">Last Login Information</h5>
+                <p><strong>Last Login:</strong> @Model.LastLogin</p>
+                <p><strong>Password Changed:</strong> @Model.LastPasswordChange</p>
+                <p><strong>Last Profile Update:</strong> @Model.LastProfileUpdate</p>
             </div>
+
+            <!-- Security Summary -->
+            <div class="card p-3 mt-3">
+                <h5 class="fw-bold">Security Summary</h5>
+                <p><strong>2FA Enabled:</strong> @Model.Is2FAEnabled</p>
+                <p><strong>Password Strength:</strong> @Model.PasswordStrength</p>
+                <p><strong>Active Sessions:</strong> @Model.ActiveSessions</p>
+                <p><strong>Suspicious Activity:</strong> @Model.SuspiciousActivity</p>
+            </div>
+
         </div>
 
         <!-- RIGHT SIDE -->
         <div class="col-md-8">
+
+            <!-- Permissions & Roles -->
             <div class="card p-4">
-                <h4 class="fw-bold text-center mb-4">Permissions & Roles</h4>
+                <h4 class="fw-bold mb-3">Permissions & Roles</h4>
 
-                <label class="fw-bold">Role</label>
-                <select class="form-select mb-4" style="width:200px;">
-                    <option>Admin</option>
-                    <option>Super Admin</option>
-                    <option>Manager</option>
-                    <option>Viewer</option>
-                </select>
-
-                <h5 class="fw-bold mt-3 mb-3">Privileges</h5>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div><input type="checkbox" checked="@Model.EditProfiles" /> Edit Profiles</div>
-                        <div><input type="checkbox" checked="@Model.AddProfiles" /> Add Profiles</div>
-                        <div><input type="checkbox" checked="@Model.ViewAlerts" /> View Alerts</div>
-                        <div><input type="checkbox" checked="@Model.ManageSettings" /> Manage Settings</div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div><input type="checkbox" checked="@Model.ViewReports" /> View Reports</div>
-                        <div><input type="checkbox" checked="@Model.MessageClinician" /> Message Clinician</div>
-                        <div><input type="checkbox" checked="@Model.ViewAppointments" /> View Appointments</div>
-                    </div>
+                <div class="mb-3">
+                    <label class="fw-bold">Role</label>
+                    <select class="form-select" disabled>
+                        <option>@Model.Role</option>
+                    </select>
                 </div>
 
+                <h5 class="fw-bold mt-3">Permissions Matrix</h5>
+
+                <table class="table table-bordered mt-2">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Permission</th>
+                            <th>Allowed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Edit Profiles</td><td>@(Model.EditProfiles ? "✔" : "✖")</td></tr>
+                        <tr><td>Add Profiles</td><td>@(Model.AddProfiles ? "✔" : "✖")</td></tr>
+                        <tr><td>View Alerts</td><td>@(Model.ViewAlerts ? "✔" : "✖")</td></tr>
+                        <tr><td>Manage Settings</td><td>@(Model.ManageSettings ? "✔" : "✖")</td></tr>
+                        <tr><td>View Reports</td><td>@(Model.ViewReports ? "✔" : "✖")</td></tr>
+                        <tr><td>Message Clinician</td><td>@(Model.MessageClinician ? "✔" : "✖")</td></tr>
+                        <tr><td>View Appointments</td><td>@(Model.ViewAppointments ? "✔" : "✖")</td></tr>
+                    </tbody>
+                </table>
+
             </div>
+
+            <!-- Admin Actions -->
+            <div class="card p-4 mt-4">
+                <h4 class="fw-bold">Admin Actions</h4>
+
+                <button class="btn btn-warning w-100 mt-2">Reset Password</button>
+                <button class="btn btn-danger w-100 mt-2">Lock Account</button>
+                <button class="btn btn-secondary w-100 mt-2">View Login History</button>
+                <button class="btn btn-info w-100 mt-2">Download Activity Logs</button>
+            </div>
+
         </div>
 
     </div>
+
 </div>
+

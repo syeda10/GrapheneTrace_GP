@@ -1,0 +1,11 @@
+﻿@model GrapheneTrace_GP.Areas.Admin.ViewModels.AddPatient.Step02MedicalVM
+
+<form method="post" asp-action="Step02Post">
+    <input asp-for="BloodGroup" class="form-control" placeholder="Blood Group" />
+    <input asp-for="Allergies" class="form-control" placeholder="Allergies" />
+    <input asp-for="Conditions" class="form-control" placeholder="Conditions" />
+    <input asp-for="Medications" class="form-control" placeholder="Medications" />
+    <textarea asp-for="Notes" class="form-control"></textarea>
+
+    <button class="btn btn-primary">Next</button>
+</form>

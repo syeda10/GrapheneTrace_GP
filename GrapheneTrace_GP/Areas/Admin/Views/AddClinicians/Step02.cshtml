@@ -1,0 +1,126 @@
+﻿@model GrapheneTrace_GP.Areas.Admin.ViewModels.AddClinician.Step02ProfessionalVM
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h2 class="fw-bold mb-4">Clinician Add Profile</h2>
+
+<!-- Toggle -->
+<div class="d-flex mb-4">
+    <a class="btn btn-primary me-2">Clinician</a>
+    <a class="btn btn-outline-secondary">Patient</a>
+</div>
+
+<!-- Steps bar -->
+<div class="steps-container mb-4">
+    <div class="step completed">Step 01</div>
+    <div class="step active">Step 02</div>
+    <div class="step">Step 03</div>
+    <div class="step">Step 04</div>
+</div>
+
+<h4 class="fw-bold mb-3">Step 02 › Professional Details</h4>
+
+    <form asp-action="Step02" method="post">
+
+
+    <table class="table table-bordered custom-table">
+        <thead>
+            <tr>
+                <th style="width:80px;">S.No</th>
+                <th>Field</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>01</td>
+                <td>Department</td>
+                <td>
+                    <select asp-for="Department" class="form-select">
+                        <option>Cardiology</option>
+                        <option>Neurology</option>
+                        <option>Surgery</option>
+                        <option>Psychiatry</option>
+                        <option>Dermatology</option>
+                        <option>Orthopaedics</option>
+                        <option>Pediatrics</option>
+                        <option>Radiology</option>
+                        <option>Gynaecology</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>02</td>
+                <td>Speciality</td>
+                <td>
+                    <input asp-for="Speciality" class="form-control" />
+                </td>
+            </tr>
+
+            <tr>
+                <td>03</td>
+                <td>Years of Experience</td>
+                <td>
+                    <input asp-for="ExperienceYears" type="number" class="form-control" />
+                </td>
+            </tr>
+
+            <tr>
+                <td>04</td>
+                <td>Licence Number</td>
+                <td>
+                    <input asp-for="LicenceNo" class="form-control" />
+                </td>
+            </tr>
+
+            <tr>
+                <td>05</td>
+                <td>Work Schedule</td>
+                <td>
+                    <textarea asp-for="WorkSchedule" class="form-control" rows="3"></textarea>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between">
+        <a href="@Url.Action("Step1")" class="btn btn-secondary">Back</a>
+        <button type="submit" class="btn btn-primary">Proceed to Next Step</button>
+    </div>
+
+</form>
+
+<style>
+    .steps-container {
+        display: flex;
+        gap: 5px;
+    }
+
+    .step {
+        flex: 1;
+        padding: 10px;
+        text-align: center;
+        background: #ccc;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+        .step.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .step.completed {
+            background: #10b981;
+            color: white;
+        }
+
+    .custom-table tbody tr:nth-child(odd) {
+        background: #f7f7f7;
+    }
+</style>

@@ -85,7 +85,6 @@
 </div>
 
 <div class="table-wrapper">
-
     <table class="table-clinicians">
         <thead>
             <tr>
@@ -99,31 +98,40 @@
             </tr>
         </thead>
 
-
         <tbody>
             @for (int i = 0; i < Model.Count; i++)
             {
-                <tr onclick="window.location='/Admin/Clinicians/Details/@Model[i].ClinicianId'" style="cursor: pointer;">
-
+                <tr onclick="window.location='/Admin/Clinicians/Details/@Model[i].Id'" style="cursor:pointer;">
                     <td>@(i + 1)</td>
                     <td>@Model[i].Title</td>
                     <td>@Model[i].ClinicianLastName</td>
                     <td>@Model[i].ClinicianFirstName</td>
-                    <td>@Model[i].ClinicianId</td>
+                    <td>@Model[i].Id</td>
                     <td>@Model[i].ClinicianSpeciality</td>
-                    <td>@Model[i].ClinicianAge</td>
+                    <td>@Model[i].Age</td>
                 </tr>
             }
         </tbody>
     </table>
-
 </div>
 
 
 <!-- Pagination -->
 <div class="pagination-container">
-    <a href="#" class="active">1</a>
-    <a href="#">2</a>
-    <a href="#">3</a>
-    <a href="#">»</a>
+
+    @if (ViewBag.Page > 1)
+    {
+        <a href="/Admin/Clinicians?page=@(ViewBag.Page - 1)">«</a>
+    }
+
+    @for (int p = 1; p <= ViewBag.TotalPages; p++)
+    {
+        <a href="/Admin/Clinicians?page=@p"
+           class="@(p == ViewBag.Page ? "active" : "")">@p</a>
+    }
+
+    @if (ViewBag.Page < ViewBag.TotalPages)
+    {
+        <a href="/Admin/Clinicians?page=@(ViewBag.Page + 1)">»</a>
+    }
 </div>

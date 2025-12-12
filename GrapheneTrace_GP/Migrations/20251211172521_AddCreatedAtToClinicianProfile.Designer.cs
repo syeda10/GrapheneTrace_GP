@@ -4,6 +4,7 @@ using GrapheneTrace_GP.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GrapheneTrace_GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251211172521_AddCreatedAtToClinicianProfile")]
+    partial class AddCreatedAtToClinicianProfile
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,61 +24,6 @@ namespace GrapheneTrace_GP.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("ClinicianProfile", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClinicianFirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClinicianLastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateOfBirth")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Gender")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhotoPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PostCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ClinicianProfile");
-                });
 
             modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.Alert", b =>
                 {
@@ -319,117 +267,6 @@ namespace GrapheneTrace_GP.Migrations
                         });
                 });
 
-            modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.ClinicianAddProfile.ClinicianAssignments", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AssignedPatients")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AssignedWard")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ClinicianId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CurrentAppointments")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("LastAssignmentUpdate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Supervisor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClinicianId")
-                        .IsUnique();
-
-                    b.ToTable("ClinicianAssignments");
-                });
-
-            modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.ClinicianAddProfile.ClinicianProfessionalInfo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ClinicianId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Department")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ExperienceYears")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LicenceNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Qualifications")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RoomAssigned")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Speciality")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WorkSchedule")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClinicianId")
-                        .IsUnique();
-
-                    b.ToTable("ClinicianProfessionalInfos");
-                });
-
-            modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.ClinicianAddProfile.ClinicianVerification", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ClinicianId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DateReviewed")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ProfileStatus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Remarks")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VerificationStatus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VerifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClinicianId")
-                        .IsUnique();
-
-                    b.ToTable("ClinicianVerifications");
-                });
-
             modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.ClinicianAlert", b =>
                 {
                     b.Property<int>("AlertId")
@@ -611,6 +448,198 @@ namespace GrapheneTrace_GP.Migrations
                         });
                 });
 
+            modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.ClinicianAssignments", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AssignedPatients")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AssignedWard")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ClinicianId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CurrentAppointments")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("LastAssignmentUpdate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Supervisor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClinicianId")
+                        .IsUnique();
+
+                    b.ToTable("ClinicianAssignments");
+                });
+
+            modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.ClinicianProfessionalInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClinicianId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Department")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExperienceYears")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LicenceNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Qualifications")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoomAssigned")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Speciality")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WorkSchedule")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClinicianId")
+                        .IsUnique();
+
+                    b.ToTable("ClinicianProfessionalInfos");
+                });
+
+            modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.ClinicianProfile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClinicianFirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClinicianLastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoPath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ClinicianProfile");
+                });
+
+            modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.ClinicianVerification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClinicianId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DateReviewed")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ProfileStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Remarks")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VerificationStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VerifiedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClinicianId")
+                        .IsUnique();
+
+                    b.ToTable("ClinicianVerifications");
+                });
+
             modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.Clinicians", b =>
                 {
                     b.Property<int>("Id")
@@ -646,9 +675,6 @@ namespace GrapheneTrace_GP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
@@ -676,9 +702,6 @@ namespace GrapheneTrace_GP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
 
                     b.ToTable("Clinicians");
@@ -694,15 +717,13 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 852693,
                             ClinicianLastName = "Michael",
                             ClinicianSpeciality = "Cardiologist",
-                            CreatedAt = new DateTime(2025, 12, 12, 1, 3, 57, 791, DateTimeKind.Utc).AddTicks(787),
                             DateOfBirth = new DateTime(1984, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "john.michael@example.com",
                             Gender = "Male",
                             Phone = "07111111111",
                             PostCode = "A1 1AA",
                             Status = "Active",
-                            Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 12, 1, 3, 57, 791, DateTimeKind.Utc).AddTicks(790)
+                            Title = "Dr."
                         },
                         new
                         {
@@ -714,15 +735,13 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 698235,
                             ClinicianLastName = "Peterson",
                             ClinicianSpeciality = "Neurology",
-                            CreatedAt = new DateTime(2025, 12, 12, 1, 3, 57, 791, DateTimeKind.Utc).AddTicks(805),
                             DateOfBirth = new DateTime(1992, 7, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "sarah.peterson@hospital.com",
                             Gender = "Female",
                             Phone = "07222222222",
                             PostCode = "A2 2BB",
                             Status = "Active",
-                            Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 12, 1, 3, 57, 791, DateTimeKind.Utc).AddTicks(806)
+                            Title = "Dr."
                         },
                         new
                         {
@@ -734,15 +753,13 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 456973,
                             ClinicianLastName = "Johnson",
                             ClinicianSpeciality = "Pediatrics",
-                            CreatedAt = new DateTime(2025, 12, 12, 1, 3, 57, 791, DateTimeKind.Utc).AddTicks(813),
                             DateOfBirth = new DateTime(1994, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "emily.johnson@hospital.com",
                             Gender = "Female",
                             Phone = "07333333333",
                             PostCode = "A3 3CC",
                             Status = "Active",
-                            Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 12, 1, 3, 57, 791, DateTimeKind.Utc).AddTicks(814)
+                            Title = "Dr."
                         },
                         new
                         {
@@ -754,15 +771,13 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 325698,
                             ClinicianLastName = "Anderson",
                             ClinicianSpeciality = "Neurologist",
-                            CreatedAt = new DateTime(2025, 12, 12, 1, 3, 57, 791, DateTimeKind.Utc).AddTicks(821),
                             DateOfBirth = new DateTime(1995, 4, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "david.anderson@hospital.com",
                             Gender = "Male",
                             Phone = "07444444444",
                             PostCode = "A4 4DD",
                             Status = "Active",
-                            Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 12, 1, 3, 57, 791, DateTimeKind.Utc).AddTicks(822)
+                            Title = "Dr."
                         },
                         new
                         {
@@ -774,15 +789,13 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 258963,
                             ClinicianLastName = "State",
                             ClinicianSpeciality = "Surgeon",
-                            CreatedAt = new DateTime(2025, 12, 12, 1, 3, 57, 791, DateTimeKind.Utc).AddTicks(829),
                             DateOfBirth = new DateTime(1975, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "emmanuel.state@hospital.com",
                             Gender = "Male",
                             Phone = "07555555555",
                             PostCode = "A5 5EE",
                             Status = "Active",
-                            Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 12, 1, 3, 57, 791, DateTimeKind.Utc).AddTicks(830)
+                            Title = "Dr."
                         },
                         new
                         {
@@ -794,15 +807,13 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 258694,
                             ClinicianLastName = "Stephen",
                             ClinicianSpeciality = "Radiologist",
-                            CreatedAt = new DateTime(2025, 12, 12, 1, 3, 57, 791, DateTimeKind.Utc).AddTicks(836),
                             DateOfBirth = new DateTime(1982, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "mike.stephen@hospital.com",
                             Gender = "Male",
                             Phone = "07666666666",
                             PostCode = "A6 6FF",
                             Status = "Active",
-                            Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 12, 1, 3, 57, 791, DateTimeKind.Utc).AddTicks(837)
+                            Title = "Dr."
                         },
                         new
                         {
@@ -814,15 +825,13 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 784561,
                             ClinicianLastName = "Hyper",
                             ClinicianSpeciality = "Psychiatrist",
-                            CreatedAt = new DateTime(2025, 12, 12, 1, 3, 57, 791, DateTimeKind.Utc).AddTicks(843),
                             DateOfBirth = new DateTime(1986, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "noah.hyper@hospital.com",
                             Gender = "Male",
                             Phone = "07777777777",
                             PostCode = "A7 7GG",
                             Status = "Active",
-                            Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 12, 1, 3, 57, 791, DateTimeKind.Utc).AddTicks(844)
+                            Title = "Dr."
                         },
                         new
                         {
@@ -834,15 +843,13 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 125489,
                             ClinicianLastName = "Cooke",
                             ClinicianSpeciality = "Gynaecologist",
-                            CreatedAt = new DateTime(2025, 12, 12, 1, 3, 57, 791, DateTimeKind.Utc).AddTicks(850),
                             DateOfBirth = new DateTime(1986, 2, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "helen.cooke@hospital.com",
                             Gender = "Female",
                             Phone = "07888888888",
                             PostCode = "A8 8HH",
                             Status = "Active",
-                            Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 12, 1, 3, 57, 791, DateTimeKind.Utc).AddTicks(851)
+                            Title = "Dr."
                         },
                         new
                         {
@@ -854,15 +861,13 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 508342,
                             ClinicianLastName = "Night",
                             ClinicianSpeciality = "Surgeon",
-                            CreatedAt = new DateTime(2025, 12, 12, 1, 3, 57, 791, DateTimeKind.Utc).AddTicks(857),
                             DateOfBirth = new DateTime(1982, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "rose.night@hospital.com",
                             Gender = "Female",
                             Phone = "07999999999",
                             PostCode = "A9 9JJ",
                             Status = "Active",
-                            Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 12, 1, 3, 57, 791, DateTimeKind.Utc).AddTicks(858)
+                            Title = "Dr."
                         },
                         new
                         {
@@ -874,15 +879,13 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 159753,
                             ClinicianLastName = "Watson",
                             ClinicianSpeciality = "Orthopaedic",
-                            CreatedAt = new DateTime(2025, 12, 12, 1, 3, 57, 791, DateTimeKind.Utc).AddTicks(864),
                             DateOfBirth = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jake.watson@hospital.com",
                             Gender = "Male",
                             Phone = "07010101010",
                             PostCode = "B1 1AA",
                             Status = "Active",
-                            Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 12, 1, 3, 57, 791, DateTimeKind.Utc).AddTicks(865)
+                            Title = "Dr."
                         },
                         new
                         {
@@ -894,15 +897,13 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 753561,
                             ClinicianLastName = "Richard",
                             ClinicianSpeciality = "Dermatologist",
-                            CreatedAt = new DateTime(2025, 12, 12, 1, 3, 57, 791, DateTimeKind.Utc).AddTicks(871),
                             DateOfBirth = new DateTime(1990, 8, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "emma.richard@hospital.com",
                             Gender = "Female",
                             Phone = "07020202020",
                             PostCode = "B2 2BB",
                             Status = "Active",
-                            Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 12, 1, 3, 57, 791, DateTimeKind.Utc).AddTicks(871)
+                            Title = "Dr."
                         });
                 });
 
@@ -1960,44 +1961,44 @@ namespace GrapheneTrace_GP.Migrations
                         });
                 });
 
-            modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.ClinicianAddProfile.ClinicianAssignments", b =>
-                {
-                    b.HasOne("ClinicianProfile", "Clinician")
-                        .WithOne("Assignments")
-                        .HasForeignKey("GrapheneTrace_GP.Areas.Admin.Models.ClinicianAddProfile.ClinicianAssignments", "ClinicianId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Clinician");
-                });
-
-            modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.ClinicianAddProfile.ClinicianProfessionalInfo", b =>
-                {
-                    b.HasOne("ClinicianProfile", "Clinician")
-                        .WithOne("ProfessionalInfo")
-                        .HasForeignKey("GrapheneTrace_GP.Areas.Admin.Models.ClinicianAddProfile.ClinicianProfessionalInfo", "ClinicianId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Clinician");
-                });
-
-            modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.ClinicianAddProfile.ClinicianVerification", b =>
-                {
-                    b.HasOne("ClinicianProfile", "Clinician")
-                        .WithOne("Verification")
-                        .HasForeignKey("GrapheneTrace_GP.Areas.Admin.Models.ClinicianAddProfile.ClinicianVerification", "ClinicianId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Clinician");
-                });
-
             modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.ClinicianAlert", b =>
                 {
                     b.HasOne("GrapheneTrace_GP.Areas.Admin.Models.Clinicians", "Clinician")
                         .WithMany("Alerts")
                         .HasForeignKey("ClinicianId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Clinician");
+                });
+
+            modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.ClinicianAssignments", b =>
+                {
+                    b.HasOne("GrapheneTrace_GP.Areas.Admin.Models.ClinicianProfile", "Clinician")
+                        .WithOne("Assignments")
+                        .HasForeignKey("GrapheneTrace_GP.Areas.Admin.Models.ClinicianAssignments", "ClinicianId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Clinician");
+                });
+
+            modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.ClinicianProfessionalInfo", b =>
+                {
+                    b.HasOne("GrapheneTrace_GP.Areas.Admin.Models.ClinicianProfile", "Clinician")
+                        .WithOne("ProfessionalInfo")
+                        .HasForeignKey("GrapheneTrace_GP.Areas.Admin.Models.ClinicianProfessionalInfo", "ClinicianId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Clinician");
+                });
+
+            modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.ClinicianVerification", b =>
+                {
+                    b.HasOne("GrapheneTrace_GP.Areas.Admin.Models.ClinicianProfile", "Clinician")
+                        .WithOne("Verification")
+                        .HasForeignKey("GrapheneTrace_GP.Areas.Admin.Models.ClinicianVerification", "ClinicianId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2025,13 +2026,16 @@ namespace GrapheneTrace_GP.Migrations
                     b.Navigation("Patient");
                 });
 
-            modelBuilder.Entity("ClinicianProfile", b =>
+            modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.ClinicianProfile", b =>
                 {
-                    b.Navigation("Assignments");
+                    b.Navigation("Assignments")
+                        .IsRequired();
 
-                    b.Navigation("ProfessionalInfo");
+                    b.Navigation("ProfessionalInfo")
+                        .IsRequired();
 
-                    b.Navigation("Verification");
+                    b.Navigation("Verification")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.Clinicians", b =>

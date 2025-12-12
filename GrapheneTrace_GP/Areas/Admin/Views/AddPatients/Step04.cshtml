@@ -1,0 +1,8 @@
+﻿@model GrapheneTrace_GP.Areas.Admin.ViewModels.AddPatient.Step04ReviewVM
+
+<form method="post" asp-action="Save">
+    <input asp-for="VerifiedBy" class="form-control" placeholder="Verified By" />
+    <textarea asp-for="Remarks" class="form-control"></textarea>
+
+    <button class="btn btn-success">Save Patient</button>
+</form>

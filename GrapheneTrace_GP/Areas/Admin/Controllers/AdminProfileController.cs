@@ -8,7 +8,6 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
     {
         public IActionResult Index()
         {
-            // TEMP STATIC DATA — replace with database values later
             var vm = new AdminProfileVM
             {
                 FullName = "Catherine Hobson",
@@ -16,13 +15,20 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
                 Phone = "+44 7894 223366",
                 AdminId = "CH0823",
                 Role = "Admin",
+                ProfileImagePath = "/images/profile/catherine.png",
 
-                PasswordChange = true,
-                NotificationPreferences = false,
-                LanguageTimezone = true,
-                TwoFactorAuth = false,
-                SecurityPrivacy = true,
+                // Last Login Info
+                LastLogin = DateTime.Now.AddHours(-5),
+                LastPasswordChange = DateTime.Now.AddDays(-30),
+                LastProfileUpdate = DateTime.Now.AddDays(-2),
 
+                // Security Summary
+                Is2FAEnabled = false,
+                PasswordStrength = "Strong",
+                ActiveSessions = 2,
+                SuspiciousActivity = "None",
+
+                // Permissions
                 EditProfiles = true,
                 AddProfiles = true,
                 ViewAlerts = true,
@@ -35,4 +41,5 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
             return View(vm);
         }
     }
+
 }

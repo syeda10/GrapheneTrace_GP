@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\Admin\Models\PatientAddProfile\PatientAssignments.cs" />
     <None Include="wwwroot\Heatmapdata\.DS_Store" />
   </ItemGroup>
 

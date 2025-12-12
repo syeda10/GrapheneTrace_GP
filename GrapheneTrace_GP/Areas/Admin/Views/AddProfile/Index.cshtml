@@ -1,0 +1,21 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h2 class="fw-bold mb-4">Add Profile</h2>
+
+<div class="d-flex gap-4">
+
+    <!-- Clinician Button -->
+    <a asp-area="Admin" asp-controller="AddClinicians" asp-action="Step01"
+       class="btn btn-primary btn-lg px-5 py-3">
+        ➕ Add Clinician Profile
+    </a>
+
+    <!-- Patient Button -->
+    <a asp-area="Admin" asp-controller="AddPatients" asp-action="Step01"
+       class="btn btn-secondary btn-lg px-5 py-3">
+        ➕ Add Patient Profile
+    </a>
+
+</div>
