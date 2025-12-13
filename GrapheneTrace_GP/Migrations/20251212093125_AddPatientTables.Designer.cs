@@ -4,6 +4,7 @@ using GrapheneTrace_GP.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GrapheneTrace_GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251212093125_AddPatientTables")]
+    partial class AddPatientTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,38 +24,6 @@ namespace GrapheneTrace_GP.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Appointment", b =>
-                {
-                    b.Property<int>("AppointmentId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("AppointmentDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Comments")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("NextAppointment")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("PatientId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TreatmentType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("AppointmentId");
-
-                    b.HasIndex("PatientId");
-
-                    b.ToTable("Appointments");
-                });
 
             modelBuilder.Entity("ClinicianProfile", b =>
                 {
@@ -726,7 +697,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 852693,
                             ClinicianLastName = "Michael",
                             ClinicianSpeciality = "Cardiologist",
-                            CreatedAt = new DateTime(2025, 12, 13, 2, 33, 46, 424, DateTimeKind.Utc).AddTicks(6011),
+                            CreatedAt = new DateTime(2025, 12, 12, 9, 31, 24, 401, DateTimeKind.Utc).AddTicks(7801),
                             DateOfBirth = new DateTime(1984, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "john.michael@example.com",
                             Gender = "Male",
@@ -734,7 +705,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A1 1AA",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 13, 2, 33, 46, 424, DateTimeKind.Utc).AddTicks(6015)
+                            UpdatedAt = new DateTime(2025, 12, 12, 9, 31, 24, 401, DateTimeKind.Utc).AddTicks(7804)
                         },
                         new
                         {
@@ -746,7 +717,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 698235,
                             ClinicianLastName = "Peterson",
                             ClinicianSpeciality = "Neurology",
-                            CreatedAt = new DateTime(2025, 12, 13, 2, 33, 46, 424, DateTimeKind.Utc).AddTicks(6032),
+                            CreatedAt = new DateTime(2025, 12, 12, 9, 31, 24, 401, DateTimeKind.Utc).AddTicks(7813),
                             DateOfBirth = new DateTime(1992, 7, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "sarah.peterson@hospital.com",
                             Gender = "Female",
@@ -754,7 +725,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A2 2BB",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 13, 2, 33, 46, 424, DateTimeKind.Utc).AddTicks(6033)
+                            UpdatedAt = new DateTime(2025, 12, 12, 9, 31, 24, 401, DateTimeKind.Utc).AddTicks(7813)
                         },
                         new
                         {
@@ -766,7 +737,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 456973,
                             ClinicianLastName = "Johnson",
                             ClinicianSpeciality = "Pediatrics",
-                            CreatedAt = new DateTime(2025, 12, 13, 2, 33, 46, 424, DateTimeKind.Utc).AddTicks(6040),
+                            CreatedAt = new DateTime(2025, 12, 12, 9, 31, 24, 401, DateTimeKind.Utc).AddTicks(7817),
                             DateOfBirth = new DateTime(1994, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "emily.johnson@hospital.com",
                             Gender = "Female",
@@ -774,7 +745,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A3 3CC",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 13, 2, 33, 46, 424, DateTimeKind.Utc).AddTicks(6041)
+                            UpdatedAt = new DateTime(2025, 12, 12, 9, 31, 24, 401, DateTimeKind.Utc).AddTicks(7817)
                         },
                         new
                         {
@@ -786,7 +757,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 325698,
                             ClinicianLastName = "Anderson",
                             ClinicianSpeciality = "Neurologist",
-                            CreatedAt = new DateTime(2025, 12, 13, 2, 33, 46, 424, DateTimeKind.Utc).AddTicks(6048),
+                            CreatedAt = new DateTime(2025, 12, 12, 9, 31, 24, 401, DateTimeKind.Utc).AddTicks(7820),
                             DateOfBirth = new DateTime(1995, 4, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "david.anderson@hospital.com",
                             Gender = "Male",
@@ -794,7 +765,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A4 4DD",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 13, 2, 33, 46, 424, DateTimeKind.Utc).AddTicks(6048)
+                            UpdatedAt = new DateTime(2025, 12, 12, 9, 31, 24, 401, DateTimeKind.Utc).AddTicks(7821)
                         },
                         new
                         {
@@ -806,7 +777,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 258963,
                             ClinicianLastName = "State",
                             ClinicianSpeciality = "Surgeon",
-                            CreatedAt = new DateTime(2025, 12, 13, 2, 33, 46, 424, DateTimeKind.Utc).AddTicks(6053),
+                            CreatedAt = new DateTime(2025, 12, 12, 9, 31, 24, 401, DateTimeKind.Utc).AddTicks(7823),
                             DateOfBirth = new DateTime(1975, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "emmanuel.state@hospital.com",
                             Gender = "Male",
@@ -814,7 +785,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A5 5EE",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 13, 2, 33, 46, 424, DateTimeKind.Utc).AddTicks(6054)
+                            UpdatedAt = new DateTime(2025, 12, 12, 9, 31, 24, 401, DateTimeKind.Utc).AddTicks(7824)
                         },
                         new
                         {
@@ -826,7 +797,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 258694,
                             ClinicianLastName = "Stephen",
                             ClinicianSpeciality = "Radiologist",
-                            CreatedAt = new DateTime(2025, 12, 13, 2, 33, 46, 424, DateTimeKind.Utc).AddTicks(6059),
+                            CreatedAt = new DateTime(2025, 12, 12, 9, 31, 24, 401, DateTimeKind.Utc).AddTicks(7826),
                             DateOfBirth = new DateTime(1982, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "mike.stephen@hospital.com",
                             Gender = "Male",
@@ -834,7 +805,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A6 6FF",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 13, 2, 33, 46, 424, DateTimeKind.Utc).AddTicks(6060)
+                            UpdatedAt = new DateTime(2025, 12, 12, 9, 31, 24, 401, DateTimeKind.Utc).AddTicks(7826)
                         },
                         new
                         {
@@ -846,7 +817,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 784561,
                             ClinicianLastName = "Hyper",
                             ClinicianSpeciality = "Psychiatrist",
-                            CreatedAt = new DateTime(2025, 12, 13, 2, 33, 46, 424, DateTimeKind.Utc).AddTicks(6065),
+                            CreatedAt = new DateTime(2025, 12, 12, 9, 31, 24, 401, DateTimeKind.Utc).AddTicks(7829),
                             DateOfBirth = new DateTime(1986, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "noah.hyper@hospital.com",
                             Gender = "Male",
@@ -854,7 +825,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A7 7GG",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 13, 2, 33, 46, 424, DateTimeKind.Utc).AddTicks(6065)
+                            UpdatedAt = new DateTime(2025, 12, 12, 9, 31, 24, 401, DateTimeKind.Utc).AddTicks(7829)
                         },
                         new
                         {
@@ -866,7 +837,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 125489,
                             ClinicianLastName = "Cooke",
                             ClinicianSpeciality = "Gynaecologist",
-                            CreatedAt = new DateTime(2025, 12, 13, 2, 33, 46, 424, DateTimeKind.Utc).AddTicks(6070),
+                            CreatedAt = new DateTime(2025, 12, 12, 9, 31, 24, 401, DateTimeKind.Utc).AddTicks(7831),
                             DateOfBirth = new DateTime(1986, 2, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "helen.cooke@hospital.com",
                             Gender = "Female",
@@ -874,7 +845,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A8 8HH",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 13, 2, 33, 46, 424, DateTimeKind.Utc).AddTicks(6071)
+                            UpdatedAt = new DateTime(2025, 12, 12, 9, 31, 24, 401, DateTimeKind.Utc).AddTicks(7832)
                         },
                         new
                         {
@@ -886,7 +857,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 508342,
                             ClinicianLastName = "Night",
                             ClinicianSpeciality = "Surgeon",
-                            CreatedAt = new DateTime(2025, 12, 13, 2, 33, 46, 424, DateTimeKind.Utc).AddTicks(6076),
+                            CreatedAt = new DateTime(2025, 12, 12, 9, 31, 24, 401, DateTimeKind.Utc).AddTicks(7834),
                             DateOfBirth = new DateTime(1982, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "rose.night@hospital.com",
                             Gender = "Female",
@@ -894,7 +865,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A9 9JJ",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 13, 2, 33, 46, 424, DateTimeKind.Utc).AddTicks(6077)
+                            UpdatedAt = new DateTime(2025, 12, 12, 9, 31, 24, 401, DateTimeKind.Utc).AddTicks(7834)
                         },
                         new
                         {
@@ -906,7 +877,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 159753,
                             ClinicianLastName = "Watson",
                             ClinicianSpeciality = "Orthopaedic",
-                            CreatedAt = new DateTime(2025, 12, 13, 2, 33, 46, 424, DateTimeKind.Utc).AddTicks(6082),
+                            CreatedAt = new DateTime(2025, 12, 12, 9, 31, 24, 401, DateTimeKind.Utc).AddTicks(7837),
                             DateOfBirth = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jake.watson@hospital.com",
                             Gender = "Male",
@@ -914,7 +885,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "B1 1AA",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 13, 2, 33, 46, 424, DateTimeKind.Utc).AddTicks(6082)
+                            UpdatedAt = new DateTime(2025, 12, 12, 9, 31, 24, 401, DateTimeKind.Utc).AddTicks(7837)
                         },
                         new
                         {
@@ -926,7 +897,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 753561,
                             ClinicianLastName = "Richard",
                             ClinicianSpeciality = "Dermatologist",
-                            CreatedAt = new DateTime(2025, 12, 13, 2, 33, 46, 424, DateTimeKind.Utc).AddTicks(6088),
+                            CreatedAt = new DateTime(2025, 12, 12, 9, 31, 24, 401, DateTimeKind.Utc).AddTicks(7839),
                             DateOfBirth = new DateTime(1990, 8, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "emma.richard@hospital.com",
                             Gender = "Female",
@@ -934,7 +905,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "B2 2BB",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 13, 2, 33, 46, 424, DateTimeKind.Utc).AddTicks(6088)
+                            UpdatedAt = new DateTime(2025, 12, 12, 9, 31, 24, 401, DateTimeKind.Utc).AddTicks(7840)
                         });
                 });
 
@@ -1813,15 +1784,376 @@ namespace GrapheneTrace_GP.Migrations
                     b.ToTable("PatientVerifications");
                 });
 
-            modelBuilder.Entity("Appointment", b =>
+            modelBuilder.Entity("GrapheneTrace_GP.Models.Appointment", b =>
                 {
-                    b.HasOne("GrapheneTrace_GP.Areas.Admin.Models.Patient", "Patient")
-                        .WithMany()
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("AppointmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.Navigation("Patient");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AppointmentId"));
+
+                    b.Property<DateTime>("AppointmentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Comments")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("NextAppointment")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TreatmentType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AppointmentId");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("Appointments");
+
+                    b.HasData(
+                        new
+                        {
+                            AppointmentId = 1,
+                            AppointmentDate = new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Routine visit",
+                            IsCompleted = false,
+                            NextAppointment = new DateTime(2024, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PatientId = 2693,
+                            TreatmentType = "General Checkup"
+                        },
+                        new
+                        {
+                            AppointmentId = 2,
+                            AppointmentDate = new DateTime(2024, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Normal results",
+                            IsCompleted = true,
+                            NextAppointment = new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PatientId = 2693,
+                            TreatmentType = "Blood Test"
+                        },
+                        new
+                        {
+                            AppointmentId = 3,
+                            AppointmentDate = new DateTime(2024, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Progressing well",
+                            IsCompleted = false,
+                            NextAppointment = new DateTime(2024, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PatientId = 2693,
+                            TreatmentType = "Physical Therapy"
+                        },
+                        new
+                        {
+                            AppointmentId = 4,
+                            AppointmentDate = new DateTime(2024, 4, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Stable condition",
+                            IsCompleted = true,
+                            PatientId = 2693,
+                            TreatmentType = "Follow-up"
+                        },
+                        new
+                        {
+                            AppointmentId = 5,
+                            AppointmentDate = new DateTime(2024, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Good oral hygiene",
+                            IsCompleted = true,
+                            NextAppointment = new DateTime(2024, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PatientId = 5987,
+                            TreatmentType = "Dental Cleaning"
+                        },
+                        new
+                        {
+                            AppointmentId = 6,
+                            AppointmentDate = new DateTime(2024, 2, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "No issues detected",
+                            IsCompleted = true,
+                            PatientId = 5987,
+                            TreatmentType = "X-Ray"
+                        },
+                        new
+                        {
+                            AppointmentId = 7,
+                            AppointmentDate = new DateTime(2024, 3, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Healthy",
+                            IsCompleted = false,
+                            NextAppointment = new DateTime(2024, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PatientId = 5987,
+                            TreatmentType = "General Checkup"
+                        },
+                        new
+                        {
+                            AppointmentId = 8,
+                            AppointmentDate = new DateTime(2024, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Prescribed glasses",
+                            IsCompleted = true,
+                            PatientId = 5987,
+                            TreatmentType = "Eye Examination"
+                        },
+                        new
+                        {
+                            AppointmentId = 9,
+                            AppointmentDate = new DateTime(2024, 1, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Minor spinal issue",
+                            IsCompleted = false,
+                            NextAppointment = new DateTime(2024, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PatientId = 8963,
+                            TreatmentType = "MRI Scan"
+                        },
+                        new
+                        {
+                            AppointmentId = 10,
+                            AppointmentDate = new DateTime(2024, 2, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Back pain improving",
+                            IsCompleted = true,
+                            PatientId = 8963,
+                            TreatmentType = "Physiotherapy"
+                        },
+                        new
+                        {
+                            AppointmentId = 11,
+                            AppointmentDate = new DateTime(2024, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Condition stable",
+                            IsCompleted = true,
+                            PatientId = 8963,
+                            TreatmentType = "Follow-up"
+                        },
+                        new
+                        {
+                            AppointmentId = 12,
+                            AppointmentDate = new DateTime(2024, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "No serious issues",
+                            IsCompleted = true,
+                            PatientId = 8963,
+                            TreatmentType = "Neurology Review"
+                        },
+                        new
+                        {
+                            AppointmentId = 13,
+                            AppointmentDate = new DateTime(2024, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Healthy",
+                            IsCompleted = true,
+                            NextAppointment = new DateTime(2024, 7, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PatientId = 1257,
+                            TreatmentType = "General Checkup"
+                        },
+                        new
+                        {
+                            AppointmentId = 14,
+                            AppointmentDate = new DateTime(2024, 2, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Low iron",
+                            IsCompleted = false,
+                            NextAppointment = new DateTime(2024, 3, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PatientId = 1257,
+                            TreatmentType = "Blood Work"
+                        },
+                        new
+                        {
+                            AppointmentId = 15,
+                            AppointmentDate = new DateTime(2024, 3, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Diet plan issued",
+                            IsCompleted = true,
+                            PatientId = 1257,
+                            TreatmentType = "Nutrition Consultation"
+                        },
+                        new
+                        {
+                            AppointmentId = 16,
+                            AppointmentDate = new DateTime(2024, 4, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Updated records",
+                            IsCompleted = true,
+                            PatientId = 1257,
+                            TreatmentType = "Vaccination"
+                        },
+                        new
+                        {
+                            AppointmentId = 17,
+                            AppointmentDate = new DateTime(2024, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Healthy",
+                            IsCompleted = true,
+                            NextAppointment = new DateTime(2024, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PatientId = 9862,
+                            TreatmentType = "General Checkup"
+                        },
+                        new
+                        {
+                            AppointmentId = 18,
+                            AppointmentDate = new DateTime(2024, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "No issues",
+                            IsCompleted = true,
+                            PatientId = 9862,
+                            TreatmentType = "Skin Screening"
+                        },
+                        new
+                        {
+                            AppointmentId = 19,
+                            AppointmentDate = new DateTime(2024, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Vision normal",
+                            IsCompleted = true,
+                            PatientId = 9862,
+                            TreatmentType = "Eye Test"
+                        },
+                        new
+                        {
+                            AppointmentId = 20,
+                            AppointmentDate = new DateTime(2024, 4, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "All good",
+                            IsCompleted = true,
+                            PatientId = 9862,
+                            TreatmentType = "Follow-up"
+                        },
+                        new
+                        {
+                            AppointmentId = 21,
+                            AppointmentDate = new DateTime(2024, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Inactive lifestyle noted",
+                            IsCompleted = false,
+                            NextAppointment = new DateTime(2024, 2, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PatientId = 3654,
+                            TreatmentType = "General Checkup"
+                        },
+                        new
+                        {
+                            AppointmentId = 22,
+                            AppointmentDate = new DateTime(2024, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Borderline results",
+                            IsCompleted = true,
+                            PatientId = 3654,
+                            TreatmentType = "Cardio Stress Test"
+                        },
+                        new
+                        {
+                            AppointmentId = 23,
+                            AppointmentDate = new DateTime(2024, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Plan provided",
+                            IsCompleted = true,
+                            PatientId = 3654,
+                            TreatmentType = "Diet Consultation"
+                        },
+                        new
+                        {
+                            AppointmentId = 24,
+                            AppointmentDate = new DateTime(2024, 4, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Improving",
+                            IsCompleted = true,
+                            PatientId = 3654,
+                            TreatmentType = "Follow-up"
+                        },
+                        new
+                        {
+                            AppointmentId = 25,
+                            AppointmentDate = new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Mild allergies found",
+                            IsCompleted = true,
+                            PatientId = 4527,
+                            TreatmentType = "Allergy Test"
+                        },
+                        new
+                        {
+                            AppointmentId = 26,
+                            AppointmentDate = new DateTime(2024, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Good health",
+                            IsCompleted = true,
+                            PatientId = 4527,
+                            TreatmentType = "General Checkup"
+                        },
+                        new
+                        {
+                            AppointmentId = 27,
+                            AppointmentDate = new DateTime(2024, 3, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Results normal",
+                            IsCompleted = true,
+                            PatientId = 4527,
+                            TreatmentType = "Blood Test"
+                        },
+                        new
+                        {
+                            AppointmentId = 28,
+                            AppointmentDate = new DateTime(2024, 4, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "No issues",
+                            IsCompleted = true,
+                            PatientId = 4527,
+                            TreatmentType = "X-Ray"
+                        },
+                        new
+                        {
+                            AppointmentId = 29,
+                            AppointmentDate = new DateTime(2024, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Inactive status noted",
+                            IsCompleted = true,
+                            PatientId = 6723,
+                            TreatmentType = "General Checkup"
+                        },
+                        new
+                        {
+                            AppointmentId = 30,
+                            AppointmentDate = new DateTime(2024, 2, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Good teeth",
+                            IsCompleted = true,
+                            PatientId = 6723,
+                            TreatmentType = "Dental Cleaning"
+                        },
+                        new
+                        {
+                            AppointmentId = 31,
+                            AppointmentDate = new DateTime(2024, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Reading glasses advised",
+                            IsCompleted = true,
+                            PatientId = 6723,
+                            TreatmentType = "Eye Examination"
+                        },
+                        new
+                        {
+                            AppointmentId = 32,
+                            AppointmentDate = new DateTime(2024, 4, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Clear",
+                            IsCompleted = true,
+                            PatientId = 6723,
+                            TreatmentType = "Skin Screening"
+                        },
+                        new
+                        {
+                            AppointmentId = 33,
+                            AppointmentDate = new DateTime(2024, 1, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Very healthy",
+                            IsCompleted = true,
+                            NextAppointment = new DateTime(2024, 6, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PatientId = 7894,
+                            TreatmentType = "General Checkup"
+                        },
+                        new
+                        {
+                            AppointmentId = 34,
+                            AppointmentDate = new DateTime(2024, 2, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Cleared for activity",
+                            IsCompleted = true,
+                            PatientId = 7894,
+                            TreatmentType = "Sports Physical"
+                        },
+                        new
+                        {
+                            AppointmentId = 35,
+                            AppointmentDate = new DateTime(2024, 3, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Improved posture",
+                            IsCompleted = true,
+                            PatientId = 7894,
+                            TreatmentType = "Chiropractic Adjustment"
+                        },
+                        new
+                        {
+                            AppointmentId = 36,
+                            AppointmentDate = new DateTime(2024, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Comments = "Excellent condition",
+                            IsCompleted = true,
+                            PatientId = 7894,
+                            TreatmentType = "Follow-up"
+                        });
                 });
 
             modelBuilder.Entity("GrapheneTrace_GP.Areas.Admin.Models.ClinicianAddProfile.ClinicianAssignments", b =>
@@ -1905,6 +2237,17 @@ namespace GrapheneTrace_GP.Migrations
                     b.HasOne("GrapheneTrace_GP.Areas.Admin.Models.PatientAddProfile.PatientProfile", "Patient")
                         .WithOne("Verification")
                         .HasForeignKey("GrapheneTrace_GP.Areas.Admin.Models.PatientAddProfile.PatientVerification", "PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("GrapheneTrace_GP.Models.Appointment", b =>
+                {
+                    b.HasOne("GrapheneTrace_GP.Areas.Admin.Models.Patient", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

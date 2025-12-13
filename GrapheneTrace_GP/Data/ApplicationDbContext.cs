@@ -32,9 +32,9 @@ namespace GrapheneTrace_GP.Data
 
         //Clinician Add profile
         public DbSet<ClinicianProfile> ClinicianProfile { get; set; }
-        public DbSet<ClinicianProfessionalInfo> ClinicianProfessionalInfos { get; set; }
+        public DbSet<ClinicianProfessionalInfo> ClinicianProfessionalInfo { get; set; }
         public DbSet<ClinicianAssignments> ClinicianAssignments { get; set; }
-        public DbSet<ClinicianVerification> ClinicianVerifications { get; set; }
+        public DbSet<ClinicianVerification> ClinicianVerification { get; set; }
 
         //Patients Add Profile
         public DbSet<PatientProfile> PatientProfile { get; set; }
@@ -67,7 +67,7 @@ namespace GrapheneTrace_GP.Data
                     ClinicianSpeciality = "Cardiologist",
                     ClinicianAge = "40",
                     Email = "john.michael@example.com",
-                    Gender= "Male",
+                    Gender = "Male",
                     DateOfBirth = new DateTime(1984, 1, 12),
                     Phone = "07111111111",
                     Address = "1 Main Street",
@@ -624,21 +624,21 @@ namespace GrapheneTrace_GP.Data
 
                  new Patient
                  {
-                    PatientId = 8123,
-                    Title = "Mr.",
-                    FirstName = "Harvey",
-                    LastName = "Cole",
-                    ClinicianId = 2,
-                    Status = "Active",
-                    PatientAge = "37",
-                    Gender = "Male",
-                    DateOfBirth = new DateTime(1987, 4, 10),
-                    Email = "harvey.cole@gmail.com",
-                    Phone = "07581234567",
-                    Address = "12 Wood Street",
-                    City = "London",
-                    PostCode = "E2 4AA"
-                },
+                     PatientId = 8123,
+                     Title = "Mr.",
+                     FirstName = "Harvey",
+                     LastName = "Cole",
+                     ClinicianId = 2,
+                     Status = "Active",
+                     PatientAge = "37",
+                     Gender = "Male",
+                     DateOfBirth = new DateTime(1987, 4, 10),
+                     Email = "harvey.cole@gmail.com",
+                     Phone = "07581234567",
+                     Address = "12 Wood Street",
+                     City = "London",
+                     PostCode = "E2 4AA"
+                 },
 
 
                 new Patient
@@ -714,22 +714,22 @@ namespace GrapheneTrace_GP.Data
                 },
 
                  new Patient
-                {
-                    PatientId = 8129,
-                    Title = "Mr.",
-                    FirstName = "Ethan",
-                    LastName = "Morris",
-                    ClinicianId = 1,
-                    Status = "Active",
-                    PatientAge = "31",
-                    Gender = "Male",
-                    DateOfBirth = new DateTime(1993, 1, 19),
-                    Email = "ethan.morris@gmail.com",
-                    Phone = "07812345670",
-                    Address = "18 Maple Street",
-                    City = "Bristol",
-                    PostCode = "BS1 3DA"
-                },
+                 {
+                     PatientId = 8129,
+                     Title = "Mr.",
+                     FirstName = "Ethan",
+                     LastName = "Morris",
+                     ClinicianId = 1,
+                     Status = "Active",
+                     PatientAge = "31",
+                     Gender = "Male",
+                     DateOfBirth = new DateTime(1993, 1, 19),
+                     Email = "ethan.morris@gmail.com",
+                     Phone = "07812345670",
+                     Address = "18 Maple Street",
+                     City = "Bristol",
+                     PostCode = "BS1 3DA"
+                 },
 
                 new Patient
                 {
@@ -952,130 +952,6 @@ namespace GrapheneTrace_GP.Data
 
             //Appointment Seeding
 
-            modelBuilder.Entity<Appointment>().HasData(
-              // Patient 2693 - Sophie Night
-              new Appointment 
-              { 
-                  AppointmentId = 1, 
-                  PatientId = 2693, 
-                  AppointmentDate = new DateTime(2024, 01, 10), 
-                  TreatmentType = "General Checkup", 
-                  Comments = "Routine visit", 
-                  NextAppointment = new DateTime(2024, 02, 10), 
-                  IsCompleted = false 
-              },
-
-              new Appointment 
-              { 
-                  AppointmentId = 2, 
-                  PatientId = 2693, 
-                  AppointmentDate = new DateTime(2024, 02, 15), 
-                  TreatmentType = "Blood Test", 
-                  Comments = "Normal results", 
-                  NextAppointment = new DateTime(2024, 03, 01), 
-                  IsCompleted = true 
-              },
-
-              new Appointment 
-              { 
-                  AppointmentId = 3, 
-                  PatientId = 2693, 
-                  AppointmentDate = new DateTime(2024, 03, 20), 
-                  TreatmentType = "Physical Therapy", 
-                  Comments = "Progressing well", 
-                  NextAppointment = new DateTime(2024, 04, 20), 
-                  IsCompleted = false 
-              },
-
-              new Appointment { AppointmentId = 4, PatientId = 2693, AppointmentDate = new DateTime(2024, 04, 28), TreatmentType = "Follow-up", Comments = "Stable condition", NextAppointment = null, IsCompleted = true },
-
-                // Patient 5987 - Janee Harrison
-                new Appointment 
-                { 
-                    AppointmentId = 5, 
-                    PatientId = 5987, 
-                    AppointmentDate = new DateTime(2024, 01, 15), 
-                    TreatmentType = "Dental Cleaning", 
-                    Comments = "Good oral hygiene", 
-                    NextAppointment = new DateTime(2024, 07, 15), 
-                    IsCompleted = true 
-                },
-
-                new Appointment 
-                { 
-                    AppointmentId = 6, 
-                    PatientId = 5987, 
-                    AppointmentDate = new DateTime(2024, 02, 18), 
-                    TreatmentType = "X-Ray", 
-                    Comments = "No issues detected", 
-                    NextAppointment = null, 
-                    IsCompleted = true 
-                },
-
-                new Appointment 
-                { 
-                    AppointmentId = 7, 
-                    PatientId = 5987, 
-                    AppointmentDate = new DateTime(2024, 03, 12), 
-                    TreatmentType = "General Checkup", 
-                    Comments = "Healthy", 
-                    NextAppointment = new DateTime(2024, 06, 12), 
-                    IsCompleted = false 
-                },
-
-                new Appointment 
-                { 
-                    AppointmentId = 8, 
-                    PatientId = 5987, 
-                    AppointmentDate = new DateTime(2024, 04, 05), 
-                    TreatmentType = "Eye Examination", 
-                    Comments = "Prescribed glasses", 
-                    NextAppointment = null, 
-                    IsCompleted = true 
-                },
-
-                // Patient 8963 - Mike Jackson
-                new Appointment { AppointmentId = 9, PatientId = 8963, AppointmentDate = new DateTime(2024, 01, 20), TreatmentType = "MRI Scan", Comments = "Minor spinal issue", NextAppointment = new DateTime(2024, 02, 20), IsCompleted = false },
-                new Appointment { AppointmentId = 10, PatientId = 8963, AppointmentDate = new DateTime(2024, 02, 25), TreatmentType = "Physiotherapy", Comments = "Back pain improving", NextAppointment = null, IsCompleted = true },
-                new Appointment { AppointmentId = 11, PatientId = 8963, AppointmentDate = new DateTime(2024, 04, 02), TreatmentType = "Follow-up", Comments = "Condition stable", NextAppointment = null, IsCompleted = true },
-                new Appointment { AppointmentId = 12, PatientId = 8963, AppointmentDate = new DateTime(2024, 05, 10), TreatmentType = "Neurology Review", Comments = "No serious issues", NextAppointment = null, IsCompleted = true },
-
-                // Patient 1257 - Peter Benjamin
-                new Appointment { AppointmentId = 13, PatientId = 1257, AppointmentDate = new DateTime(2024, 01, 08), TreatmentType = "General Checkup", Comments = "Healthy", NextAppointment = new DateTime(2024, 07, 08), IsCompleted = true },
-                new Appointment { AppointmentId = 14, PatientId = 1257, AppointmentDate = new DateTime(2024, 02, 19), TreatmentType = "Blood Work", Comments = "Low iron", NextAppointment = new DateTime(2024, 03, 19), IsCompleted = false },
-                new Appointment { AppointmentId = 15, PatientId = 1257, AppointmentDate = new DateTime(2024, 03, 30), TreatmentType = "Nutrition Consultation", Comments = "Diet plan issued", NextAppointment = null, IsCompleted = true },
-                new Appointment { AppointmentId = 16, PatientId = 1257, AppointmentDate = new DateTime(2024, 04, 22), TreatmentType = "Vaccination", Comments = "Updated records", NextAppointment = null, IsCompleted = true },
-
-                // Patient 9862 - Hannah Green
-                new Appointment { AppointmentId = 17, PatientId = 9862, AppointmentDate = new DateTime(2024, 01, 05), TreatmentType = "General Checkup", Comments = "Healthy", NextAppointment = new DateTime(2024, 03, 05), IsCompleted = true },
-                new Appointment { AppointmentId = 18, PatientId = 9862, AppointmentDate = new DateTime(2024, 02, 14), TreatmentType = "Skin Screening", Comments = "No issues", NextAppointment = null, IsCompleted = true },
-                new Appointment { AppointmentId = 19, PatientId = 9862, AppointmentDate = new DateTime(2024, 03, 27), TreatmentType = "Eye Test", Comments = "Vision normal", NextAppointment = null, IsCompleted = true },
-                new Appointment { AppointmentId = 20, PatientId = 9862, AppointmentDate = new DateTime(2024, 04, 09), TreatmentType = "Follow-up", Comments = "All good", NextAppointment = null, IsCompleted = true },
-
-                // Patient 3654 - Andy Bryan
-                new Appointment { AppointmentId = 21, PatientId = 3654, AppointmentDate = new DateTime(2024, 01, 03), TreatmentType = "General Checkup", Comments = "Inactive lifestyle noted", NextAppointment = new DateTime(2024, 02, 03), IsCompleted = false },
-                new Appointment { AppointmentId = 22, PatientId = 3654, AppointmentDate = new DateTime(2024, 02, 10), TreatmentType = "Cardio Stress Test", Comments = "Borderline results", NextAppointment = null, IsCompleted = true },
-                new Appointment { AppointmentId = 23, PatientId = 3654, AppointmentDate = new DateTime(2024, 03, 15), TreatmentType = "Diet Consultation", Comments = "Plan provided", NextAppointment = null, IsCompleted = true },
-                new Appointment { AppointmentId = 24, PatientId = 3654, AppointmentDate = new DateTime(2024, 04, 18), TreatmentType = "Follow-up", Comments = "Improving", NextAppointment = null, IsCompleted = true },
-
-                // Patient 4527 - Alex White
-                new Appointment { AppointmentId = 25, PatientId = 4527, AppointmentDate = new DateTime(2024, 02, 01), TreatmentType = "Allergy Test", Comments = "Mild allergies found", NextAppointment = null, IsCompleted = true },
-                new Appointment { AppointmentId = 26, PatientId = 4527, AppointmentDate = new DateTime(2024, 02, 20), TreatmentType = "General Checkup", Comments = "Good health", NextAppointment = null, IsCompleted = true },
-                new Appointment { AppointmentId = 27, PatientId = 4527, AppointmentDate = new DateTime(2024, 03, 22), TreatmentType = "Blood Test", Comments = "Results normal", NextAppointment = null, IsCompleted = true },
-                new Appointment { AppointmentId = 28, PatientId = 4527, AppointmentDate = new DateTime(2024, 04, 13), TreatmentType = "X-Ray", Comments = "No issues", NextAppointment = null, IsCompleted = true },
-
-                // Patient 6723 - Clara Ashley
-                new Appointment { AppointmentId = 29, PatientId = 6723, AppointmentDate = new DateTime(2024, 01, 12), TreatmentType = "General Checkup", Comments = "Inactive status noted", NextAppointment = null, IsCompleted = true },
-                new Appointment { AppointmentId = 30, PatientId = 6723, AppointmentDate = new DateTime(2024, 02, 16), TreatmentType = "Dental Cleaning", Comments = "Good teeth", NextAppointment = null, IsCompleted = true },
-                new Appointment { AppointmentId = 31, PatientId = 6723, AppointmentDate = new DateTime(2024, 03, 11), TreatmentType = "Eye Examination", Comments = "Reading glasses advised", NextAppointment = null, IsCompleted = true },
-                new Appointment { AppointmentId = 32, PatientId = 6723, AppointmentDate = new DateTime(2024, 04, 17), TreatmentType = "Skin Screening", Comments = "Clear", NextAppointment = null, IsCompleted = true },
-
-                // Patient 7894 - Diana Prince
-                new Appointment { AppointmentId = 33, PatientId = 7894, AppointmentDate = new DateTime(2024, 01, 17), TreatmentType = "General Checkup", Comments = "Very healthy", NextAppointment = new DateTime(2024, 06, 17), IsCompleted = true },
-                new Appointment { AppointmentId = 34, PatientId = 7894, AppointmentDate = new DateTime(2024, 02, 21), TreatmentType = "Sports Physical", Comments = "Cleared for activity", NextAppointment = null, IsCompleted = true },
-                new Appointment { AppointmentId = 35, PatientId = 7894, AppointmentDate = new DateTime(2024, 03, 25), TreatmentType = "Chiropractic Adjustment", Comments = "Improved posture", NextAppointment = null, IsCompleted = true },
-                new Appointment { AppointmentId = 36, PatientId = 7894, AppointmentDate = new DateTime(2024, 04, 30), TreatmentType = "Follow-up", Comments = "Excellent condition", NextAppointment = null, IsCompleted = true }
-            );
 
             //Alerts
 
@@ -1306,7 +1182,7 @@ namespace GrapheneTrace_GP.Data
 
             // Add Profile Clinician
 
-        
+
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<ClinicianProfile>()
@@ -1323,7 +1199,7 @@ namespace GrapheneTrace_GP.Data
                 .HasOne(c => c.Verification)
                 .WithOne(v => v.Clinician)
                 .HasForeignKey<ClinicianVerification>(v => v.ClinicianId);
-        
+
 
 
         }

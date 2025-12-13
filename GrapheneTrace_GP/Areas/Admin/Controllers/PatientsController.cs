@@ -23,202 +23,147 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
         [HttpGet("")]
         public async Task<IActionResult> Index(int page = 1)
         {
-            int pageSize = 6; // 6 cards per page
+            int pageSize = 6; // number of cards per page
 
-            var patients = await _context.Patients
-                .OrderBy(p => p.Id)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .Select(p => new PatientListVM
-                {
-                    PatientId = p.PatientId,
-                    FirstName = p.FirstName,
-                    LastName = p.LastName,
-                    Status = p.Status,
-                    Age = p.PatientAge
-                })
-                .ToListAsync();
+            var query = _context.Patients
+                .OrderBy(p => p.PatientId)
+                .AsQueryable();
 
-            int totalItems = await _context.Patients.CountAsync();
+            int totalItems = await query.CountAsync();
 
-            ViewBag.TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+            var patients = await query
+             .Skip((page - 1) * pageSize)
+             .Take(pageSize)
+             .Select(p => new PatientListVM
+             {
+                 PatientId = p.PatientId,
+                 FirstName = p.FirstName,
+                 LastName = p.LastName,
+                 Status = p.Status,
+                 Age = string.IsNullOrEmpty(p.PatientAge) ? "N/A" : p.PatientAge
+             })
+             .ToListAsync();
+
+
             ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
 
             return View(patients);
         }
 
-        [HttpGet ("Details/{id}")]
-        public async Task <IActionResult> Details(int id)
+
+
+        [HttpGet("Details/{id}")]
+        public async Task<IActionResult> Details(int id)
         {
-            var patient = _context.Patients.FirstOrDefault(p => p.PatientId == id);
+            var patient = await _context.Patients
+                .Include(p => p.Clinician)
+                .FirstOrDefaultAsync(p => p.PatientId == id);
+
             if (patient == null) return NotFound();
-
-
-            var allAppointments = await _context.Appointments
-            .Where(a => a.PatientId == id)
-             .OrderByDescending(a => a.AppointmentDate)
-            .ToListAsync();
-
-            var completedAppointments = allAppointments
-                .Where(a => a.IsCompleted == true)
-                .ToList();
-
 
             var vm = new PatientDetailsVM
             {
                 Id = patient.PatientId,
-                Title = patient.Title,
                 FirstName = patient.FirstName,
                 LastName = patient.LastName,
-                Status = patient.Status,
                 Gender = patient.Gender,
-                DateOfBirth = patient.DateOfBirth,
-                Phone = patient.Phone,
                 Email = patient.Email,
-                Address = patient.Address,
+                Phone = patient.Phone,
                 City = patient.City,
+                Address = patient.Address,
                 PostCode = patient.PostCode,
+                Status = patient.Status,
+                Age = patient.PatientAge, // <-- FIXED (string)
+                AssignedDoctor = patient.Clinician != null
+                    ? patient.Clinician.ClinicianFirstName + " " + patient.Clinician.ClinicianLastName
+                    : "N/A"
+            };
 
-                //CSV DATA
-                HeatMapData = LoadPatientsCSV(),
+            vm.HeatMapData = LoadHeatmapForPatient(id);
+            vm.AllAppointments = new List<AppointmentVM>();
+            vm.CompletedAppointments = new List<AppointmentVM>();
 
-                //Appointments Table
-                AllAppointments = allAppointments.Select(a => new AppointmentVM
+
+
+            return View(vm);
+        }
+
+
+
+        //CSV Loader for Heatmap Data
+        private List<float[]> LoadHeatmapForPatient(int patientId)
+        {
+            var folder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Heatmapdata");
+
+            if (!Directory.Exists(folder))
+                return new List<float[]>();
+
+            // Try to find CSVs for this specific patient (e.g. "1257_20250101.csv")
+            var patientFiles = Directory.GetFiles(folder, $"{patientId}_*.csv");
+
+            string fileToRead = patientFiles.FirstOrDefault();
+
+            // If no patient-specific file, load latest available
+            if (fileToRead == null)
+                fileToRead = Directory.GetFiles(folder, "*.csv")
+                                      .OrderByDescending(f => f)
+                                      .FirstOrDefault();
+
+            if (fileToRead == null)
+                return new List<float[]>();
+
+            // Parse CSV → return float[][]
+            var lines = System.IO.File.ReadAllLines(fileToRead);
+            List<float[]> values = new();
+
+            foreach (var line in lines)
+            {
+                var parts = line.Split(',');
+                float[] row = parts.Select(v => float.TryParse(v, out float parsed) ? parsed : 0).ToArray();
+                values.Add(row);
+            }
+
+            return values;
+        }
+
+
+        //Appointments Table Loader
+        private async Task<List<AppointmentVM>> LoadPatientAppointments(int patientId)
+        {
+            return await _context.Appointments
+                .Where(a => a.PatientId == patientId)
+                .OrderBy(a => a.AppointmentDate)
+                .Select(a => new AppointmentVM
                 {
                     AppointmentDate = a.AppointmentDate,
                     TreatmentType = a.TreatmentType,
                     Comments = a.Comments,
-                    NextAppointment = a.NextAppointment?.ToString("dd/MM/yyyy")
-                }).ToList(),
-
-                CompletedAppointments = completedAppointments.Select(a => new AppointmentVM
-                {
-                    AppointmentDate = a.AppointmentDate,
-                    TreatmentType = a.TreatmentType,
-                    Comments = a.Comments
-                }).ToList(),
-
-
-            };
-
-            return View(vm);
-
+                    NextAppointment = a.NextAppointment.HasValue
+                                        ? a.NextAppointment.Value.ToString("dd/MM/yyyy")
+                                        : "N/A"
+                })
+                .ToListAsync();
         }
 
-        //CSV Loader for Heatmap Data
-        private List<float[]> LoadPatientsCSV()
-        {
-            string? csvPath = _csvLoader.GetLatestCsvPath();
-            if (string.IsNullOrEmpty(csvPath)) return new List<float[]>();
-
-            return _csvLoader.LoadCsvHeatmap(csvPath);
-
-        }
-
-        //Appointments Table Loader
-        private List<AppointmentVM> LoadAppointments(int patientId)
-        {
-            return new List<AppointmentVM>
-            {
-                new AppointmentVM
-                {
-                    AppointmentId = 1,
-                    AppointmentDate = DateTime.Now.AddDays(7),
-                    TreatmentType = "General Checkup",
-                    Comments = "Regular 6-month checkup.",
-                    NextAppointment = "N/A"
-                },
-
-                new AppointmentVM
-                {
-                    AppointmentId = 2,
-                    AppointmentDate = DateTime.Now.AddDays(30),
-                    TreatmentType = "Dental Cleaning",
-                    Comments = "Scheduled for routine cleaning.",
-                    NextAppointment = "N/A"
-                },
-
-                new AppointmentVM
-                {
-                    AppointmentId = 3,
-                    AppointmentDate = DateTime.Now.AddDays(60),
-                    TreatmentType = "Cavity Filling",
-                    Comments = "Filling for cavity on molar.",
-                    NextAppointment = "N/A"
-                },
-
-                new AppointmentVM
-                {
-                    AppointmentId = 4,
-                    AppointmentDate = DateTime.Now.AddDays(90),
-                    TreatmentType = "Orthodontic Consultation",
-                    Comments = "Consultation for braces.",
-                    NextAppointment = "N/A"
-                },
-
-                new AppointmentVM
-                {
-                    AppointmentId = 5,
-                    AppointmentDate = DateTime.Now.AddDays(120),
-                    TreatmentType = "Eye Exam", 
-                    Comments = "Annual vision check.",
-                    NextAppointment = "N/A"
-                }
-            };
-             
-        }
 
         //Completed Appointments Table Loader
 
-        private List<AppointmentVM> LoadCompletedAppointments(int patientId)
+        private async Task<List<AppointmentVM>> LoadCompletedAppointments(int patientId)
         {
-            return new List<AppointmentVM>
-            {
-                new AppointmentVM
+            return await _context.Appointments
+                .Where(a => a.PatientId == patientId && a.IsCompleted == true)
+                .OrderByDescending(a => a.AppointmentDate)
+                .Select(a => new AppointmentVM
                 {
-                    AppointmentId = 101,
-                    AppointmentDate = DateTime.Now.AddDays(-30),
-                    TreatmentType = "Flu Vaccination",
-                    Comments = "Administered seasonal flu vaccine.",
+                    AppointmentDate = a.AppointmentDate,
+                    TreatmentType = a.TreatmentType,
+                    Comments = a.Comments,
                     NextAppointment = "N/A"
-                },
-                new AppointmentVM
-                {
-                    AppointmentId = 102,
-                    AppointmentDate = DateTime.Now.AddDays(-60),
-                    TreatmentType = "Blood Test",
-                    Comments = "Routine blood work completed.",
-                    NextAppointment = "N/A"
-                },
-
-                new AppointmentVM
-                {
-                    AppointmentId = 103,
-                    AppointmentDate = DateTime.Now.AddDays(-90),
-                    TreatmentType = "X-Ray",
-                    Comments = "Chest X-Ray for cough evaluation.",
-                    NextAppointment = "N/A"
-                },
-
-                new AppointmentVM
-                {
-                    AppointmentId = 104,
-                    AppointmentDate = DateTime.Now.AddDays(-120),
-                    TreatmentType = "Physical Exam",
-                    Comments = "Annual physical examination.",
-                    NextAppointment = "N/A"
-                },      
-
-                new AppointmentVM
-                {
-                    AppointmentId = 105,
-                    AppointmentDate = DateTime.Now.AddDays(-150),
-                    TreatmentType = "Allergy Test",
-                    Comments = "Tested for common allergens.",
-                    NextAppointment = "N/A"
-                }
-            };
+                })
+                .ToListAsync();
         }
+
 
     }
 }

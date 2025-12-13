@@ -1,7 +1,9 @@
-﻿using GrapheneTrace_GP.Areas.Admin.Models.PatientAddProfile;
+﻿using GrapheneTrace_GP.Areas.Admin.Models;
+using GrapheneTrace_GP.Areas.Admin.Models.PatientAddProfile;
 using GrapheneTrace_GP.Areas.Admin.ViewModels.AddPatient;
 using GrapheneTrace_GP.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
 namespace GrapheneTrace_GP.Areas.Admin.Controllers
@@ -17,56 +19,69 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
         }
 
         // STEP 1
-        public IActionResult Step01() => View();
-
-        [HttpPost]
-        public IActionResult Step01Post(Step01PersonalVM model)
-        {
-            HttpContext.Session.SetString("P_Step01", JsonSerializer.Serialize(model));
-            return RedirectToAction("Step02");
-        }
-
-        // STEP 2
-        public IActionResult Step02() => View();
-
-        [HttpPost]
-        public IActionResult Step02Post(Step02MedicalVM model)
-        {
-            HttpContext.Session.SetString("P_Step02", JsonSerializer.Serialize(model));
-            return RedirectToAction("Step03");
-        }
-
-        // STEP 3
-        public IActionResult Step03() => View();
-
-        [HttpPost]
-        public IActionResult Step03Post(Step03AssignmentsVM model)
-        {
-            HttpContext.Session.SetString("P_Step03", JsonSerializer.Serialize(model));
-            return RedirectToAction("Step04");
-        }
-
-        // STEP 4
-        public IActionResult Step04() => View();
-
         [HttpPost]
         public async Task<IActionResult> Save(Step04ReviewVM model)
         {
-            // Read session
-            var s1 = JsonSerializer.Deserialize<Step01PersonalVM>(HttpContext.Session.GetString("P_Step01"));
-            var s2 = JsonSerializer.Deserialize<Step02MedicalVM>(HttpContext.Session.GetString("P_Step02"));
-            var s3 = JsonSerializer.Deserialize<Step03AssignmentsVM>(HttpContext.Session.GetString("P_Step03"));
+            var s1 = JsonSerializer.Deserialize<
+             GrapheneTrace_GP.Areas.Admin.ViewModels.AddPatient.Step01PersonalVM
+            >(HttpContext.Session.GetString("P_Step01"));
 
-            // 1️⃣ Save Patient Basic Profile
-            var patient = new PatientProfile
+            var s2 = JsonSerializer.Deserialize<
+                GrapheneTrace_GP.Areas.Admin.ViewModels.AddPatient.Step02MedicalVM
+            >(HttpContext.Session.GetString("P_Step02"));
+
+            var s3 = JsonSerializer.Deserialize<
+                GrapheneTrace_GP.Areas.Admin.ViewModels.AddPatient.Step03AssignmentsVM
+            >(HttpContext.Session.GetString("P_Step03"));
+
+
+            // ================================================================
+            // 2️⃣ SAVE INTO OLD PATIENT TABLE (the one your UI uses)
+            // ================================================================
+            var oldPatient = new Patient
+            {
+                Title = s1.Title ?? "N/A",
+                FirstName = s1.FirstName ?? "N/A",
+                LastName = s1.LastName ?? "N/A",
+                Email = s1.Email ?? "N/A",
+                Phone = s1.Phone ?? "N/A",
+                Gender = s1.Gender ?? "N/A",
+                DateOfBirth = s1.DateOfBirth ?? DateTime.UtcNow,
+                Address = s1.Address ?? "N/A",
+                City = s1.City ?? "N/A",
+                PostCode = s1.PostCode ?? "N/A",
+
+                Status = "Active",
+
+                PatientAge = s1.DateOfBirth.HasValue
+         ? ((int)((DateTime.UtcNow - s1.DateOfBirth.Value).TotalDays / 365.25)).ToString()
+         : "N/A",
+
+                ClinicianId = s3.ClinicianId ?? 0
+            };
+
+            // ⭐ MUST BE OUTSIDE THE OBJECT ⭐
+            oldPatient.PatientId = await _context.Patients.AnyAsync()
+                ? await _context.Patients.MaxAsync(p => p.PatientId) + 1
+                : 1;
+
+            _context.Patients.Add(oldPatient);
+            await _context.SaveChangesAsync();
+
+
+            // ================================================================
+            // 3️⃣ SAVE NEW PROFILE TABLES (optional, separate)
+            // ================================================================
+            var profile = new PatientProfile
             {
                 Title = s1.Title,
                 FirstName = s1.FirstName,
                 LastName = s1.LastName,
-                DateOfBirth = s1.DateOfBirth,
-                Gender = s1.Gender,
-                Phone = s1.Phone,
                 Email = s1.Email,
+                Phone = s1.Phone,
+                Gender = s1.Gender,
+                DateOfBirth = s1.DateOfBirth,
+                NHSNumber = s1.NHSNumber,
                 Address = s1.Address,
                 City = s1.City,
                 PostCode = s1.PostCode,
@@ -74,45 +89,42 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
                 UpdatedAt = DateTime.UtcNow
             };
 
-            _context.PatientProfile.Add(patient);
+            _context.PatientProfile.Add(profile);
             await _context.SaveChangesAsync();
 
-            // 2️⃣ Save Medical Info
             _context.PatientMedicalInfos.Add(new PatientMedicalInfo
             {
-                PatientId = patient.Id,
+                PatientId = profile.Id,
                 BloodGroup = s2.BloodGroup ?? "N/A",
                 Allergies = s2.Allergies ?? "N/A",
-                Weight = s2.Weight ?? "N/A",
-                Height = s2.Height ?? "N/A",
                 Conditions = s2.Conditions ?? "N/A",
                 Medications = s2.Medications ?? "N/A",
+                Weight = s2.Weight ?? "N/A",
+                Height = s2.Height ?? "N/A",
                 Smoking = s2.Smoking ?? "N/A",
+                PastSurgeries = s2.PastSurgeries ?? "N/A",
                 Notes = s2.Notes ?? "N/A"
             });
 
-            // 3️⃣ Save Assignments
             _context.PatientAssignments.Add(new PatientAssignments
             {
-                PatientId = patient.Id,
+                PatientId = profile.Id,
                 ClinicianId = s3.ClinicianId ?? 0,
                 AssignedDoctor = s3.AssignedDoctor ?? "N/A",
-                Department = s3.Department ?? "N/A",
-                EmergencyContact = s3.EmergencyContact ?? "N/A",
                 Ward = s3.Ward ?? "N/A",
                 Status = s3.Status ?? "Active",
-                AssignedAt = DateTime.UtcNow
+                AssignedAt = DateTime.UtcNow,
+                EmergencyContact = s3.EmergencyContact ?? "N/A"
             });
 
-
-            // 4️⃣ Save Verification
             _context.PatientVerifications.Add(new PatientVerification
             {
-                PatientId = patient.Id,
-                VerifiedBy = model.VerifiedBy ?? "N/A",
-                Remarks = model.Remarks ?? "N/A",
-                Status = "Verified",
-                VerifiedDate = DateTime.UtcNow
+                PatientId = profile.Id,
+                VerificationStatus = "Verified",
+                VerifiedBy = model.VerifiedBy ?? "Admin",
+                DateReviewed = DateTime.UtcNow,
+                Remarks = model.Remarks ?? "",
+                ProfileStatus = "Active"
             });
 
             await _context.SaveChangesAsync();
@@ -120,5 +132,9 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
 
             return RedirectToAction("Index", "Patients");
         }
+
+
+
     }
 }
+

@@ -2,18 +2,22 @@
 {
     public class ClinicianAssignments
     {
-
         public int Id { get; set; }
         public int ClinicianId { get; set; }
 
-        public string? AssignedPatients { get; set; } // PT4526-PT9658-...
+        // assignment fields used by controller and view models
+        public string? AssignedPatients { get; set; }
         public int? CurrentAppointments { get; set; }
         public string? AssignedWard { get; set; }
         public string? Supervisor { get; set; }
         public string? Notes { get; set; }
         public DateTime? LastAssignmentUpdate { get; set; }
 
-        public ClinicianProfile Clinician { get; set; }
+        // optional/extra fields referenced elsewhere
+        public string? Department { get; set; }
+        public string? Status { get; set; }
 
+        // navigation
+        public ClinicianProfile? Clinician { get; set; }
     }
 }

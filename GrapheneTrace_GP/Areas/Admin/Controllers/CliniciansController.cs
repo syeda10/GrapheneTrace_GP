@@ -48,22 +48,65 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
             return View(vm);
         }
 
-
-
-
-        // DETAILS PAGE - for NEW AddProfile clinicians
+        // FIXED DETAILS PAGE
         public async Task<IActionResult> Details(int id)
         {
-            var clinician = await _context.ClinicianProfile
-                .Include(c => c.ProfessionalInfo)
-                .Include(c => c.Assignments)
-                .Include(c => c.Verification)
-                .FirstOrDefaultAsync(c => c.Id == id);
+            var clinician = await _context.Clinicians
+     .FirstOrDefaultAsync(c => c.Id == id);
 
             if (clinician == null)
                 return NotFound();
 
-            return View(clinician);
+            // FETCH ALERTS
+            var alerts = await _context.ClinicianAlerts
+                .Where(a => a.ClinicianId == id)
+                .OrderByDescending(a => a.AlertDateTime)
+                .Select((a, index) => new ClinicianAlertRow
+                {
+                    Sno = index + 1,
+                    AlertType = a.AlertType,
+                    AlertDateTime = a.AlertDateTime
+                })
+                .ToListAsync();
+
+            // FETCH ASSIGNED PATIENTS
+            var assignedPatients = await _context.Patients
+                .Where(p => p.ClinicianId == id)
+                .OrderBy(p => p.PatientId)
+                .Select((p, index) => new AssignedPatientRow
+                {
+                    Sno = index + 1,
+                    PatientId = p.PatientId,
+                    PatientFirstName = p.FirstName,
+                    PatientLastName = p.LastName,
+                    Age = p.DateOfBirth != DateTime.MinValue
+                            ? (int)((DateTime.Now - p.DateOfBirth).TotalDays / 365.25)
+                            : 0
+                })
+                .ToListAsync();
+
+            var vm = new ClinicianDetailsVM
+            {
+                ClinicianId = clinician.Id,
+                ClinicianFirstName = clinician.ClinicianFirstName,
+                ClinicianLastName = clinician.ClinicianLastName,
+                Email = clinician.Email,
+                Gender = clinician.Gender,
+                DateOfBirth = clinician.DateOfBirth,
+                City = clinician.City,
+                Address = clinician.Address,
+                PostCode = clinician.PostCode,
+                Phone = clinician.Phone,
+                Status = clinician.Status,
+                Alerts = alerts,
+                AssignedPatients = assignedPatients
+            };
+
+            return View(vm);
+
         }
+
+
+
     }
 }

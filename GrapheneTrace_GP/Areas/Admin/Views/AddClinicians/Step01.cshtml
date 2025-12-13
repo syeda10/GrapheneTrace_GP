@@ -21,11 +21,10 @@
 
 <h4 class="fw-bold mb-3">Step 01 › Personal Info</h4>
 
-<form asp-area="Admin"
-      asp-controller="AddClinicians"
-      asp-action="Step01Post"
-      method="post"
-      enctype="multipart/form-data">
+<form method="post" asp-action="Step01">
+
+
+    @Html.AntiForgeryToken()
 
 
     <table class="table table-bordered custom-table">
@@ -41,13 +40,13 @@
             <tr>
                 <td>01</td>
                 <td>Last Name</td>
-                <td><input asp-for="ClinicianLastName" class="form-control" required /></td>
+                <td><input asp-for="LastName" class="form-control" required /></td>
             </tr>
 
             <tr>
                 <td>02</td>
                 <td>First Name</td>
-                <td><input asp-for="ClinicianFirstName" class="form-control" required /></td>
+                <td><input asp-for="FirstName" class="form-control" required /></td>
             </tr>
 
             <tr>
@@ -121,7 +120,8 @@
     </table>
 
     <div class="text-end">
-        <button type="submit" class="btn btn-primary">Proceed to Next Step</button>
+        <a asp-action="Step02" class="btn btn-secondary">Next</a>
+        <button type="submit" class="btn btn-primary">Proceed →</button>
     </div>
 
 </form>

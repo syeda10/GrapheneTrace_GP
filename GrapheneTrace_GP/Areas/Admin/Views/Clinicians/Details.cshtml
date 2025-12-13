@@ -56,21 +56,24 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var a in Model.Alerts)
+                            @if (Model.Alerts != null && Model.Alerts.Any())
                             {
-                                <tr>
-                                    <td>@a.AlertId</td>
-                                    <td>@a.AlertType</td>
-                                    <td>@Html.Raw(a.AlertDateTime.ToString("dd/MM/yyyy<br/>HH:mm"))</td>
-                                </tr>
+                                foreach (var a in Model.Alerts)
+                                {
+                                    <tr>
+                                        <td>@a.AlertId</td>
+                                        <td>@a.AlertType</td>
+                                        <td>@Html.Raw(a.AlertDateTime.ToString("dd/MM/yyyy<br/>HH:mm"))</td>
+                                    </tr>
+                                }
                             }
-                       
-
-                            
                             else
                             {
-                                <tr><td colspan="3" class="text-center text-muted">No alerts available.</td></tr>
+                                <tr>
+                                    <td colspan="3" class="text-center text-muted">No alerts available.</td>
+                                </tr>
                             }
+
                         </tbody>
                     </table>
                 </div>
@@ -97,22 +100,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var p in Model.AssignedPatients)
+                    @if (Model.AssignedPatients != null && Model.AssignedPatients.Any())
+                    {
+                        foreach (var p in Model.AssignedPatients)
+                        {
+                            <tr>
+                                <td>@p.Sno</td>
+                                <td>@p.PatientFirstName @p.PatientLastName</td>
+                                <td>@p.PatientId</td>
+                                <td>@p.Age</td>
+                            </tr>
+                        }
+                    }
+                    else
                     {
                         <tr>
-                            <td>@p.Sno</td>
-                            <td>@p.PatientFirstName @p.PatientLastName</td>
-                            <td>@p.PatientId</td>
-                            <td>@p.Age</td>
+                            <td colspan="4" class="text-center text-muted">No assigned patients.</td>
                         </tr>
                     }
 
-                    else
-                    {
-                    <tr>
-                        <td colspan="4" class="text-center text-muted">No assigned patients.</td>
-                    </tr>
-                    }
                    
                 </tbody>
             </table>

@@ -41,7 +41,9 @@
                 <div class="card shadow-sm p-3">
 
                     <p><strong>Gender:</strong> @Model.Gender</p>
-                    <p><strong>Date Of Birth:</strong> @Model.DateOfBirth.ToString("dd MMM yyyy")</p>
+                <p>
+                    <strong>Date Of Birth:</strong> @Model.DateOfBirth
+                </p>
                     <p><strong>City:</strong> @Model.City</p>
                     <p><strong>Phone No:</strong> @Model.Phone</p>
                     <p><strong>Address:</strong> @Model.Address</p>
@@ -84,29 +86,30 @@
 
         </div>
 
-   
-    <hr />
+
     <h3>Appointments</h3>
 
-    @if (Model.AllAppointments != null && Model.AllAppointments.Any())
+    @if (Model.AllAppointments.Any())
     {
-        <table class="table table-bordered table-striped">
-            <thead class="table-primary">
+        <table class="table table-striped">
+            <thead>
                 <tr>
                     <th>Date</th>
-                    <th>Treatment</th>
+                    <th>Booking Time</th>
+                    <th>Treatment Type</th>
                     <th>Comments</th>
                     <th>Next Appointment</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var appt in Model.AllAppointments)
+                @foreach (var a in Model.AllAppointments)
                 {
                     <tr>
-                        <td>@appt.AppointmentDate.ToString("dd/MM/yyyy")</td>
-                        <td>@appt.TreatmentType</td>
-                        <td>@appt.Comments</td>
-                        <td>@appt.NextAppointment</td>
+                        <td>@a.AppointmentDate.ToString("dd/MM/yy")</td>
+                        <td>@a.AppointmentDate.ToString("HH:mm tt")</td>
+                        <td>@a.TreatmentType</td>
+                        <td>@a.Comments</td>
+                        <td>@a.NextAppointment</td>
                     </tr>
                 }
             </tbody>
@@ -117,34 +120,36 @@
         <p>No appointments available.</p>
     }
 
+
     <h3>Completed Appointments</h3>
 
-    @if (Model.CompletedAppointments != null && Model.CompletedAppointments.Any())
+    @if (Model.CompletedAppointments.Any())
     {
-        <table class="table table-bordered table-striped">
-            <thead class="table-success">
+        <table class="table table-striped">
+            <thead>
                 <tr>
                     <th>Date</th>
-                    <th>Treatment</th>
+                    <th>Treatment Type</th>
                     <th>Comments</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var appt in Model.CompletedAppointments)
+                @foreach (var a in Model.CompletedAppointments)
                 {
                     <tr>
-                        <td>@appt.AppointmentDate.ToString("dd/MM/yyyy")</td>
-                        <td>@appt.TreatmentType</td>
-                        <td>@appt.Comments</td>
+                        <td>@a.AppointmentDate.ToString("dd/MM/yy")</td>
+                        <td>@a.TreatmentType</td>
+                        <td>@a.Comments</td>
                     </tr>
                 }
             </tbody>
         </table>
     }
-       else
-       {
+    else
+    {
         <p>No completed appointments.</p>
-       }
+    }
+
 
 
 </div>

@@ -28,6 +28,7 @@ namespace GrapheneTrace_GP.Areas.Admin.ViewModels
 
     public class ClinicianAlertRow
     {
+        public int Sno { get; set; }
         public int AlertId { get; set; }
         public string AlertType { get; set; } = "";
         public DateTime AlertDateTime { get; set; }
@@ -40,7 +41,9 @@ namespace GrapheneTrace_GP.Areas.Admin.ViewModels
         public string PatientLastName { get; set; } = "";
         public string PatientFirstName { get; set; } = "";
         public int PatientId { get; set; }
-        public string Age { get; set; } = "";
+        public int Age { get; set; }
+
+
 
     }
 

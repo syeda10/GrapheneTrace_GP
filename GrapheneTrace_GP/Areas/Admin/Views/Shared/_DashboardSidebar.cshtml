@@ -2,7 +2,7 @@
     <ul>
 
         <li class="active">
-            <a asp-controller="Home" asp-action="Index">
+            <a asp-controller="Dashboard" asp-action="Index">
                 <span class="icon">🛏</span><span class="label">Dashboard</span>
             </a>
         </li>
@@ -18,12 +18,28 @@
                 <span class="icon">👩🏼‍🦼</span><span class="label">Patients</span>
             </a>
         </li>
-
-        <li>
-            <a asp-area="Admin" asp-controller="AddProfile" asp-action="Index">
-                <span class="icon">➕</span>
-                <span class="label">Add Profile</span>
+        
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-toggle="collapse" href="#addProfileMenu">
+                <i class="fas fa-user-plus"></i> Add Profile
             </a>
+            <div class="collapse" id="addProfileMenu">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+
+                    <li>
+                        <a asp-area="Admin" asp-controller="AddClinicians" asp-action="Step01" class="nav-link">
+                            Add Clinician
+                        </a>
+                    </li>
+
+                    <li>
+                        <a asp-area="Admin" asp-controller="AddPatient" asp-action="Step01" class="nav-link">
+                            Add Patient
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
         </li>
 
         <li>
