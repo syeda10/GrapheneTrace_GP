@@ -3,11 +3,13 @@
     public class PatientAddProfileVM
     {
 
+        public int Id { get; set; }
+        public int PatientId { get; set; }
+
         // Step 01 — Personal Details
         public string Title { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string PatientAge { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Gender { get; set; }
         public string Email { get; set; }
@@ -15,8 +17,7 @@
         public string Address { get; set; }
         public string City { get; set; }
         public string PostCode { get; set; }
-        public string NHSNo { get; set; }
-        public string PhotoPath { get; set; }
+        public string NHSNumber { get; set; }
 
         // Step 02 — Medical Info
         public string BloodGroup { get; set; }
@@ -43,6 +44,5 @@
         public string VerifiedBy { get; set; }
         public DateTime? DateReviewed { get; set; }
         public string Remarks { get; set; }
-
     }
 }

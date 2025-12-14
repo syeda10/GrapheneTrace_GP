@@ -1,0 +1,91 @@
+﻿@model PatientAddProfileVM
+
+@{
+    ViewData["Title"] = "Add Patient - Step 03";
+}
+
+<div class="btn-group mb-3">
+    <a asp-action="Step01" asp-route-id="@Model.PatientId" class="btn btn-secondary">Step 01</a>
+    <a asp-action="Step02" asp-route-id="@Model.PatientId" class="btn btn-secondary">Step 02</a>
+    <a asp-action="Step03" asp-route-id="@Model.PatientId" class="btn btn-primary">Step 03</a>
+    <a asp-action="Step04" asp-route-id="@Model.PatientId" class="btn btn-secondary">Step 04</a>
+</div>
+
+<h3>Step 03 › Assignments</h3>
+
+<form asp-action="Step03" method="post">
+
+    <table class="table table-bordered wizard-table">
+
+        <tr>
+            <td>01</td>
+            <td>Department</td>
+            <td>
+                <select asp-for="Department" class="form-select">
+                    <option>Select Department</option>
+                    <option>Cardiology</option>
+                    <option>Neurology</option>
+                    <option>Orthopaedics</option>
+                    <option>Radiology</option>
+                    <option>General Medicine</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td>02</td>
+            <td>Emergency Contact Name</td>
+            <td><input asp-for="EmergencyContactName" class="form-control" /></td>
+        </tr>
+
+        <tr>
+            <td>03</td>
+            <td>Relationship</td>
+            <td>
+                <select asp-for="Relationship" class="form-select">
+                    <option>Parent</option>
+                    <option>Sibling</option>
+                    <option>Spouse</option>
+                    <option>Guardian</option>
+                    <option>Friend</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td>04</td>
+            <td>Emergency Contact No</td>
+            <td><input asp-for="EmergencyContactNo" class="form-control" /></td>
+        </tr>
+
+        <tr>
+            <td>05</td>
+            <td>Vaccination Status</td>
+            <td>
+                <select asp-for="VaccinationStatus" class="form-select">
+                    <option>Fully Vaccinated</option>
+                    <option>Partially Vaccinated</option>
+                    <option>Not Vaccinated</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td>06</td>
+            <td>Last Medical Checkup</td>
+            <td><input asp-for="LastMedicalCheckup" type="date" class="form-control" /></td>
+        </tr>
+
+        <tr>
+            <td>07</td>
+            <td>Purpose</td>
+            <td><textarea asp-for="Purpose" class="form-control"></textarea></td>
+        </tr>
+
+    </table>
+
+    <input type="hidden" asp-for="PatientId" />
+
+    <button class="btn btn-primary">Proceed to Next Step</button>
+
+</form>

@@ -4,6 +4,7 @@ using GrapheneTrace_GP.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GrapheneTrace_GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251214120132_RevertFixClinicianNullableFields")]
+    partial class RevertFixClinicianNullableFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -650,7 +653,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 852693,
                             ClinicianLastName = "Michael",
                             ClinicianSpeciality = "Cardiologist",
-                            CreatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3261),
+                            CreatedAt = new DateTime(2025, 12, 14, 12, 1, 30, 421, DateTimeKind.Utc).AddTicks(1139),
                             DateOfBirth = new DateTime(1984, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "john.michael@example.com",
                             Gender = "Male",
@@ -658,7 +661,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A1 1AA",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3265)
+                            UpdatedAt = new DateTime(2025, 12, 14, 12, 1, 30, 421, DateTimeKind.Utc).AddTicks(1143)
                         },
                         new
                         {
@@ -670,7 +673,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 698235,
                             ClinicianLastName = "Peterson",
                             ClinicianSpeciality = "Neurology",
-                            CreatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3279),
+                            CreatedAt = new DateTime(2025, 12, 14, 12, 1, 30, 421, DateTimeKind.Utc).AddTicks(1297),
                             DateOfBirth = new DateTime(1992, 7, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "sarah.peterson@hospital.com",
                             Gender = "Female",
@@ -678,7 +681,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A2 2BB",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3280)
+                            UpdatedAt = new DateTime(2025, 12, 14, 12, 1, 30, 421, DateTimeKind.Utc).AddTicks(1297)
                         },
                         new
                         {
@@ -690,7 +693,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 456973,
                             ClinicianLastName = "Johnson",
                             ClinicianSpeciality = "Pediatrics",
-                            CreatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3287),
+                            CreatedAt = new DateTime(2025, 12, 14, 12, 1, 30, 421, DateTimeKind.Utc).AddTicks(1306),
                             DateOfBirth = new DateTime(1994, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "emily.johnson@hospital.com",
                             Gender = "Female",
@@ -698,7 +701,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A3 3CC",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3288)
+                            UpdatedAt = new DateTime(2025, 12, 14, 12, 1, 30, 421, DateTimeKind.Utc).AddTicks(1307)
                         },
                         new
                         {
@@ -710,7 +713,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 325698,
                             ClinicianLastName = "Anderson",
                             ClinicianSpeciality = "Neurologist",
-                            CreatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3295),
+                            CreatedAt = new DateTime(2025, 12, 14, 12, 1, 30, 421, DateTimeKind.Utc).AddTicks(1314),
                             DateOfBirth = new DateTime(1995, 4, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "david.anderson@hospital.com",
                             Gender = "Male",
@@ -718,7 +721,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A4 4DD",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3296)
+                            UpdatedAt = new DateTime(2025, 12, 14, 12, 1, 30, 421, DateTimeKind.Utc).AddTicks(1314)
                         },
                         new
                         {
@@ -730,7 +733,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 258963,
                             ClinicianLastName = "State",
                             ClinicianSpeciality = "Surgeon",
-                            CreatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3301),
+                            CreatedAt = new DateTime(2025, 12, 14, 12, 1, 30, 421, DateTimeKind.Utc).AddTicks(1320),
                             DateOfBirth = new DateTime(1975, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "emmanuel.state@hospital.com",
                             Gender = "Male",
@@ -738,7 +741,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A5 5EE",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3302)
+                            UpdatedAt = new DateTime(2025, 12, 14, 12, 1, 30, 421, DateTimeKind.Utc).AddTicks(1321)
                         },
                         new
                         {
@@ -750,7 +753,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 258694,
                             ClinicianLastName = "Stephen",
                             ClinicianSpeciality = "Radiologist",
-                            CreatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3307),
+                            CreatedAt = new DateTime(2025, 12, 14, 12, 1, 30, 421, DateTimeKind.Utc).AddTicks(1326),
                             DateOfBirth = new DateTime(1982, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "mike.stephen@hospital.com",
                             Gender = "Male",
@@ -758,7 +761,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A6 6FF",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3308)
+                            UpdatedAt = new DateTime(2025, 12, 14, 12, 1, 30, 421, DateTimeKind.Utc).AddTicks(1327)
                         },
                         new
                         {
@@ -770,7 +773,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 784561,
                             ClinicianLastName = "Hyper",
                             ClinicianSpeciality = "Psychiatrist",
-                            CreatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3313),
+                            CreatedAt = new DateTime(2025, 12, 14, 12, 1, 30, 421, DateTimeKind.Utc).AddTicks(1332),
                             DateOfBirth = new DateTime(1986, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "noah.hyper@hospital.com",
                             Gender = "Male",
@@ -778,7 +781,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A7 7GG",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3314)
+                            UpdatedAt = new DateTime(2025, 12, 14, 12, 1, 30, 421, DateTimeKind.Utc).AddTicks(1333)
                         },
                         new
                         {
@@ -790,7 +793,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 125489,
                             ClinicianLastName = "Cooke",
                             ClinicianSpeciality = "Gynaecologist",
-                            CreatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3319),
+                            CreatedAt = new DateTime(2025, 12, 14, 12, 1, 30, 421, DateTimeKind.Utc).AddTicks(1338),
                             DateOfBirth = new DateTime(1986, 2, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "helen.cooke@hospital.com",
                             Gender = "Female",
@@ -798,7 +801,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A8 8HH",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3319)
+                            UpdatedAt = new DateTime(2025, 12, 14, 12, 1, 30, 421, DateTimeKind.Utc).AddTicks(1339)
                         },
                         new
                         {
@@ -810,7 +813,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 508342,
                             ClinicianLastName = "Night",
                             ClinicianSpeciality = "Surgeon",
-                            CreatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3324),
+                            CreatedAt = new DateTime(2025, 12, 14, 12, 1, 30, 421, DateTimeKind.Utc).AddTicks(1343),
                             DateOfBirth = new DateTime(1982, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "rose.night@hospital.com",
                             Gender = "Female",
@@ -818,7 +821,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A9 9JJ",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3325)
+                            UpdatedAt = new DateTime(2025, 12, 14, 12, 1, 30, 421, DateTimeKind.Utc).AddTicks(1344)
                         },
                         new
                         {
@@ -830,7 +833,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 159753,
                             ClinicianLastName = "Watson",
                             ClinicianSpeciality = "Orthopaedic",
-                            CreatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3330),
+                            CreatedAt = new DateTime(2025, 12, 14, 12, 1, 30, 421, DateTimeKind.Utc).AddTicks(1349),
                             DateOfBirth = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jake.watson@hospital.com",
                             Gender = "Male",
@@ -838,7 +841,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "B1 1AA",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3330)
+                            UpdatedAt = new DateTime(2025, 12, 14, 12, 1, 30, 421, DateTimeKind.Utc).AddTicks(1350)
                         },
                         new
                         {
@@ -850,7 +853,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 753561,
                             ClinicianLastName = "Richard",
                             ClinicianSpeciality = "Dermatologist",
-                            CreatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3335),
+                            CreatedAt = new DateTime(2025, 12, 14, 12, 1, 30, 421, DateTimeKind.Utc).AddTicks(1356),
                             DateOfBirth = new DateTime(1990, 8, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "emma.richard@hospital.com",
                             Gender = "Female",
@@ -858,7 +861,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "B2 2BB",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3336)
+                            UpdatedAt = new DateTime(2025, 12, 14, 12, 1, 30, 421, DateTimeKind.Utc).AddTicks(1356)
                         });
                 });
 

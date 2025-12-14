@@ -1,0 +1,100 @@
+﻿@model ClinicianAddProfileVM
+@{
+    ViewData["Title"] = "Add Clinician - Step 02";
+}
+
+<div class="wizard-header">
+    <h2>Clinician Add Profile</h2>
+
+    <div class="profile-toggle">
+        <button class="btn btn-primary">Clinician</button>
+        <button class="btn btn-outline-secondary">Patient</button>
+    </div>
+</div>
+
+<div class="btn-group mb-3">
+    <a asp-action="Step01" asp-route-id="@Model.Id"
+       class="btn @(ViewContext.RouteData.Values["action"]!.ToString() == "Step01" ? "btn-primary" : "btn-secondary")">
+        Step 01
+    </a>
+
+    <a asp-action="Step02" asp-route-id="@Model.Id"
+       class="btn @(ViewContext.RouteData.Values["action"]!.ToString() == "Step02" ? "btn-primary" : "btn-secondary")">
+        Step 02
+    </a>
+
+    <a asp-action="Step03" asp-route-id="@Model.Id"
+       class="btn @(ViewContext.RouteData.Values["action"]!.ToString() == "Step03" ? "btn-primary" : "btn-secondary")">
+        Step 03
+    </a>
+
+    <a asp-action="Step04" asp-route-id="@Model.Id"
+       class="btn @(ViewContext.RouteData.Values["action"]!.ToString() == "Step04" ? "btn-primary" : "btn-secondary")">
+        Step 04
+    </a>
+</div>
+
+<h3>Step 02 › Professional Details</h3>
+
+<form asp-action="Step02" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <table class="table table-bordered wizard-table">
+        <thead>
+            <tr><th>S.No</th><th>Field</th><th>Value</th></tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>01</td>
+                <td>Department</td>
+                <td>
+                    <select asp-for="Department"
+                            asp-items="Model.DepartmentList"
+                            class="form-select">
+                        <option value="">-- Select Department --</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>02</td>
+                <td>Speciality</td>
+                <td><input asp-for="ClinicianSpeciality" class="form-control" /></td>
+            </tr>
+
+            <tr>
+                <td>03</td>
+                <td>Experience</td>
+                <td><input asp-for="Experience" class="form-control" placeholder="Years of experience" /></td>
+            </tr>
+
+            <tr>
+                <td>04</td>
+                <td>Status</td>
+                <td>
+                    <select asp-for="Status" class="form-select">
+                        <option>Active</option>
+                        <option>Inactive</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>05</td>
+                <td>Licence No</td>
+                <td><input asp-for="LicenceNo" class="form-control" /></td>
+            </tr>
+
+            <tr>
+                <td>06</td>
+                <td>Qualifications</td>
+                <td><textarea asp-for="Qualifications" class="form-control"></textarea></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="wizard-footer">
+        <button type="submit" class="btn btn-primary">Proceed to Next Step</button>
+    </div>
+</form>

@@ -26,6 +26,10 @@
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
+        public string? AssignedWardUnit { get; set; }
+        public string? Supervisor { get; set; }
+
+
         public List<ClinicianAlert> Alerts { get; set; } = new();
         public List<Patient> Patients { get; set; } = new();
     }

@@ -1,0 +1,126 @@
+﻿@model ClinicianAddProfileVM
+@{
+    ViewData["Title"] = "Add Clinician - Step 01";
+}
+
+<div class="wizard-header">
+    <h2>Clinician Add Profile</h2>
+
+    <div class="profile-toggle">
+        <button class="btn btn-primary">Clinician</button>
+        <button class="btn btn-outline-secondary">Patient</button>
+    </div>
+</div>
+
+
+
+<div class="btn-group mb-3">
+    <a asp-action="Step01" asp-route-id="@Model.Id"
+       class="btn @(ViewContext.RouteData.Values["action"]!.ToString() == "Step01" ? "btn-primary" : "btn-secondary")">
+        Step 01
+    </a>
+
+    <a asp-action="Step02" asp-route-id="@Model.Id"
+       class="btn @(ViewContext.RouteData.Values["action"]!.ToString() == "Step02" ? "btn-primary" : "btn-secondary")">
+        Step 02
+    </a>
+
+    <a asp-action="Step03" asp-route-id="@Model.Id"
+       class="btn @(ViewContext.RouteData.Values["action"]!.ToString() == "Step03" ? "btn-primary" : "btn-secondary")">
+        Step 03
+    </a>
+
+    <a asp-action="Step04" asp-route-id="@Model.Id"
+       class="btn @(ViewContext.RouteData.Values["action"]!.ToString() == "Step04" ? "btn-primary" : "btn-secondary")">
+        Step 04
+    </a>
+</div>
+
+<h3>Step 01 › Personal Info</h3>
+
+<form asp-action="Step01" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <table class="table table-bordered wizard-table">
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>Field</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>01</td>
+                <td>Last Name</td>
+                <td>
+                    <input asp-for="ClinicianLastName" class="form-control" />
+                </td>
+            </tr>
+
+            <tr>
+                <td>02</td>
+                <td>First Name</td>
+                <td>
+                    <input asp-for="ClinicianFirstName" class="form-control" />
+                </td>
+            </tr>
+
+            <tr>
+                <td>03</td>
+                <td>Title</td>
+                <td>
+                    <select asp-for="Title" class="form-select">
+                        <option value="">-- Select Title --</option>
+                        <option>Mr.</option>
+                        <option>Mrs.</option>
+                        <option>Miss</option>
+                        <option>Dr.</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>04</td>
+                <td>Email Address</td>
+                <td>
+                    <input asp-for="Email" class="form-control" />
+                </td>
+            </tr>
+
+            <tr>
+                <td>05</td>
+                <td>Phone Number</td>
+                <td>
+                    <input asp-for="Phone" class="form-control" />
+                </td>
+            </tr>
+
+            <tr>
+                <td>06</td>
+                <td>Gender</td>
+                <td>
+                    <select asp-for="Gender" class="form-select">
+                        <option value="">-- Select Gender --</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>07</td>
+                <td>Date of Birth</td>
+                <td>
+                    <input asp-for="DateOfBirth" type="date" class="form-control" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="wizard-footer">
+        <button type="submit" class="btn btn-primary">Proceed to Next Step</button>
+    </div>
+</form>

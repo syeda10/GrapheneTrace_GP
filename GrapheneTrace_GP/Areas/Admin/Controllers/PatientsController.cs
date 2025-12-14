@@ -20,30 +20,30 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
             _csvLoader = csvLoader;
         }
 
+        // -----------------------------
+        // PATIENT LIST
+        // -----------------------------
         [HttpGet("")]
         public async Task<IActionResult> Index(int page = 1)
         {
-            int pageSize = 6; // number of cards per page
+            int pageSize = 6;
 
-            var query = _context.Patients
-                .OrderBy(p => p.PatientId)
-                .AsQueryable();
+            var query = _context.Patients.OrderBy(p => p.PatientId);
 
             int totalItems = await query.CountAsync();
 
             var patients = await query
-             .Skip((page - 1) * pageSize)
-             .Take(pageSize)
-             .Select(p => new PatientListVM
-             {
-                 PatientId = p.PatientId,
-                 FirstName = p.FirstName,
-                 LastName = p.LastName,
-                 Status = p.Status,
-                 Age = string.IsNullOrEmpty(p.PatientAge) ? "N/A" : p.PatientAge
-             })
-             .ToListAsync();
-
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .Select(p => new PatientListVM
+                {
+                    PatientId = p.PatientId,
+                    FirstName = p.FirstName,
+                    LastName = p.LastName,
+                    Status = p.Status,
+                    Age = string.IsNullOrEmpty(p.PatientAge) ? "N/A" : p.PatientAge
+                })
+                .ToListAsync();
 
             ViewBag.CurrentPage = page;
             ViewBag.TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
@@ -51,7 +51,7 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
             return View(patients);
         }
 
-
+        // PATIENT DETAILS
 
         [HttpGet("Details/{id}")]
         public async Task<IActionResult> Details(int id)
@@ -60,38 +60,33 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
                 .Include(p => p.Clinician)
                 .FirstOrDefaultAsync(p => p.PatientId == id);
 
-            if (patient == null) return NotFound();
+            if (patient == null)
+                return NotFound();
+
+            // Load full heatmap
+            var heatmapRaw = LoadHeatmapForPatient(id);
+
+            // Crop to 40 × 40
+            var heatmap = heatmapRaw
+                .Take(40)
+                .Select(r => r.Take(40).ToArray())
+                .ToList();
 
             var vm = new PatientDetailsVM
             {
-                Id = patient.PatientId,
-                FirstName = patient.FirstName,
-                LastName = patient.LastName,
-                Gender = patient.Gender,
-                Email = patient.Email,
-                Phone = patient.Phone,
-                City = patient.City,
-                Address = patient.Address,
-                PostCode = patient.PostCode,
-                Status = patient.Status,
-                Age = patient.PatientAge, // <-- FIXED (string)
-                AssignedDoctor = patient.Clinician != null
-                    ? patient.Clinician.ClinicianFirstName + " " + patient.Clinician.ClinicianLastName
-                    : "N/A"
+                Patient = patient,
+                Heatmap = heatmap,
+                AllAppointments = await LoadPatientAppointments(id),
+                CompletedAppointments = await LoadCompletedAppointments(id)
             };
-
-            vm.HeatMapData = LoadHeatmapForPatient(id);
-            vm.AllAppointments = new List<AppointmentVM>();
-            vm.CompletedAppointments = new List<AppointmentVM>();
-
-
 
             return View(vm);
         }
 
 
 
-        //CSV Loader for Heatmap Data
+        // PATIENT-SPECIFIC CSV LOADER
+
         private List<float[]> LoadHeatmapForPatient(int patientId)
         {
             var folder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Heatmapdata");
@@ -99,21 +94,14 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
             if (!Directory.Exists(folder))
                 return new List<float[]>();
 
-            // Try to find CSVs for this specific patient (e.g. "1257_20250101.csv")
             var patientFiles = Directory.GetFiles(folder, $"{patientId}_*.csv");
 
-            string fileToRead = patientFiles.FirstOrDefault();
-
-            // If no patient-specific file, load latest available
-            if (fileToRead == null)
-                fileToRead = Directory.GetFiles(folder, "*.csv")
-                                      .OrderByDescending(f => f)
-                                      .FirstOrDefault();
+            string fileToRead = patientFiles.FirstOrDefault()
+                ?? Directory.GetFiles(folder, "*.csv").OrderByDescending(f => f).FirstOrDefault();
 
             if (fileToRead == null)
                 return new List<float[]>();
 
-            // Parse CSV → return float[][]
             var lines = System.IO.File.ReadAllLines(fileToRead);
             List<float[]> values = new();
 
@@ -125,10 +113,12 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
             }
 
             return values;
+
         }
 
-
-        //Appointments Table Loader
+        // -----------------------------
+        // APPOINTMENTS
+        // -----------------------------
         private async Task<List<AppointmentVM>> LoadPatientAppointments(int patientId)
         {
             return await _context.Appointments
@@ -146,9 +136,6 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
                 .ToListAsync();
         }
 
-
-        //Completed Appointments Table Loader
-
         private async Task<List<AppointmentVM>> LoadCompletedAppointments(int patientId)
         {
             return await _context.Appointments
@@ -163,7 +150,5 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
                 })
                 .ToListAsync();
         }
-
-
     }
 }

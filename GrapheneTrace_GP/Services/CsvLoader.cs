@@ -51,9 +51,22 @@ namespace GrapheneTrace_GP.Services
             return DateTime.MinValue;
         }
 
-        // -----------------------------------------
         // Read CSV into List<float[]> heatmap rows
-        // -----------------------------------------
+
+        public List<float[]> CropHeatmap(List<float[]> original, int targetRows = 40, int targetCols = 40)
+        {
+            var cropped = new List<float[]>();
+
+            // Limit rows
+            foreach (var row in original.Take(targetRows))
+            {
+                // Limit columns
+                cropped.Add(row.Take(targetCols).ToArray());
+            }
+
+            return cropped;
+        }
+
         public List<float[]> LoadCsvHeatmap(string csvPath)
         {
             var rows = new List<float[]>();
@@ -69,7 +82,10 @@ namespace GrapheneTrace_GP.Services
                 rows.Add(row);
             }
 
-            return rows;
+            // NEW: Crop the heatmap so it's always a fixed size (40x40)
+            return CropHeatmap(rows, 40, 40);
         }
+
+
     }
 }

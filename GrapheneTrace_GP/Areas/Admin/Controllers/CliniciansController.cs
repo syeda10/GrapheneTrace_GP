@@ -52,39 +52,52 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var clinician = await _context.Clinicians
-     .FirstOrDefaultAsync(c => c.Id == id);
+                .FirstOrDefaultAsync(c => c.Id == id);
 
             if (clinician == null)
                 return NotFound();
 
-            // FETCH ALERTS
-            var alerts = await _context.ClinicianAlerts
+            // FETCH ALERTS — FIXED
+            var alerts = _context.ClinicianAlerts
                 .Where(a => a.ClinicianId == id)
                 .OrderByDescending(a => a.AlertDateTime)
+                .AsEnumerable()      
                 .Select((a, index) => new ClinicianAlertRow
                 {
                     Sno = index + 1,
                     AlertType = a.AlertType,
                     AlertDateTime = a.AlertDateTime
                 })
-                .ToListAsync();
+                .ToList();            // Not ToListAsync()
 
-            // FETCH ASSIGNED PATIENTS
-            var assignedPatients = await _context.Patients
+            //Assigned patients
+
+            var rawPatients = _context.Patients
                 .Where(p => p.ClinicianId == id)
                 .OrderBy(p => p.PatientId)
-                .Select((p, index) => new AssignedPatientRow
-                {
-                    Sno = index + 1,
-                    PatientId = p.PatientId,
-                    PatientFirstName = p.FirstName,
-                    PatientLastName = p.LastName,
-                    Age = p.DateOfBirth != DateTime.MinValue
-                            ? (int)((DateTime.Now - p.DateOfBirth).TotalDays / 365.25)
-                            : 0
-                })
-                .ToListAsync();
+                .ToList();
 
+
+            var assignedPatients = rawPatients
+            .Select((p, index) => new AssignedPatientRow
+            {
+                Sno = index + 1,
+                PatientId = p.PatientId,
+                PatientFirstName = p.FirstName,
+                PatientLastName = p.LastName,
+
+                Age = (p.DateOfBirth != DateTime.MinValue)
+                ? (int)((DateTime.Now - p.DateOfBirth).Value.TotalDays / 365.25)
+                : 0
+
+            })
+            .ToList();
+
+
+            // not ToListAsync()
+
+
+            // BUILD FINAL VIEW MODEL
             var vm = new ClinicianDetailsVM
             {
                 ClinicianId = clinician.Id,
@@ -98,13 +111,14 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
                 PostCode = clinician.PostCode,
                 Phone = clinician.Phone,
                 Status = clinician.Status,
+
                 Alerts = alerts,
                 AssignedPatients = assignedPatients
             };
 
             return View(vm);
-
         }
+
 
 
 

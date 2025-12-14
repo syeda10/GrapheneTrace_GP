@@ -1,6 +1,4 @@
 ﻿using GrapheneTrace_GP.Areas.Admin.Models;
-using GrapheneTrace_GP.Areas.Admin.Models.ClinicianAddProfile;
-using GrapheneTrace_GP.Areas.Admin.Models.PatientAddProfile;
 using GrapheneTrace_GP.Areas.Admin.ViewModels;
 using GrapheneTrace_GP.Models;
 using Microsoft.EntityFrameworkCore;
@@ -31,22 +29,23 @@ namespace GrapheneTrace_GP.Data
         public DbSet<Alert> Alerts { get; set; }
 
         //Clinician Add profile
-        public DbSet<ClinicianProfile> ClinicianProfile { get; set; }
-        public DbSet<ClinicianProfessionalInfo> ClinicianProfessionalInfo { get; set; }
+        public DbSet<CliniciansProfile> CliniciansProfiles { get; set; }
+        public DbSet<ClinicianProfessionalInfo> ClinicianProfessionalInfos { get; set; }
         public DbSet<ClinicianAssignments> ClinicianAssignments { get; set; }
-        public DbSet<ClinicianVerification> ClinicianVerification { get; set; }
+
+
+
 
         //Patients Add Profile
-        public DbSet<PatientProfile> PatientProfile { get; set; }
-        public DbSet<PatientMedicalInfo> PatientMedicalInfos { get; set; }
-        public DbSet<PatientAssignments> PatientAssignments { get; set; }
-        public DbSet<PatientVerification> PatientVerifications { get; set; }
+
 
 
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+
             // Seed Clinicians data
 
             modelBuilder.Entity<ClinicianAlert>()
@@ -344,7 +343,8 @@ namespace GrapheneTrace_GP.Data
                     Phone = "07012345678",
                     Address = "10 Downing Street",
                     City = "London",
-                    PostCode = "SW1A 2AA"
+                    PostCode = "SW1A 2AA",
+
                 },
 
                 new Patient
@@ -1176,35 +1176,29 @@ namespace GrapheneTrace_GP.Data
                         RelatedId = null,
                         CreatedAt = new DateTime(2025, 02, 17, 12, 00, 00)
                     }
+
             );
 
+            modelBuilder.Entity<Clinicians>(entity =>
+            {
+                entity.Property(c => c.Address).IsRequired(false);
+                entity.Property(c => c.City).IsRequired(false);
+                entity.Property(c => c.ClinicianAge).IsRequired(false);
+                entity.Property(c => c.ClinicianSpeciality).IsRequired(false);
+                entity.Property(c => c.AssignedWardUnit).IsRequired(false);
+                entity.Property(c => c.Supervisor).IsRequired(false);
+            });
 
-
-            // Add Profile Clinician
-
-
-            base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<ClinicianProfile>()
-                .HasOne(c => c.ProfessionalInfo)
-                .WithOne(pi => pi.Clinician)
-                .HasForeignKey<ClinicianProfessionalInfo>(pi => pi.ClinicianId);
-
-            modelBuilder.Entity<ClinicianProfile>()
-                .HasOne(c => c.Assignments)
-                .WithOne(a => a.Clinician)
-                .HasForeignKey<ClinicianAssignments>(a => a.ClinicianId);
-
-            modelBuilder.Entity<ClinicianProfile>()
-                .HasOne(c => c.Verification)
-                .WithOne(v => v.Clinician)
-                .HasForeignKey<ClinicianVerification>(v => v.ClinicianId);
 
 
 
         }
 
+
+      
+
     }
+
 
 }
 

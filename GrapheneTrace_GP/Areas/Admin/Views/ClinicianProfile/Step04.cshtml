@@ -1,0 +1,67 @@
+﻿@model ClinicianAddProfileVM
+@{
+    ViewData["Title"] = "Add Clinician - Step 04";
+}
+
+<div class="wizard-header">
+    <h2>Clinician Add Profile</h2>
+
+    <div class="profile-toggle">
+        <button class="btn btn-primary">Clinician</button>
+        <button class="btn btn-outline-secondary">Patient</button>
+    </div>
+</div>
+
+<div class="btn-group mb-3">
+    <a asp-action="Step01" asp-route-id="@Model.Id"
+       class="btn @(ViewContext.RouteData.Values["action"]!.ToString() == "Step01" ? "btn-primary" : "btn-secondary")">Step 01</a>
+
+    <a asp-action="Step02" asp-route-id="@Model.Id"
+       class="btn @(ViewContext.RouteData.Values["action"]!.ToString() == "Step02" ? "btn-primary" : "btn-secondary")">Step 02</a>
+
+    <a asp-action="Step03" asp-route-id="@Model.Id"
+       class="btn @(ViewContext.RouteData.Values["action"]!.ToString() == "Step03" ? "btn-primary" : "btn-secondary")">Step 03</a>
+
+    <a asp-action="Step04" asp-route-id="@Model.Id"
+       class="btn @(ViewContext.RouteData.Values["action"]!.ToString() == "Step04" ? "btn-primary" : "btn-secondary")">Step 04</a>
+</div>
+
+<h3>Step 04 › Review & Save</h3>
+
+<table class="table table-bordered wizard-table">
+    <thead>
+        <tr><th>S.No</th><th>Field</th><th>Value</th></tr>
+    </thead>
+
+    <tbody>
+
+        <!-- PERSONAL DETAILS -->
+        <tr><td>01</td><td>Last Name</td><td>@Model.ClinicianLastName</td></tr>
+        <tr><td>02</td><td>First Name</td><td>@Model.ClinicianFirstName</td></tr>
+        <tr><td>03</td><td>Title</td><td>@Model.Title</td></tr>
+        <tr><td>04</td><td>Email</td><td>@Model.Email</td></tr>
+        <tr><td>05</td><td>Phone</td><td>@Model.Phone</td></tr>
+        <tr><td>06</td><td>Gender</td><td>@Model.Gender</td></tr>
+        <tr><td>07</td><td>Date of Birth</td><td>@Model.DateOfBirth?.ToShortDateString()</td></tr>
+
+        <!-- STEP 02 -->
+        <tr><td>08</td><td>Department</td><td>@Model.Department</td></tr>
+        <tr><td>09</td><td>Speciality</td><td>@Model.ClinicianSpeciality</td></tr>
+        <tr><td>10</td><td>Experience</td><td>@Model.Experience</td></tr>
+        <tr><td>11</td><td>Status</td><td>@Model.Status</td></tr>
+        <tr><td>12</td><td>Licence No</td><td>@Model.LicenceNo</td></tr>
+        <tr><td>13</td><td>Qualifications</td><td>@Model.Qualifications</td></tr>
+
+        <!-- STEP 03 -->
+        <tr><td>14</td><td>Assigned Ward/Unit</td><td>@Model.AssignedWardUnit</td></tr>
+        <tr><td>15</td><td>Supervisor</td><td>@Model.Supervisor</td></tr>
+
+    </tbody>
+</table>
+
+<form asp-action="SaveFinal" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="wizard-footer">
+        <button type="submit" class="btn btn-success">Save Clinician</button>
+    </div>
+</form>

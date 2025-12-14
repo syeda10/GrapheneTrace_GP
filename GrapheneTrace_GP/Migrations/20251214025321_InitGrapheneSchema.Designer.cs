@@ -4,6 +4,7 @@ using GrapheneTrace_GP.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GrapheneTrace_GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251214025321_InitGrapheneSchema")]
+    partial class InitGrapheneSchema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -574,15 +577,15 @@ namespace GrapheneTrace_GP.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AssignedWardUnit")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClinicianAge")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClinicianFirstName")
@@ -597,6 +600,7 @@ namespace GrapheneTrace_GP.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClinicianSpeciality")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -625,9 +629,6 @@ namespace GrapheneTrace_GP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Supervisor")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -650,7 +651,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 852693,
                             ClinicianLastName = "Michael",
                             ClinicianSpeciality = "Cardiologist",
-                            CreatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3261),
+                            CreatedAt = new DateTime(2025, 12, 14, 2, 53, 19, 764, DateTimeKind.Utc).AddTicks(3027),
                             DateOfBirth = new DateTime(1984, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "john.michael@example.com",
                             Gender = "Male",
@@ -658,7 +659,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A1 1AA",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3265)
+                            UpdatedAt = new DateTime(2025, 12, 14, 2, 53, 19, 764, DateTimeKind.Utc).AddTicks(3030)
                         },
                         new
                         {
@@ -670,7 +671,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 698235,
                             ClinicianLastName = "Peterson",
                             ClinicianSpeciality = "Neurology",
-                            CreatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3279),
+                            CreatedAt = new DateTime(2025, 12, 14, 2, 53, 19, 764, DateTimeKind.Utc).AddTicks(3056),
                             DateOfBirth = new DateTime(1992, 7, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "sarah.peterson@hospital.com",
                             Gender = "Female",
@@ -678,7 +679,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A2 2BB",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3280)
+                            UpdatedAt = new DateTime(2025, 12, 14, 2, 53, 19, 764, DateTimeKind.Utc).AddTicks(3057)
                         },
                         new
                         {
@@ -690,7 +691,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 456973,
                             ClinicianLastName = "Johnson",
                             ClinicianSpeciality = "Pediatrics",
-                            CreatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3287),
+                            CreatedAt = new DateTime(2025, 12, 14, 2, 53, 19, 764, DateTimeKind.Utc).AddTicks(3064),
                             DateOfBirth = new DateTime(1994, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "emily.johnson@hospital.com",
                             Gender = "Female",
@@ -698,7 +699,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A3 3CC",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3288)
+                            UpdatedAt = new DateTime(2025, 12, 14, 2, 53, 19, 764, DateTimeKind.Utc).AddTicks(3065)
                         },
                         new
                         {
@@ -710,7 +711,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 325698,
                             ClinicianLastName = "Anderson",
                             ClinicianSpeciality = "Neurologist",
-                            CreatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3295),
+                            CreatedAt = new DateTime(2025, 12, 14, 2, 53, 19, 764, DateTimeKind.Utc).AddTicks(3071),
                             DateOfBirth = new DateTime(1995, 4, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "david.anderson@hospital.com",
                             Gender = "Male",
@@ -718,7 +719,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A4 4DD",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3296)
+                            UpdatedAt = new DateTime(2025, 12, 14, 2, 53, 19, 764, DateTimeKind.Utc).AddTicks(3072)
                         },
                         new
                         {
@@ -730,7 +731,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 258963,
                             ClinicianLastName = "State",
                             ClinicianSpeciality = "Surgeon",
-                            CreatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3301),
+                            CreatedAt = new DateTime(2025, 12, 14, 2, 53, 19, 764, DateTimeKind.Utc).AddTicks(3077),
                             DateOfBirth = new DateTime(1975, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "emmanuel.state@hospital.com",
                             Gender = "Male",
@@ -738,7 +739,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A5 5EE",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3302)
+                            UpdatedAt = new DateTime(2025, 12, 14, 2, 53, 19, 764, DateTimeKind.Utc).AddTicks(3078)
                         },
                         new
                         {
@@ -750,7 +751,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 258694,
                             ClinicianLastName = "Stephen",
                             ClinicianSpeciality = "Radiologist",
-                            CreatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3307),
+                            CreatedAt = new DateTime(2025, 12, 14, 2, 53, 19, 764, DateTimeKind.Utc).AddTicks(3083),
                             DateOfBirth = new DateTime(1982, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "mike.stephen@hospital.com",
                             Gender = "Male",
@@ -758,7 +759,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A6 6FF",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3308)
+                            UpdatedAt = new DateTime(2025, 12, 14, 2, 53, 19, 764, DateTimeKind.Utc).AddTicks(3084)
                         },
                         new
                         {
@@ -770,7 +771,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 784561,
                             ClinicianLastName = "Hyper",
                             ClinicianSpeciality = "Psychiatrist",
-                            CreatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3313),
+                            CreatedAt = new DateTime(2025, 12, 14, 2, 53, 19, 764, DateTimeKind.Utc).AddTicks(3089),
                             DateOfBirth = new DateTime(1986, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "noah.hyper@hospital.com",
                             Gender = "Male",
@@ -778,7 +779,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A7 7GG",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3314)
+                            UpdatedAt = new DateTime(2025, 12, 14, 2, 53, 19, 764, DateTimeKind.Utc).AddTicks(3090)
                         },
                         new
                         {
@@ -790,7 +791,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 125489,
                             ClinicianLastName = "Cooke",
                             ClinicianSpeciality = "Gynaecologist",
-                            CreatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3319),
+                            CreatedAt = new DateTime(2025, 12, 14, 2, 53, 19, 764, DateTimeKind.Utc).AddTicks(3171),
                             DateOfBirth = new DateTime(1986, 2, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "helen.cooke@hospital.com",
                             Gender = "Female",
@@ -798,7 +799,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A8 8HH",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3319)
+                            UpdatedAt = new DateTime(2025, 12, 14, 2, 53, 19, 764, DateTimeKind.Utc).AddTicks(3172)
                         },
                         new
                         {
@@ -810,7 +811,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 508342,
                             ClinicianLastName = "Night",
                             ClinicianSpeciality = "Surgeon",
-                            CreatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3324),
+                            CreatedAt = new DateTime(2025, 12, 14, 2, 53, 19, 764, DateTimeKind.Utc).AddTicks(3178),
                             DateOfBirth = new DateTime(1982, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "rose.night@hospital.com",
                             Gender = "Female",
@@ -818,7 +819,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "A9 9JJ",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3325)
+                            UpdatedAt = new DateTime(2025, 12, 14, 2, 53, 19, 764, DateTimeKind.Utc).AddTicks(3179)
                         },
                         new
                         {
@@ -830,7 +831,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 159753,
                             ClinicianLastName = "Watson",
                             ClinicianSpeciality = "Orthopaedic",
-                            CreatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3330),
+                            CreatedAt = new DateTime(2025, 12, 14, 2, 53, 19, 764, DateTimeKind.Utc).AddTicks(3184),
                             DateOfBirth = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jake.watson@hospital.com",
                             Gender = "Male",
@@ -838,7 +839,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "B1 1AA",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3330)
+                            UpdatedAt = new DateTime(2025, 12, 14, 2, 53, 19, 764, DateTimeKind.Utc).AddTicks(3185)
                         },
                         new
                         {
@@ -850,7 +851,7 @@ namespace GrapheneTrace_GP.Migrations
                             ClinicianId = 753561,
                             ClinicianLastName = "Richard",
                             ClinicianSpeciality = "Dermatologist",
-                            CreatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3335),
+                            CreatedAt = new DateTime(2025, 12, 14, 2, 53, 19, 764, DateTimeKind.Utc).AddTicks(3190),
                             DateOfBirth = new DateTime(1990, 8, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "emma.richard@hospital.com",
                             Gender = "Female",
@@ -858,7 +859,7 @@ namespace GrapheneTrace_GP.Migrations
                             PostCode = "B2 2BB",
                             Status = "Active",
                             Title = "Dr.",
-                            UpdatedAt = new DateTime(2025, 12, 14, 12, 12, 0, 692, DateTimeKind.Utc).AddTicks(3336)
+                            UpdatedAt = new DateTime(2025, 12, 14, 2, 53, 19, 764, DateTimeKind.Utc).AddTicks(3190)
                         });
                 });
 
@@ -931,102 +932,56 @@ namespace GrapheneTrace_GP.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PatientId"));
 
                     b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Allergies")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BloodGroup")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ChronicConditions")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ClinicianId")
                         .HasColumnType("int");
 
-                    b.Property<string>("CurrentMedication")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DateOfBirth")
+                    b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateReviewed")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Department")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EmergencyContactName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EmergencyContactNo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Gender")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Height")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastMedicalCheckup")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NHSNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PastSurgeries")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PatientAge")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Purpose")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Relationship")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Remarks")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Smoking")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VaccinationStatus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VerificationStatus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VerifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Weight")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PatientId");
@@ -1046,6 +1001,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "sophie.night@gmail.com",
                             FirstName = "Sophie",
                             Gender = "Female",
+                            Id = 0,
                             LastName = "Night",
                             PatientAge = "40",
                             Phone = "07012345678",
@@ -1063,6 +1019,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "janee.harrison@gmail.com",
                             FirstName = "Janee",
                             Gender = "Female",
+                            Id = 0,
                             LastName = "Harrison",
                             PatientAge = "32",
                             Phone = "07087654321",
@@ -1080,6 +1037,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "mike.jackson@gmail.com",
                             FirstName = "Mike",
                             Gender = "Male",
+                            Id = 0,
                             LastName = "Jackson",
                             PatientAge = "29",
                             Phone = "07011223344",
@@ -1097,6 +1055,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "peter.benjamin@gmail.com",
                             FirstName = "Peter",
                             Gender = "Male",
+                            Id = 0,
                             LastName = "Benjamin",
                             PatientAge = "49",
                             Phone = "07098765432",
@@ -1114,6 +1073,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "Hannah.green@gmail.com",
                             FirstName = "Hannah",
                             Gender = "Female",
+                            Id = 0,
                             LastName = "Green",
                             PatientAge = "42",
                             Phone = "07012345678",
@@ -1131,6 +1091,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "andy.bryan@gmail.com",
                             FirstName = "Andy",
                             Gender = "Male",
+                            Id = 0,
                             LastName = "Bryan",
                             PatientAge = "38",
                             Phone = "07012345678",
@@ -1148,6 +1109,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "alex.white@gmail.com",
                             FirstName = "Alex",
                             Gender = "Male",
+                            Id = 0,
                             LastName = "White",
                             PatientAge = "38",
                             Phone = "07012345678",
@@ -1165,6 +1127,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "clara.ashley@gmail.com",
                             FirstName = "Clara",
                             Gender = "Female",
+                            Id = 0,
                             LastName = "Ashley",
                             PatientAge = "30",
                             Phone = "07012345678",
@@ -1182,6 +1145,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "diana.prince@gmail.com",
                             FirstName = "Diana",
                             Gender = "Female",
+                            Id = 0,
                             LastName = "Prince",
                             PatientAge = "34",
                             Phone = "07012345678",
@@ -1199,6 +1163,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "richard.watson@gmail.com",
                             FirstName = "Richard",
                             Gender = "Male",
+                            Id = 0,
                             LastName = "Watson",
                             PatientAge = "45",
                             Phone = "07012345678",
@@ -1216,6 +1181,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "james.brown@gmail.com",
                             FirstName = "James",
                             Gender = "Female",
+                            Id = 0,
                             LastName = "Brown",
                             PatientAge = "28",
                             Phone = "07012345678",
@@ -1233,6 +1199,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "Olivia12.Patrick@gmail.com",
                             FirstName = "Olivia",
                             Gender = "Female",
+                            Id = 0,
                             LastName = "Patrick",
                             PatientAge = "39",
                             Phone = "07452136925",
@@ -1250,6 +1217,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "liam.smith@gmail.com",
                             FirstName = "Liam",
                             Gender = "Male",
+                            Id = 0,
                             LastName = "Smith",
                             PatientAge = "35",
                             Phone = "07345678912",
@@ -1267,6 +1235,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "ava.johnson@gmail.com",
                             FirstName = "Ava",
                             Gender = "Female",
+                            Id = 0,
                             LastName = "Johnson",
                             PatientAge = "41",
                             Phone = "07345678912",
@@ -1284,6 +1253,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "isabella.williams@gmail.com",
                             FirstName = "Isabella",
                             Gender = "Female",
+                            Id = 0,
                             LastName = "Williams",
                             PatientAge = "29",
                             Phone = "07412345678",
@@ -1301,6 +1271,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "noah.brown@gmail.com",
                             FirstName = "Noah",
                             Gender = "Male",
+                            Id = 0,
                             LastName = "Brown",
                             PatientAge = "33",
                             Phone = "07512345678",
@@ -1318,6 +1289,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "harvey.cole@gmail.com",
                             FirstName = "Harvey",
                             Gender = "Male",
+                            Id = 0,
                             LastName = "Cole",
                             PatientAge = "37",
                             Phone = "07581234567",
@@ -1335,6 +1307,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "layla.stevens@gmail.com",
                             FirstName = "Layla",
                             Gender = "Female",
+                            Id = 0,
                             LastName = "Stevens",
                             PatientAge = "44",
                             Phone = "07411122233",
@@ -1352,6 +1325,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "brandon.lee@gmail.com",
                             FirstName = "Brandon",
                             Gender = "Male",
+                            Id = 0,
                             LastName = "Lee",
                             PatientAge = "52",
                             Phone = "07422233344",
@@ -1369,6 +1343,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "tom.barker@gmail.com",
                             FirstName = "Tom",
                             Gender = "Male",
+                            Id = 0,
                             LastName = "Barker",
                             PatientAge = "26",
                             Phone = "07399988877",
@@ -1386,6 +1361,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "nora.hughes@gmail.com",
                             FirstName = "Nora",
                             Gender = "Female",
+                            Id = 0,
                             LastName = "Hughes",
                             PatientAge = "48",
                             Phone = "07311155522",
@@ -1403,6 +1379,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "ethan.morris@gmail.com",
                             FirstName = "Ethan",
                             Gender = "Male",
+                            Id = 0,
                             LastName = "Morris",
                             PatientAge = "31",
                             Phone = "07812345670",
@@ -1420,6 +1397,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "chloe.adams@gmail.com",
                             FirstName = "Chloe",
                             Gender = "Female",
+                            Id = 0,
                             LastName = "Adams",
                             PatientAge = "36",
                             Phone = "07898732100",
@@ -1437,6 +1415,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "kyle.garcia@gmail.com",
                             FirstName = "Kyle",
                             Gender = "Male",
+                            Id = 0,
                             LastName = "Garcia",
                             PatientAge = "40",
                             Phone = "07788822211",
@@ -1454,6 +1433,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "amelia.scott@gmail.com",
                             FirstName = "Amelia",
                             Gender = "Female",
+                            Id = 0,
                             LastName = "Scott",
                             PatientAge = "24",
                             Phone = "07722288899",
@@ -1471,6 +1451,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "jacob.shaw@gmail.com",
                             FirstName = "Jacob",
                             Gender = "Male",
+                            Id = 0,
                             LastName = "Shaw",
                             PatientAge = "33",
                             Phone = "07655533322",
@@ -1488,6 +1469,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "grace.miller@gmail.com",
                             FirstName = "Grace",
                             Gender = "Female",
+                            Id = 0,
                             LastName = "Miller",
                             PatientAge = "46",
                             Phone = "07611122244",
@@ -1505,6 +1487,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "ryan.evans@gmail.com",
                             FirstName = "Ryan",
                             Gender = "Male",
+                            Id = 0,
                             LastName = "Evans",
                             PatientAge = "39",
                             Phone = "07544455566",
@@ -1522,6 +1505,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "sophia.clarke@gmail.com",
                             FirstName = "Sophia",
                             Gender = "Female",
+                            Id = 0,
                             LastName = "Clarke",
                             PatientAge = "27",
                             Phone = "07555566677",
@@ -1539,6 +1523,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "ella.turner@gmail.com",
                             FirstName = "Ella",
                             Gender = "Female",
+                            Id = 0,
                             LastName = "Turner",
                             PatientAge = "50",
                             Phone = "07477788822",
@@ -1556,6 +1541,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "nathan.brooks@gmail.com",
                             FirstName = "Nathan",
                             Gender = "Male",
+                            Id = 0,
                             LastName = "Brooks",
                             PatientAge = "41",
                             Phone = "07422244455",
@@ -1573,6 +1559,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "leo.robinson@gmail.com",
                             FirstName = "Leo",
                             Gender = "Male",
+                            Id = 0,
                             LastName = "Robinson",
                             PatientAge = "34",
                             Phone = "07522113344",
@@ -1590,6 +1577,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "holly.grant@gmail.com",
                             FirstName = "Holly",
                             Gender = "Female",
+                            Id = 0,
                             LastName = "Grant",
                             PatientAge = "31",
                             Phone = "07512398765",
@@ -1607,6 +1595,7 @@ namespace GrapheneTrace_GP.Migrations
                             Email = "aaron.foster@gmail.com",
                             FirstName = "Aaron",
                             Gender = "Male",
+                            Id = 0,
                             LastName = "Foster",
                             PatientAge = "47",
                             Phone = "07489012345",

@@ -1,0 +1,92 @@
+﻿@model PatientAddProfileVM
+@{
+    ViewData["Title"] = "Add Patient - Step 02";
+}
+
+<div class="wizard-header">
+    <h2>Add Patient</h2>
+</div>
+
+<div class="btn-group mb-3">
+    <a asp-action="Step01" asp-route-id="@Model.PatientId" class="btn btn-secondary">Step 01</a>
+    <a asp-action="Step02" asp-route-id="@Model.PatientId" class="btn btn-primary">Step 02</a>
+    <a asp-action="Step03" asp-route-id="@Model.PatientId" class="btn btn-secondary">Step 03</a>
+    <a asp-action="Step04" asp-route-id="@Model.PatientId" class="btn btn-secondary">Step 04</a>
+</div>
+
+<h3>Step 02 › Medical Info</h3>
+
+<form asp-action="Step02" method="post">
+    <table class="table table-bordered wizard-table">
+
+        <tr>
+            <td>01</td>
+            <td>Blood Group</td>
+            <td>
+                <select asp-for="BloodGroup" class="form-select">
+                    <option>O+</option>
+                    <option>O−</option>
+                    <option>A+</option>
+                    <option>A−</option>
+                    <option>B+</option>
+                    <option>B−</option>
+                    <option>AB+</option>
+                    <option>AB−</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td>02</td>
+            <td>Weight (kg)</td>
+            <td><input asp-for="Weight" class="form-control" /></td>
+        </tr>
+
+        <tr>
+            <td>03</td>
+            <td>Height (cm)</td>
+            <td><input asp-for="Height" class="form-control" /></td>
+        </tr>
+
+        <tr>
+            <td>04</td>
+            <td>Smoking</td>
+            <td>
+                <select asp-for="Smoking" class="form-select">
+                    <option>No</option>
+                    <option>Yes</option>
+                    <option>Former Smoker</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td>05</td>
+            <td>Current Medication</td>
+            <td><textarea asp-for="CurrentMedication" class="form-control"></textarea></td>
+        </tr>
+
+        <tr>
+            <td>06</td>
+            <td>Allergies</td>
+            <td><textarea asp-for="Allergies" class="form-control"></textarea></td>
+        </tr>
+
+        <tr>
+            <td>07</td>
+            <td>Chronic Conditions</td>
+            <td><textarea asp-for="ChronicConditions" class="form-control"></textarea></td>
+        </tr>
+
+        <tr>
+            <td>08</td>
+            <td>Past Surgeries</td>
+            <td><textarea asp-for="PastSurgeries" class="form-control"></textarea></td>
+        </tr>
+
+    </table>
+
+    <input type="hidden" asp-for="PatientId" />
+
+    <button class="btn btn-primary">Proceed to Next Step</button>
+</form>

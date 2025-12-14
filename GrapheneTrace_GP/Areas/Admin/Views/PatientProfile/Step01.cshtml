@@ -1,0 +1,125 @@
+﻿@model PatientAddProfileVM
+@{
+    ViewData["Title"] = "Add Patient - Step 01";
+}
+
+<div class="wizard-header">
+    <h2>Add Patient</h2>
+
+    <div class="profile-toggle">
+        <button class="btn btn-outline-secondary">Clinician</button>
+        <button class="btn btn-primary">Patient</button>
+    </div>
+</div>
+
+<div class="btn-group mb-3">
+    <a asp-action="Step01" asp-route-id="@Model.PatientId"
+       class="btn @(ViewContext.RouteData.Values["action"]!.ToString() == "Step01" ? "btn-primary" : "btn-secondary")">Step 01</a>
+
+    <a asp-action="Step02" asp-route-id="@Model.PatientId"
+       class="btn btn-secondary">Step 02</a>
+
+    <a asp-action="Step03" asp-route-id="@Model.PatientId"
+       class="btn btn-secondary">Step 03</a>
+
+    <a asp-action="Step04" asp-route-id="@Model.PatientId"
+       class="btn btn-secondary">Step 04</a>
+</div>
+
+<h3>Step 01 › Personal Details</h3>
+
+<form asp-action="Step01" method="post">
+    <table class="table table-bordered wizard-table">
+        <thead>
+            <tr><th>S.No</th><th>Field</th><th>Value</th></tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>01</td>
+                <td>Title</td>
+                <td>
+                    <select asp-for="Title" class="form-select">
+                        <option>Mr.</option>
+                        <option>Mrs.</option>
+                        <option>Miss</option>
+                        <option>Ms.</option>
+                        <option>Dr.</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>02</td>
+                <td>First Name</td>
+                <td><input asp-for="FirstName" class="form-control" /></td>
+            </tr>
+
+            <tr>
+                <td>03</td>
+                <td>Last Name</td>
+                <td><input asp-for="LastName" class="form-control" /></td>
+            </tr>
+
+            <tr>
+                <td>04</td>
+                <td>Date of Birth</td>
+                <td><input asp-for="DateOfBirth" type="date" class="form-control" /></td>
+            </tr>
+
+            <tr>
+                <td>05</td>
+                <td>Gender</td>
+                <td>
+                    <select asp-for="Gender" class="form-select">
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>06</td>
+                <td>Email Address</td>
+                <td><input asp-for="Email" class="form-control" /></td>
+            </tr>
+
+            <tr>
+                <td>07</td>
+                <td>Phone Number</td>
+                <td><input asp-for="Phone" class="form-control" /></td>
+            </tr>
+
+            <tr>
+                <td>08</td>
+                <td>Address</td>
+                <td><input asp-for="Address" class="form-control" /></td>
+            </tr>
+
+            <tr>
+                <td>09</td>
+                <td>City</td>
+                <td><input asp-for="City" class="form-control" /></td>
+            </tr>
+
+            <tr>
+                <td>10</td>
+                <td>Post Code</td>
+                <td><input asp-for="PostCode" class="form-control" /></td>
+            </tr>
+
+            <tr>
+                <td>11</td>
+                <td>NHS Number</td>
+                <td><input asp-for="NHSNumber" class="form-control" /></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <input type="hidden" asp-for="PatientId" />
+
+    <div class="wizard-footer">
+        <button type="submit" class="btn btn-primary">Proceed to Next Step</button>
+    </div>
+</form>
