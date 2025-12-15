@@ -16,10 +16,7 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
             _db = db;
         }
 
-
-        // ----------------------------------------------------------
         // STEP 01 — CREATE BASIC PATIENT ENTRY
-        // ----------------------------------------------------------
         public IActionResult Step01()
         {
             return View(new PatientAddProfileVM());
@@ -35,7 +32,6 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
                                               .ToList();
             }
 
-            // 1. Create a new patient entry in DB
             var patient = new Patient
             {
                 Title = vm.Title,
@@ -61,11 +57,7 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
             ;
         }
 
-
-
-        // ----------------------------------------------------------
         // STEP 02 — MEDICAL INFO
-        // ----------------------------------------------------------
         [HttpGet]
         public IActionResult Step02(int id)
         {
@@ -105,9 +97,7 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
         }
 
 
-        // ----------------------------------------------------------
         // STEP 03 — ASSIGNMENTS
-        // ----------------------------------------------------------
         public IActionResult Step03(int id)
         {
             var patient = _db.Patients.Find(id);

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 public class Appointment
 {
     [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.None)]   // 👈 REQUIRED for seeding
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]  
     public int AppointmentId { get; set; }
 
     public int PatientId { get; set; }

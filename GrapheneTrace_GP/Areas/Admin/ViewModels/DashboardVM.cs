@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace GrapheneTrace_GP.Areas.Admin.ViewModels
+﻿namespace GrapheneTrace_GP.Areas.Admin.ViewModels
 {
     public class DashboardVM
     {

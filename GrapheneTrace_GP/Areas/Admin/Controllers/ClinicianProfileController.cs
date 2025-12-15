@@ -30,9 +30,7 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
         }
 
 
-        // ----------------------------
         // STEP 01 - PERSONAL INFO
-        // ----------------------------
         public IActionResult Step01()
         {
             return View(new ClinicianAddProfileVM());
@@ -71,15 +69,13 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
 
 
             _db.Clinicians.Add(clinician);
-            _db.SaveChanges();   // THIS WILL NOW SUCCEED
+            _db.SaveChanges();   
 
             return RedirectToAction("Step02", new { id = clinician.Id });
         }
 
 
-        // ----------------------------
         // STEP 02 - PROFESSIONAL INFO
-        // ----------------------------
         [HttpGet]
         public IActionResult Step02(int id)
         {
@@ -120,9 +116,7 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
             return RedirectToAction("Step03", new { id = clinician.Id });
         }
 
-        // ----------------------------
         // STEP 03 - ASSIGNMENTS
-        // ----------------------------
         public IActionResult Step03(int id)
         {
             return View(new ClinicianAddProfileVM { Id = id });
@@ -142,9 +136,7 @@ namespace GrapheneTrace_GP.Areas.Admin.Controllers
             return RedirectToAction("Step04", new { id = clinician.Id });
         }
 
-        // ----------------------------
         // STEP 04 - REVIEW
-        // ----------------------------
         public IActionResult Step04(int id)
         {
             var clinician = _db.Clinicians.Find(id);
